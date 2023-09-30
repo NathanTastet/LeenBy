@@ -1,26 +1,31 @@
-// 1. Initialiser les variables
-const container = document.getElementById('joystickContainer');
+// Joystick pour Leenby - Nathan TASTET - 2023
+
+// Initialiser les variables
+const container = document.getElementById('joystickControls2');
 const base = document.getElementById('joystickBase');
 const handle = document.getElementById('joystickHandle');
 let isDragging = false;
 
-// 2. Ajouter des événements de souris
+// Ajouter des événements de souris
 container.addEventListener('mousedown', function(e) {
+  e.preventDefault();
+  container.style.cursor = "grabbing";
   isDragging = true;
 });
 
 document.addEventListener('mousemove', function(e) {
+  e.preventDefault();
   if (!isDragging) return;
   
   const rect = base.getBoundingClientRect();
   let x = e.clientX - rect.left - rect.width / 2;
   let y = e.clientY - rect.top - rect.height / 2;
   
-  // 3. Calculer les nouvelles positions
+  // Calculer les nouvelles positions
   const distance = Math.sqrt(x * x + y * y);
   const maxDistance = rect.width / 2;
   
-  // 4. Restreindre les déplacements
+  // Restreindre les déplacements
   if (distance > maxDistance) {
     x *= maxDistance / distance;
     y *= maxDistance / distance;
@@ -28,14 +33,16 @@ document.addEventListener('mousemove', function(e) {
   
   handle.style.left = `${x + maxDistance}px`;
   handle.style.top = `${y + maxDistance}px`;
-  // 5. Afficher les coordonnées
+
+  // Afficher les coordonnées
   afficherCoordonnees(x,y,maxDistance);
 });
 
 document.addEventListener('mouseup', function() {
+  container.style.cursor = "default";
   isDragging = false;
 
-  // 6. Retour à la base si on lâche
+  //Retour à la base si on lâche
   const returnToCenter = () => {
     if (isDragging) return;
 
@@ -49,8 +56,8 @@ document.addEventListener('mouseup', function() {
     handle.style.top = `${y + (maxDistance - y) * 0.1}px`;
 
     requestAnimationFrame(returnToCenter);
-    x = x-150;
-    y = y-150;
+    x = x-maxDistance;
+    y = y-maxDistance;
     afficherCoordonnees(x,y,maxDistance);
   };
 
@@ -58,12 +65,19 @@ document.addEventListener('mouseup', function() {
 });
 
 function afficherCoordonnees(x, y, maxDistance) {
+    // Normalisation des distances x et y : conversion en un ratio compris entre 0 et 1
+    const normalizedX = x / maxDistance;
+    const normalizedY = - y / maxDistance; // l'axe y est a l'envers
     // Calculer l'angle en radians
-    const angleRad = Math.atan2(y, x);
+    const angleRad = Math.atan2(normalizedY, normalizedX);
     // Convertir en degrés
     const angleDeg = (angleRad * 180 / Math.PI + 360) % 360;
-    // Calculer la vitesse du déplacement
-    const power = Math.sqrt(x * x + y * y) / maxDistance;
-    // Afficher les coordonnées, l'angle et la vitesse
-    document.getElementById('coordinates').textContent = `X: ${Math.round(x)}, Y: ${Math.round(y)}, Angle: ${Math.round(angleDeg)}°, Vitesse: ${Math.round(power * 100)}%`;
+    // Calcul de la puissance de chaque moteur
+    let leftMotor = normalizedY + normalizedX;
+    let rightMotor = normalizedY - normalizedX;
+    leftMotor = Math.max(-1, Math.min(1, leftMotor)) * 100;
+    rightMotor = Math.max(-1, Math.min(1, rightMotor)) * 100;
+    // Affichage
+    document.getElementById('coordinates').textContent = `X: ${Math.round(normalizedX*100)}, Y: ${Math.round(normalizedY*100)}, Angle: ${Math.round(angleDeg)}°, 
+    Moteur gauche :  ${Math.round(leftMotor)}, Moteur droit : ${Math.round(rightMotor)} `;
 }

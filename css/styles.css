@@ -1,19 +1,125 @@
+/* Conteneur principal pour les divs 'left' et 'right' */
+body {
+  display: flex;
+  flex-direction: row;
+  height: 97vh;
+}
+
+/* Style pour la div 'left' */
+#left {
+  flex-basis: 60%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;  /* Prend toute la hauteur de la fenêtre */
+}
+
+/* Style pour la div 'right' */
+#right {
+  flex-basis: 40%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;  /* Prend toute la hauteur de la fenêtre */
+}
+
+/* container pour les infos du robot*/
+#infoSection {
+  flex-basis: 33.3%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  height: 33.33vh;
+  /* ... autres styles */
+}
+/* Container pour les boutons prédéfinis */
+#presetSection {
+  display: flex;
+  flex-basis: 33.3%;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 33.33vh;
+  width: 100%;
+}
+
+/* Style pour chaque bouton prédéfini */
+.presetBtn {
+  flex-basis: calc(25% - 2vh);
+  margin: 1vh;
+  padding: 1vh;
+  height: 15vh;
+  width: 15vh;
+  font-size: 2vh;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #4B0082;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  
+}
+
+/* Style pour le texte dans les boutons */
+.btnText {
+  height: 30%; /* prend 30% de l'espace vertical du bouton */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1vh; /* espace en bas */
+}
+
+/* Style pour les icônes dans les boutons */
+.btnIcon {
+  height: 60%; /* prend 60% de l'espace vertical du bouton */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.presetBtn:hover {
+  background-color: #6A0DAD;
+  box-shadow: 0 2vh 4vh rgba(0, 0, 0, 0.3);  /* ombre plus profonde au survol */
+  transform: translateY(-0.5vh); /* Léger déplacement vers le haut */
+}
+
 /* Container pour le joystick */
-#joystickContainer {
+#joystickSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;  /* Aligne les éléments verticalement au centre */
+  justify-content: space-around;  /* Espacement autour des éléments */
+  flex-basis: 33.3%;
+  height: 33.33vh;
+}
+
+
+#joystickControls {
+    flex-grow: 1;  /* Permet à chaque div de grandir pour remplir l'espace disponible */
+    flex-basis: 33.3%;
     position: relative;
-    width: 300px;
-    height: 300px;
-    background-color: #4B0082;
-    margin: auto;
+    height:100%;
+    width: 100%;
+}
+
+
+  #joystickControls2 {
+    display:block;
+    aspect-ratio: 1 / 1;
+    height: 50%;
+    margin: 25% auto;
     border-radius: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
   /* Base du joystick */
   #joystickBase {
-    position: absolute;
-    width: 100%;
     height: 100%;
+    aspect-ratio: 1 / 1;
     background: radial-gradient(circle, #6A0DAD 0%, #4B0082 100%);
     border-radius: 50%;
     box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -22,10 +128,10 @@
   /* Crans sur le côté de la base du joystick */
   .notch {
     position: absolute;
-    width: 5px;
-    height: 30px;
-    padding-bottom: 120px;
-    top: 0%;
+    width: 2.5%;
+    height: 5%;
+    padding-bottom: 24%;
+    top: 21%;
     left: 49%;
     transform-origin: bottom;
     background-color: transparent;
@@ -40,9 +146,9 @@
   
   /* Poignée du joystick */
   #joystickHandle {
-    position: absolute;
-    width: 100px;
-    height: 100px;
+    position: relative;
+    aspect-ratio: 1 / 1;
+    height: 30%;
     background: radial-gradient(circle, #9400D3 0%, #800080 100%);
     border-radius: 50%;
     top: 50%;
@@ -52,8 +158,10 @@
   }
 
   #coordinates, #name {
+    flex-basis: 33.3%;
+    flex-grow: 1;  /* Permet à chaque div de grandir pour remplir l'espace disponible */
     text-align: center;
     color: #6A0DAD;  /* Une nuance de violet */
     user-select: none;  /* Désactive la sélection du texte */
-    margin: 10px 0;
+    margin: 2vh 0;
   }
