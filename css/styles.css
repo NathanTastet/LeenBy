@@ -1,55 +1,124 @@
-/* Conteneur principal pour les divs 'left' et 'right' */
+/* Réinitialisation globale */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Configuration du corps */
 body {
   display: flex;
-  flex-direction: row;
-  height: 97vh;
+  width: 100vw;
+  height: 100vh;
+  background-color: #F4F4F4;
+  font-family: 'Tahoma', sans-serif;
+  overflow: hidden;
 }
 
-/* Style pour la div 'left' */
+
+/* Configuration des colonnes gauche et droite */
+#left, #right {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1%;
+}
+
 #left {
   flex-basis: 60%;
-  display: flex;
-  flex-direction: column;
-  height: 100%;  /* Prend toute la hauteur de la fenêtre */
+  background-color: #EAEDED;
+  box-shadow: 2vh 0 8vh rgba(0, 0, 0, 0.2);
+  border-radius: 0 2vh 2vh 0;
 }
 
-/* Style pour la div 'right' */
 #right {
   flex-basis: 40%;
-  display: flex;
-  flex-direction: column;
-  height: 100%;  /* Prend toute la hauteur de la fenêtre */
+  background-color: #F4F6F7;
+  box-shadow: -2vh 0 8vh rgba(0, 0, 0, 0.2);
+  border-radius: 2vh 0 0 2vh;
 }
 
-/* container pour les infos du robot*/
-#infoSection {
-  flex-basis: 33.3%;
-  flex-grow: 0;
-  flex-shrink: 0;
-  height: 33.33vh;
-  /* ... autres styles */
+/* Configuration des sections */
+#infoSection, #presetSection, #joystickSection {
+  flex-grow: 1;
+  height: 33.33%;
+  margin: 1vh;
 }
-/* Container pour les boutons prédéfinis */
+
+
+/* Taille du titre */
+#title {
+  text-align: center;
+  margin:1%;
+  font-size: 2vw; 
+}
+/* Configuration du sélecteur de bras et des boutons */
+#armSelectBar, .armButton {
+  border-radius: 1vh;
+  padding: 1vh 2vh;
+  font-size: 2vh;
+}
+
+#armSelectBar {
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.armButton {
+  cursor: pointer;
+  background-color: #99A3A4;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0.3vh 0.1vh rgba(0, 0, 0, 0.1);
+  margin-left: 1vh;
+}
+
+.armButton.active {
+  background-color: #34495E;
+  color: #FFFFFF;
+}
+
+.armButton:hover {
+  background-color: #85929E;
+}
+
+/* Configuration du slider */
+.slider-container {
+  width: 100%;
+  height:2vh;
+  padding: 1.5vh;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 50%;
+  height: 1vh;
+  background-color: #5d5d5d;
+  border: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #601b6b;
+  border-radius: 50%;
+  cursor: pointer; /* Change le curseur en main au survol */
+}
+
 #presetSection {
   display: flex;
-  flex-basis: 33.3%;
   flex-wrap: wrap;
-  justify-content: center;
-  height: 33.33vh;
-  width: 100%;
 }
 
-/* Style pour chaque bouton prédéfini */
+/* Configuration des boutons prédéfinis */
 .presetBtn {
   flex-basis: calc(25% - 2vh);
   margin: 1vh;
   padding: 1vh;
   height: 15vh;
   width: 15vh;
-  font-size: 2vh;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  font-size: 2.5vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,7 +131,12 @@ body {
   cursor: pointer;
   box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-  
+}
+
+.presetBtn:hover {
+  box-shadow: 0 2vh 4vh rgba(0, 0, 0, 0.3);
+  transform: translateY(-0.5vh);
+  background-color: #6A0DAD;
 }
 
 /* Style pour le texte dans les boutons */
@@ -71,7 +145,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 1vh; /* espace en bas */
+  padding-bottom: 2vh; /* espace en bas */
 }
 
 /* Style pour les icônes dans les boutons */
@@ -82,86 +156,82 @@ body {
   justify-content: center;
 }
 
-.presetBtn:hover {
-  background-color: #6A0DAD;
-  box-shadow: 0 2vh 4vh rgba(0, 0, 0, 0.3);  /* ombre plus profonde au survol */
-  transform: translateY(-0.5vh); /* Léger déplacement vers le haut */
-}
-
-/* Container pour le joystick */
+/* Configuration de la section du joystick */
 #joystickSection {
-  display: flex;
-  flex-direction: row;
-  align-items: center;  /* Aligne les éléments verticalement au centre */
-  justify-content: space-around;  /* Espacement autour des éléments */
   flex-basis: 33.3%;
-  height: 33.33vh;
+  height: calc(33.33% - 1vh);
+  margin: 1vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
+/* Éléments textuels à gauche et à droite du joystick */
+#coordinates, #name {
+  flex-basis: 33.3%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  text-align: center;
+  color: #030303;
+  user-select: none;
+  margin: 0;
+}
 
 #joystickControls {
-    flex-grow: 1;  /* Permet à chaque div de grandir pour remplir l'espace disponible */
-    flex-basis: 33.3%;
-    position: relative;
-    height:100%;
-    width: 100%;
+  flex-grow: 1;
+  flex-basis: 33.3%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
+#joystickControls2 {
+  aspect-ratio: 1 / 1;
+  height: 50%;
+  margin: 25% auto;
+  border-radius: 50%;
+  box-shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.1);
+}
 
-  #joystickControls2 {
-    display:block;
-    aspect-ratio: 1 / 1;
-    height: 50%;
-    margin: 25% auto;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  /* Base du joystick */
-  #joystickBase {
-    height: 100%;
-    aspect-ratio: 1 / 1;
-    background: radial-gradient(circle, #6A0DAD 0%, #4B0082 100%);
-    border-radius: 50%;
-    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Crans sur le côté de la base du joystick */
-  .notch {
-    position: absolute;
-    width: 2.5%;
-    height: 5%;
-    padding-bottom: 24%;
-    top: 21%;
-    left: 49%;
-    transform-origin: bottom;
-    background-color: transparent;
-  }
-  
-  .notch-inner {
-    width: 100%;
-    height: 100%;
-    background-color: #800080;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Poignée du joystick */
-  #joystickHandle {
-    position: relative;
-    aspect-ratio: 1 / 1;
-    height: 30%;
-    background: radial-gradient(circle, #9400D3 0%, #800080 100%);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  }
+/* Base du joystick */
+#joystickBase {
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #b5b6b8 0%, #5b5d5d 100%);
+  box-shadow: inset 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
+}
 
-  #coordinates, #name {
-    flex-basis: 33.3%;
-    flex-grow: 1;  /* Permet à chaque div de grandir pour remplir l'espace disponible */
-    text-align: center;
-    color: #6A0DAD;  /* Une nuance de violet */
-    user-select: none;  /* Désactive la sélection du texte */
-    margin: 2vh 0;
-  }
+.notch {
+  position: absolute;
+  width: 2.5%;
+  height: 5%;
+  padding-bottom: 28%;
+  top: 25%;
+  left: 49%;
+  transform-origin: bottom;
+  background-color: transparent;
+}
+
+.notch-inner {
+  width: 100%;
+  height: 0.5em;
+  background-color: #464a4a;
+  box-shadow: 0 0.2vh 0.4vh rgba(0, 0, 0, 0.2);
+}
+
+#joystickHandle {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  height: 30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #6d7575 0%, #4c5050 100%);
+  box-shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

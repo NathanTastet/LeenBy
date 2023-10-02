@@ -7,7 +7,17 @@
 </head>
 <body>
     <div id="left">
-
+        <div id="title">Paramétrage Leenby</div>
+        <div id="armSelectBar">
+            <button class="armButton" id="leftArm">Bras Gauche</button>
+            <button class="armButton" id="rightArm">Bras Droit</button>
+            <button class="armButton" id="bothArms">Deux Bras</button>
+        </div>
+        <div id="slider-container">
+            Angle 1 : 
+            <input type="range" id="angle-slider" min="-180" max="180" value="0">
+            <div id="angle1">0°</div>
+        </div>
     </div>
     <div id="right">
         <div id="infoSection">Yo</div>
@@ -43,5 +53,6 @@
         </div>
     </div>
     <script src="js/script.js"></script>
+    <script src="js/joystick.js"></script>
 </body>
 </html>
