@@ -21,6 +21,10 @@ let slider1 = document.getElementById("angle-slider1");
 let slider2 = document.getElementById("angle-slider2");
 let slider3 = document.getElementById("angle-slider3");
 let slider4 = document.getElementById("angle-slider4");
+let angle1 = document.getElementById("angle-number1");
+let angle2 = document.getElementById("angle-number2");
+let angle3 = document.getElementById("angle-number3");
+let angle4 = document.getElementById("angle-number4");
 let isDragging = false;
 let isDragging2 = false;
 let isDragging3 = false;
@@ -51,6 +55,21 @@ slider1.addEventListener("mouseleave", function(e) {
   isDragging = false;
 });
 
+// Gestion du selecteur numérique d'angle
+angle1.addEventListener("input",function(e){
+    if(-180 <= angle1.value & angle1.value<= 180){
+      slider1.value = angle1.value;
+    }
+    if(-180 > angle1.value){
+      slider1.value = -180;
+    }
+    if(angle1.value > 180){
+      slider1.value = 180;
+    }
+    document.getElementById('angle1').textContent = `${Math.round(slider1.value)}°`;
+});
+
+
 
 // détection des différents appuis de slider2
 slider2.addEventListener("mousedown", function(e) {
@@ -78,6 +97,21 @@ slider2.addEventListener("mouseleave", function(e) {
   isDragging2 = false;
 });
 
+angle2.addEventListener("input",function(e){
+  if(-180 <= angle2.value & angle2.value<= 180){
+    slider2.value = angle2.value;
+  }
+  if(-180 > angle2.value){
+    slider2.value = -180;
+  }
+  if(angle2.value > 180){
+    slider2.value = 180;
+  }
+  document.getElementById('angle2').textContent = `${Math.round(slider2.value)}°`;
+});
+
+
+
 // détection des différents appuis de slider3
 slider3.addEventListener("mousedown", function(e) {
   isDragging3 = true;
@@ -103,6 +137,19 @@ slider3.addEventListener("mouseleave", function(e) {
   isDragging3 = false;
 });
 
+angle3.addEventListener("input",function(e){
+  if(-180 <= angle3.value & angle3.value<= 180){
+    slider3.value = angle3.value;
+  }
+  if(-180 > angle3.value){
+    slider3.value = -180;
+  }
+  if(angle3.value > 180){
+    slider3.value = 180;
+  }
+  document.getElementById('angle3').textContent = `${Math.round(slider3.value)}°`;
+});
+
 // détection des différents appuis de slider4
 slider4.addEventListener("mousedown", function(e) {
   isDragging4 = true;
@@ -126,4 +173,17 @@ slider4.addEventListener("mouseup", function(e) {
 
 slider4.addEventListener("mouseleave", function(e) {
   isDragging4 = false;
+});
+
+angle4.addEventListener("input",function(e){
+  if(-180 <= angle4.value & angle4.value<= 180){
+    slider4.value = angle4.value;
+  }
+  if(-180 > angle4.value){
+    slider4.value = -180;
+  }
+  if(angle4.value > 180){
+    slider4.value = 180;
+  }
+  document.getElementById('angle4').textContent = `${Math.round(slider4.value)}°`;
 });
