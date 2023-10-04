@@ -202,15 +202,15 @@ const rightDiv = document.getElementById("right");
 // Ajoute un écouteur d'événements pour les clics sur la div 'right'
 rightDiv.addEventListener("click", function() {
   leftDiv.style.backgroundColor = "#EAEDED";
-  leftDiv.style.boxShadow = "2vh 0 8vh rgba(0, 0, 0, 0.2)";
+  leftDiv.style.zIndex = "1";
   rightDiv.style.backgroundColor = "#F4F6F7";
-  rightDiv.style.boxShadow = "-2vh 0 8vh rgba(0, 0, 0, 0.2)";
+  rightDiv.style.zIndex = "2";
 });
 
 // Ajoute un écouteur d'événements pour les clics sur la div 'left'
 leftDiv.addEventListener("click", function() {
   leftDiv.style.backgroundColor = "#F4F6F7";
-  leftDiv.style.boxShadow = "2vh 0 8vh rgba(0, 0, 0, 0.2)";
+  leftDiv.style.zIndex = "2";
   rightDiv.style.backgroundColor = "#EAEDED";
-  rightDiv.style.boxShadow = "-2vh 0 8vh rgba(0, 0, 0, 0.2)";
+  rightDiv.style.zIndex = "1";
 });
