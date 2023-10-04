@@ -42,6 +42,7 @@ slider1.addEventListener("mousemove", function(e) {
     let width = rect.right - rect.left;
     let value = (x / width) * 360 - 180;  // Convertit la position x en une valeur entre -180 et 180
     slider1.value = value;
+    angle1.value= slider1.value;
     document.getElementById('angle1').textContent = `${Math.round(slider1.value)}°`;
     // y'a plus qu'a envoyer ici à la rasp
   }
@@ -84,6 +85,7 @@ slider2.addEventListener("mousemove", function(e) {
     let width = rect.right - rect.left;
     let value = (x / width) * 360 - 180;  // Convertit la position x en une valeur entre -180 et 180
     slider2.value = value;
+    angle2.value= slider2.value;
     document.getElementById('angle2').textContent = `${Math.round(slider2.value)}°`;
     // y'a plus qu'a envoyer ici à la rasp
   }
@@ -124,6 +126,7 @@ slider3.addEventListener("mousemove", function(e) {
     let width = rect.right - rect.left;
     let value = (x / width) * 360 - 180;  // Convertit la position x en une valeur entre -180 et 180
     slider3.value = value;
+    angle3.value= slider3.value;
     document.getElementById('angle3').textContent = `${Math.round(slider3.value)}°`;
     // y'a plus qu'a envoyer ici à la rasp
   }
@@ -162,6 +165,7 @@ slider4.addEventListener("mousemove", function(e) {
     let width = rect.right - rect.left;
     let value = (x / width) * 360 - 180;  // Convertit la position x en une valeur entre -180 et 180
     slider4.value = value;
+    angle4.value= slider4.value;
     document.getElementById('angle4').textContent = `${Math.round(slider4.value)}°`;
     // y'a plus qu'a envoyer ici à la rasp
   }
@@ -186,4 +190,27 @@ angle4.addEventListener("input",function(e){
     slider4.value = 180;
   }
   document.getElementById('angle4').textContent = `${Math.round(slider4.value)}°`;
+});
+
+
+// Sélectionne la div ayant l'id 'left'
+const leftDiv = document.getElementById("left");
+
+// Sélectionne la div ayant l'id 'right'
+const rightDiv = document.getElementById("right");
+
+// Ajoute un écouteur d'événements pour les clics sur la div 'right'
+rightDiv.addEventListener("click", function() {
+  leftDiv.style.backgroundColor = "#EAEDED";
+  leftDiv.style.boxShadow = "2vh 0 8vh rgba(0, 0, 0, 0.2)";
+  rightDiv.style.backgroundColor = "#F4F6F7";
+  rightDiv.style.boxShadow = "-2vh 0 8vh rgba(0, 0, 0, 0.2)";
+});
+
+// Ajoute un écouteur d'événements pour les clics sur la div 'left'
+leftDiv.addEventListener("click", function() {
+  leftDiv.style.backgroundColor = "#F4F6F7";
+  leftDiv.style.boxShadow = "2vh 0 8vh rgba(0, 0, 0, 0.2)";
+  rightDiv.style.backgroundColor = "#EAEDED";
+  rightDiv.style.boxShadow = "-2vh 0 8vh rgba(0, 0, 0, 0.2)";
 });
