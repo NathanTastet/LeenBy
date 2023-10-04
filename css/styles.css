@@ -83,7 +83,7 @@ body {
 }
 
 /* Configuration du slider */
-.slider-container {
+#slider-container {
   width: 100%;
   height:2vh;
   padding: 1.5vh;
@@ -91,6 +91,7 @@ body {
 
 input[type="range"] {
   -webkit-appearance: none;
+  appearance: none;
   width: 50%;
   height: 1vh;
   background-color: #5d5d5d;
@@ -206,13 +207,14 @@ input[type="range"]::-webkit-slider-thumb {
   box-shadow: inset 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
 }
 
+/* Encoches du joystick */
 .notch {
   position: absolute;
   width: 2.5%;
   height: 5%;
   padding-bottom: 28%;
   top: 25%;
-  left: 49%;
+  left: 47%;
   transform-origin: bottom;
   background-color: transparent;
 }
