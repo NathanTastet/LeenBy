@@ -17,17 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // bouton de validation
-  let check_button = document.getElementById("check_button");
-  check_button.addEventListener("click", function() {
-    //envoi d'un socket
-    let socket = new WebSocket("ws://192.168.4.1:8080");
-    socket.onopen = function(e) {
-        check_button.classList.toggle("active");
-        socket.send(JSON.stringify({ test1: "test", test2: 0xFF}));
-    };
-  });
-
 
 
   // Gestion du slider : 
@@ -206,6 +195,17 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('angle4').textContent = `${Math.round(slider4.value)}°`;
   });
 
+  
+  // bouton de validation
+  let check_button = document.getElementById("check_button");
+  check_button.addEventListener("click", function() {
+    //envoi d'un socket
+    let socket = new WebSocket("ws://192.168.4.1:8080");
+    socket.onopen = function(e) {
+        check_button.classList.toggle("active");
+        socket.send(JSON.stringify({ angle1: angle1.value, angle2: angle2.value, angle3: angle3.value,angle4: angle4.value}));
+    };
+  });
 
   // Sélectionne la div ayant l'id 'left'
   const leftDiv = document.getElementById("left");
