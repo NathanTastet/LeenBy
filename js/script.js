@@ -1,9 +1,6 @@
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  const requete = new XMLHttpRequest();
-  requete.open("POST", "http://192.168.4.1:8080", true);
-  requete.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
   // gestions des boutons haut gauche
   const armButtons = document.querySelectorAll(".armButton");
@@ -23,8 +20,12 @@ document.addEventListener("DOMContentLoaded", function() {
   // bouton de validation
   let check_button = document.getElementById("check_button");
   check_button.addEventListener("click", function() {
-      check_button.classList.toggle("active");
-      requete.send(JSON.stringify({ test1: "test", test2: 0xFF}));
+    //envoi d'un socket
+    let socket = new WebSocket("ws://192.168.4.1:8080");
+    socket.onopen = function(e) {
+        check_button.classList.toggle("active");
+        socket.send(JSON.stringify({ test1: "test", test2: 0xFF}));
+    };
   });
 
 
