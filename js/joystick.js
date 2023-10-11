@@ -1,67 +1,70 @@
 // Joystick pour Leenby - Nathan TASTET - 2023
 
 // Initialiser les variables
-const container = document.getElementById('joystickControls2');
-const base = document.getElementById('joystickBase');
-const handle = document.getElementById('joystickHandle');
-let joystickIsDragging = false;
-
-// Ajouter des événements de souris
-container.addEventListener('mousedown', function(e) {
-  e.preventDefault();
-  container.style.cursor = "grabbing";
-  joystickIsDragging = true;
-});
-
-document.addEventListener('mousemove', function(e) {
-  e.preventDefault();
-  if (!joystickIsDragging) return;
+document.addEventListener("DOMContentLoaded", function() {
   
-  const rect = base.getBoundingClientRect();
-  let x = e.clientX - rect.left - rect.width / 2;
-  let y = e.clientY - rect.top - rect.height / 2;
-  
-  // Calculer les nouvelles positions
-  const distance = Math.sqrt(x * x + y * y);
-  const maxDistance = rect.width / 2;
-  
-  // Restreindre les déplacements
-  if (distance > maxDistance) {
-    x *= maxDistance / distance;
-    y *= maxDistance / distance;
-  }
-  
-  handle.style.left = `${x + maxDistance}px`;
-  handle.style.top = `${y + maxDistance}px`;
+  const container = document.getElementById('joystickControls2');
+  const base = document.getElementById('joystickBase');
+  const handle = document.getElementById('joystickHandle');
+  let joystickIsDragging = false;
 
-  // Afficher les coordonnées
-  afficherCoordonnees(x,y,maxDistance);
-});
+  // Ajouter des événements de souris
+  container.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    container.style.cursor = "grabbing";
+    joystickIsDragging = true;
+  });
 
-document.addEventListener('mouseup', function() {
-  container.style.cursor = "default";
-  joystickIsDragging = false;
-
-  //Retour à la base si on lâche
-  const returnToCenter = () => {
-    if (joystickIsDragging) return;
-
-    var x = parseFloat(handle.style.left);
-    var y = parseFloat(handle.style.top);
-    const maxDistance = base.getBoundingClientRect().width / 2;
+  document.addEventListener('mousemove', function(e) {
+    e.preventDefault();
+    if (!joystickIsDragging) return;
     
-    if (x === maxDistance && y === maxDistance) return;
+    const rect = base.getBoundingClientRect();
+    let x = e.clientX - rect.left - rect.width / 2;
+    let y = e.clientY - rect.top - rect.height / 2;
+    
+    // Calculer les nouvelles positions
+    const distance = Math.sqrt(x * x + y * y);
+    const maxDistance = rect.width / 2;
+    
+    // Restreindre les déplacements
+    if (distance > maxDistance) {
+      x *= maxDistance / distance;
+      y *= maxDistance / distance;
+    }
+    
+    handle.style.left = `${x + maxDistance}px`;
+    handle.style.top = `${y + maxDistance}px`;
 
-    handle.style.left = `${x + (maxDistance - x) * 0.1}px`;
-    handle.style.top = `${y + (maxDistance - y) * 0.1}px`;
-
-    requestAnimationFrame(returnToCenter);
-    x = x-maxDistance;
-    y = y-maxDistance;
+    // Afficher les coordonnées
     afficherCoordonnees(x,y,maxDistance);
-  };
+  });
 
-  returnToCenter();
+  document.addEventListener('mouseup', function() {
+    container.style.cursor = "default";
+    joystickIsDragging = false;
+
+    //Retour à la base si on lâche
+    const returnToCenter = () => {
+      if (joystickIsDragging) return;
+
+      var x = parseFloat(handle.style.left);
+      var y = parseFloat(handle.style.top);
+      const maxDistance = base.getBoundingClientRect().width / 2;
+      
+      if (x === maxDistance && y === maxDistance) return;
+
+      handle.style.left = `${x + (maxDistance - x) * 0.1}px`;
+      handle.style.top = `${y + (maxDistance - y) * 0.1}px`;
+
+      requestAnimationFrame(returnToCenter);
+      x = x-maxDistance;
+      y = y-maxDistance;
+      afficherCoordonnees(x,y,maxDistance);
+    };
+
+    returnToCenter();
+  });
 });
 
 function afficherCoordonnees(x, y, maxDistance) {
