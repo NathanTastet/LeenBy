@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const armButtons = document.querySelectorAll(".armButton");
-    
+
     armButtons.forEach(function(button) {
       button.addEventListener("click", function() {
         // Retire la classe 'active' de tous les boutons
@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
         // Ajoute la classe 'active' au bouton cliqué
         button.classList.add("active");
       });
+    });
+
+    
+    let check_button = document.getElementById("check_button");
+    check_button.addEventListener("click", function() {
+        check_button.classList.toggle("active");
     });
   });
 

@@ -55,7 +55,7 @@ body {
   font-size: 2vw; 
 }
 /* Configuration du sélecteur de bras et des boutons */
-#armSelectBar, .armButton {
+#armSelectBar, .armButton, #check_button {
   border-radius: 1vh;
   padding: 1vh 2vh;
   font-size: 2vh;
@@ -107,6 +107,23 @@ input[type="range"]::-webkit-slider-thumb {
   background-color: #56d8d8;
   border-radius: 50%;
   cursor: pointer; /* Change le curseur en main au survol */
+}
+
+#check_button{
+  cursor: pointer;
+  background-color: #99A3A4;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0.3vh 0.1vh rgba(0, 0, 0, 0.1);
+  margin-left: 1vh;
+}
+
+#check_button.active {
+  background-color: #34495E;
+  color: #FFFFFF;
+}
+
+#check_button.hover {
+  background-color: #85929E;
 }
 
 /* Styliser le tableau */
