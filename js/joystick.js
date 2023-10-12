@@ -67,6 +67,25 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+let leftMotor = 0;
+let rightMotor = 0;
+
+let oldLeftMotor = 0;
+let oldRightMotor = 0;
+// créer un socket de données joystick
+let socketJoystick = new WebSocket("ws://192.168.4.1:8080");
+
+socketJoystick.onopen = function(e) {
+  setInterval(() => {
+    if( (leftMotor != oldLeftMotor) || (rightMotor != oldRightMotor) ){
+      socketJoystick.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
+      oldLeftMotor = leftMotor;
+      oldRightMotor = rightMotor;
+    }
+  }, 10); // effectue l'envoi de paquets avec les infos moteur toutes les 10 ms,
+          // si et seulement si il y a eu un changement sur les 10 ms
+};
+
 function afficherCoordonnees(x, y, maxDistance) {
     // Normalisation des distances x et y : conversion en un ratio compris entre 0 et 1
     const normalizedX = x / maxDistance;
@@ -76,8 +95,8 @@ function afficherCoordonnees(x, y, maxDistance) {
     // Convertir en degrés
     const angleDeg = (angleRad * 180 / Math.PI + 360) % 360;
     // Calcul de la puissance de chaque moteur
-    let leftMotor = normalizedY + normalizedX;
-    let rightMotor = normalizedY - normalizedX;
+    leftMotor = normalizedY + normalizedX;
+    rightMotor = normalizedY - normalizedX;
     leftMotor = Math.max(-1, Math.min(1, leftMotor)) * 100;
     rightMotor = Math.max(-1, Math.min(1, rightMotor)) * 100;
     // Affichage
