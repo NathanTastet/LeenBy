@@ -19,181 +19,69 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-  // Gestion du slider : 
-  let slider1 = document.getElementById("angle-slider1");
-  let slider2 = document.getElementById("angle-slider2");
-  let slider3 = document.getElementById("angle-slider3");
-  let slider4 = document.getElementById("angle-slider4");
-  let angle1 = document.getElementById("angle-number1");
-  let angle2 = document.getElementById("angle-number2");
-  let angle3 = document.getElementById("angle-number3");
-  let angle4 = document.getElementById("angle-number4");
-  let isDragging = false;
-  let isDragging2 = false;
-  let isDragging3 = false;
-  let isDragging4 = false;
-
-  // détection des différents appuis de slider1
-  slider1.addEventListener("mousedown", function(e) {
-    isDragging = true;
-  });
-
-  slider1.addEventListener("mousemove", function(e) {
-    if (isDragging) {
-      let rect = slider1.getBoundingClientRect();
-      let x = e.clientX - rect.left;
-      let width = rect.right - rect.left;
-      let value = (x / width) * 360 - 180;  // Convertit la position x en une valeur entre -180 et 180
-      slider1.value = value;
-      angle1.value= slider1.value;
-      document.getElementById('angle1').textContent = `${Math.round(slider1.value)}°`;
-      // y'a plus qu'a envoyer ici à la rasp
-    }
-  });
-
-  slider1.addEventListener("mouseup", function(e) {
-    isDragging = false;
-  });
-
-  slider1.addEventListener("mouseleave", function(e) {
-    isDragging = false;
-  });
-
-  // Gestion du selecteur numérique d'angle
-  angle1.addEventListener("input",function(e){
-      if(-180 <= angle1.value & angle1.value<= 180){
-        slider1.value = angle1.value;
+  function setupSliderAndAngle(sliderId, angleId, angleText) {
+    let slider = document.getElementById(sliderId);
+    let angle = document.getElementById(angleId);
+    let texte = document.getElementById(angleText);
+    let isDragging = false;
+  
+    slider.addEventListener("mousedown", function(e) {
+      isDragging = true;
+      texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, e.clientX)).toFixed(1)}°`;
+    });
+  
+    slider.addEventListener("mousemove", function(e) {
+      if (isDragging) {
+        texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, e.clientX)).toFixed(1)}°`;
       }
-      if(-180 > angle1.value){
-        slider1.value = -180;
+    });
+  
+    slider.addEventListener("mouseup", function() {
+      isDragging = false;
+    });
+  
+    slider.addEventListener("mouseleave", function() {
+      isDragging = false;
+    });
+  
+    angle.addEventListener("input", function() {
+      if(-180 <= angle.value & angle.value<= 180){
+        slider.value = angle.value;
       }
-      if(angle1.value > 180){
-        slider1.value = 180;
+      if(-180 > angle.value){
+        slider.value = -180;
       }
-      document.getElementById('angle1').textContent = `${Math.round(slider1.value)}°`;
-  });
-
-
-
-  // détection des différents appuis de slider2
-  slider2.addEventListener("mousedown", function(e) {
-    isDragging2 = true;
-  });
-
-
-  slider2.addEventListener("mousemove", function(e) {
-    if (isDragging2) {
-      let rect = slider2.getBoundingClientRect();
-      let x = e.clientX - rect.left;
-      let width = rect.right - rect.left;
-      let value = (x / width) * 360 - 180;  // Convertit la position x en une valeur entre -180 et 180
-      slider2.value = value;
-      angle2.value= slider2.value;
-      document.getElementById('angle2').textContent = `${Math.round(slider2.value)}°`;
-      // y'a plus qu'a envoyer ici à la rasp
+      if(angle.value > 180){
+        slider.value = 180;
+      }
+      texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
+    });
+  }
+  
+  function updateSliderAndAngle(slider, angle, clientX) {
+    const rect = slider.getBoundingClientRect();
+    const x = clientX !== null ? clientX - rect.left : null;
+    const width = rect.right - rect.left;
+    const value = x !== null ? (x / width) * 360 - 180 : parseFloat(angle.value);
+  
+    if (value < -180) {
+      slider.value = -180;
+      angle.value = -180;
+    } else if (value > 180) {
+      slider.value = 180;
+      angle.value = 180;
+    } else {
+      slider.value = value.toFixed(1);
+      angle.value = value.toFixed(1);
     }
-  });
-
-  slider2.addEventListener("mouseup", function(e) {
-    isDragging2 = false;
-  });
-
-  slider2.addEventListener("mouseleave", function(e) {
-    isDragging2 = false;
-  });
-
-  angle2.addEventListener("input",function(e){
-    if(-180 <= angle2.value & angle2.value<= 180){
-      slider2.value = angle2.value;
-    }
-    if(-180 > angle2.value){
-      slider2.value = -180;
-    }
-    if(angle2.value > 180){
-      slider2.value = 180;
-    }
-    document.getElementById('angle2').textContent = `${Math.round(slider2.value)}°`;
-  });
-
-
-
-  // détection des différents appuis de slider3
-  slider3.addEventListener("mousedown", function(e) {
-    isDragging3 = true;
-  });
-
-  slider3.addEventListener("mousemove", function(e) {
-    if (isDragging3) {
-      let rect = slider3.getBoundingClientRect();
-      let x = e.clientX - rect.left;
-      let width = rect.right - rect.left;
-      let value = (x / width) * 360 - 180;  // Convertit la position x en une valeur entre -180 et 180
-      slider3.value = value;
-      angle3.value= slider3.value;
-      document.getElementById('angle3').textContent = `${Math.round(slider3.value)}°`;
-      // y'a plus qu'a envoyer ici à la rasp
-    }
-  });
-
-  slider3.addEventListener("mouseup", function(e) {
-    isDragging3 = false;
-  });
-
-  slider3.addEventListener("mouseleave", function(e) {
-    isDragging3 = false;
-  });
-
-  angle3.addEventListener("input",function(e){
-    if(-180 <= angle3.value & angle3.value<= 180){
-      slider3.value = angle3.value;
-    }
-    if(-180 > angle3.value){
-      slider3.value = -180;
-    }
-    if(angle3.value > 180){
-      slider3.value = 180;
-    }
-    document.getElementById('angle3').textContent = `${Math.round(slider3.value)}°`;
-  });
-
-  // détection des différents appuis de slider4
-  slider4.addEventListener("mousedown", function(e) {
-    isDragging4 = true;
-  });
-
-  slider4.addEventListener("mousemove", function(e) {
-    if (isDragging4) {
-      let rect = slider4.getBoundingClientRect();
-      let x = e.clientX - rect.left;
-      let width = rect.right - rect.left;
-      let value = (x / width) * 360 - 180;  // Convertit la position x en une valeur entre -180 et 180
-      slider4.value = value;
-      angle4.value= slider4.value;
-      document.getElementById('angle4').textContent = `${Math.round(slider4.value)}°`;
-      // y'a plus qu'a envoyer ici à la rasp
-    }
-  });
-
-  slider4.addEventListener("mouseup", function(e) {
-    isDragging4 = false;
-  });
-
-  slider4.addEventListener("mouseleave", function(e) {
-    isDragging4 = false;
-  });
-
-  angle4.addEventListener("input",function(e){
-    if(-180 <= angle4.value & angle4.value<= 180){
-      slider4.value = angle4.value;
-    }
-    if(-180 > angle4.value){
-      slider4.value = -180;
-    }
-    if(angle4.value > 180){
-      slider4.value = 180;
-    }
-    document.getElementById('angle4').textContent = `${Math.round(slider4.value)}°`;
-  });
+    return slider.value;
+  }
+  
+  // Configuration des sliders et angles
+  setupSliderAndAngle("angle-slider1", "angle-number1", "angle-text1");
+  setupSliderAndAngle("angle-slider2", "angle-number2", "angle-text2");
+  setupSliderAndAngle("angle-slider3", "angle-number3", "angle-text3");
+  setupSliderAndAngle("angle-slider4", "angle-number4", "angle-text4");
 
   
   // bouton de validation

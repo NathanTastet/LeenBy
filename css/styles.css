@@ -109,6 +109,24 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer; /* Change le curseur en main au survol */
 }
 
+/* Style général pour les éléments input de type "number" */
+input[type="number"] {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: block; /* Permet de centrer horizontalement */
+  margin: 0 auto; /* Centre l'élément horizontalement dans la cellule */
+}
+
+/* Style lorsqu'ils sont en focus */
+input[type="number"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
 #check_button{
   cursor: pointer;
   background-color: #99A3A4;
@@ -137,7 +155,6 @@ table {
 th {
   background-color: #f2f2f2;
   padding: 12px;
-  text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
@@ -151,6 +168,8 @@ th, td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  text-align: center; /* Centre le contenu horizontal dans la cellule */
+  vertical-align: middle; /* Centre le contenu vertical dans la cellule */
 }
 
 div[id^="angle"] {
@@ -162,16 +181,17 @@ div[id^="angle"] {
   width: 10%;
 }
 
+
 .col2{
-  width: 60%;
+  width: 10%;
 }
 
 .col3{
-  width: 15%;
+  width: 60%;
 }
 
 .col4{
-  width: 10%;
+  width: 15%;
 }
 
 
