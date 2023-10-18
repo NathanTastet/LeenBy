@@ -73,18 +73,21 @@ let rightMotor = 0;
 let oldLeftMotor = 0;
 let oldRightMotor = 0;
 // créer un socket de données joystick
-let socketJoystick = new WebSocket("ws://192.168.4.1:8080");
 
-socketJoystick.onopen = function(e) {
-  setInterval(() => {
-    if( (leftMotor != oldLeftMotor) || (rightMotor != oldRightMotor) ){
-      socketJoystick.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
-      oldLeftMotor = leftMotor;
-      oldRightMotor = rightMotor;
+setInterval(() => {
+  if( (leftMotor != oldLeftMotor) || (rightMotor != oldRightMotor) ){
+    let socketJoystick = new WebSocket("ws://192.168.4.1:8080");
+    socketJoystick.onopen = function(e) {
+        socketJoystick.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
+        oldLeftMotor = leftMotor;
+        oldRightMotor = rightMotor;
     }
-  }, 10); // effectue l'envoi de paquets avec les infos moteur toutes les 10 ms,
+    socketJoystick.close();
+  }
+}, 10); 
+
+  // effectue l'envoi de paquets avec les infos moteur toutes les 10 ms,
           // si et seulement si il y a eu un changement sur les 10 ms
-};
 
 function afficherCoordonnees(x, y, maxDistance) {
     // Normalisation des distances x et y : conversion en un ratio compris entre 0 et 1
