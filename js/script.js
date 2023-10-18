@@ -9,6 +9,7 @@ let oldLeftMotor = null;
 let oldRightMotor = null;
 
 
+
 socket.onopen = function(e) {
   console.log("Connection ws établie");
   setInterval(() => {
@@ -23,6 +24,11 @@ socket.onopen = function(e) {
     }
   }, 100); 
 }
+
+
+socket.onmessage = function(event) {
+  document.getElementById("infoTexte").textContent = ('Message reçu:', event.data);
+};
 
 document.addEventListener("DOMContentLoaded", function() {
 
