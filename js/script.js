@@ -16,9 +16,7 @@ socket.onopen = function(e) {
     if( (leftMotor != oldLeftMotor) || (rightMotor != oldRightMotor) ){ 
       if(socket.readyState){
         socket.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
-        console.log("ça marche");
       }
-      console.log("ça marche aussi");
       oldLeftMotor = leftMotor;
       oldRightMotor = rightMotor;
     }
@@ -27,7 +25,7 @@ socket.onopen = function(e) {
 
 
 socket.onmessage = function(event) {
-  document.getElementById("infoTexte").textContent = ('Message reçu:', event.data);
+  document.getElementById("infoTexte").textContent = 'Message reçu : ' + event.data;
 };
 
 document.addEventListener("DOMContentLoaded", function() {
