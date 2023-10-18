@@ -83,16 +83,21 @@ document.addEventListener("DOMContentLoaded", function() {
   setupSliderAndAngle("angle-slider3", "angle-number3", "angle-text3");
   setupSliderAndAngle("angle-slider4", "angle-number4", "angle-text4");
 
-  
+
   // bouton de validation
   let check_button = document.getElementById("check_button");
   check_button.addEventListener("click", function() {
+    let angle1 = document.getElementById(angle1);
+    let angle2 = document.getElementById(angle2);
+    let angle3 = document.getElementById(angle3);
+    let angle4 = document.getElementById(angle4);
     //envoi d'un socket
     let socket = new WebSocket("ws://192.168.4.1:8080");
     socket.onopen = function(e) {
         check_button.classList.toggle("active");
         socket.send(JSON.stringify({ angle1: angle1.value, angle2: angle2.value, angle3: angle3.value,angle4: angle4.value}));
     };
+    socket.close();
   });
 
   // Sélectionne la div ayant l'id 'left'
