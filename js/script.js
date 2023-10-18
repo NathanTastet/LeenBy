@@ -1,32 +1,32 @@
-document.addEventListener("DOMContentLoaded", function() {
 
 
-    // créer un socket de données
-  let socket = new WebSocket("ws://192.168.4.1:8080");
+// créer un socket de données
+let socket = new WebSocket("ws://192.168.4.1:8080");
 
 
 
-  let leftMotor = 0;
-  let rightMotor = 0;
-  let oldLeftMotor = null;
-  let oldRightMotor = null;
+let leftMotor = 0;
+let rightMotor = 0;
+let oldLeftMotor = null;
+let oldRightMotor = null;
 
 
-  socket.onopen = function(e) {
-    console.log("Connection ws établie");
-    setInterval(() => {
-      if(socket.readyState === WebSocket.OPEN){
+socket.onopen = function(e) {
+  console.log("Connection ws établie");
+  setInterval(() => {
+    if( (leftMotor != oldLeftMotor) || (rightMotor != oldRightMotor) ){ 
+      if(socket.readyState){
         socket.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
         console.log("ça marche");
       }
-    }, 10); 
-  }
+      console.log("ça marche aussi");
+      oldLeftMotor = leftMotor;
+      oldRightMotor = rightMotor;
+    }
+  }, 10); 
+}
 
-  // effectue l'envoi de paquets avec les infos moteur toutes les 10 ms,
-          // si et seulement si il y a eu un changement sur les 10 ms
-
-
-  
+document.addEventListener("DOMContentLoaded", function() {
 
   // gestions des boutons haut gauche
   const armButtons = document.querySelectorAll(".armButton");
