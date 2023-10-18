@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     setInterval(() => {
       if( (leftMotor != oldLeftMotor) || (rightMotor != oldRightMotor) ){ 
             if(socket.readyState){
-              socketJoystick.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
+              socket.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
             }
             oldLeftMotor = leftMotor;
             oldRightMotor = rightMotor;
