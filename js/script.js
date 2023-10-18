@@ -3,8 +3,6 @@
 // créer un socket de données
 let socket = new WebSocket("ws://192.168.4.1:8080");
 
-
-
 let leftMotor = 0;
 let rightMotor = 0;
 let oldLeftMotor = null;
@@ -23,7 +21,7 @@ socket.onopen = function(e) {
       oldLeftMotor = leftMotor;
       oldRightMotor = rightMotor;
     }
-  }, 10); 
+  }, 100); 
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -233,7 +231,9 @@ function afficherCoordonnees(x, y, maxDistance) {
     rightMotor = normalizedY - normalizedX;
     leftMotor = Math.max(-1, Math.min(1, leftMotor)) * 100;
     rightMotor = Math.max(-1, Math.min(1, rightMotor)) * 100;
+    leftMotor = parseFloat(leftMotor).toFixed(1);
+    rightMotor = parseFloat(leftMotor).toFixed(1);
     // Affichage
     document.getElementById('coordinates').textContent = `X: ${Math.round(normalizedX*100)}, Y: ${Math.round(normalizedY*100)}, Angle: ${Math.round(angleDeg)}°, 
-    Moteur gauche :  ${Math.round(leftMotor)}, Moteur droit : ${Math.round(rightMotor)} `;
+    Moteur gauche :  ${leftMotor}, Moteur droit : ${rightMotor} `;
 }
