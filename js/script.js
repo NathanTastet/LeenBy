@@ -113,6 +113,8 @@ document.addEventListener("DOMContentLoaded", function() {
   setupSliderAndAngle("angle-slider3", "angle-number3", "angle-text3");
   setupSliderAndAngle("angle-slider4", "angle-number4", "angle-text4");
   
+  // initation des angles pour le bouton de validation
+
   let angle1 = document.getElementById("angle-number1");
   let angle2 = document.getElementById("angle-number2");
   let angle3 = document.getElementById("angle-number3");
