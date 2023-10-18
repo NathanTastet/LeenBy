@@ -15,14 +15,9 @@ document.addEventListener("DOMContentLoaded", function() {
   socket.onopen = function(e) {
     console.log("Connection ws établie");
     setInterval(() => {
-      if( (leftMotor !== oldLeftMotor) || (rightMotor !== oldRightMotor) ){ 
-        if(socket.readyState === WebSocket.OPEN){
-          socket.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
-          console.log("ça marche");
-        }
-        console.log("ça marche aussi");
-        oldLeftMotor = leftMotor;
-        oldRightMotor = rightMotor;
+      if(socket.readyState === WebSocket.OPEN){
+        socket.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
+        console.log("ça marche");
       }
     }, 10); 
   }
