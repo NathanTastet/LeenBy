@@ -1,6 +1,35 @@
-
-
 document.addEventListener("DOMContentLoaded", function() {
+
+
+    // créer un socket de données
+  let socket = new WebSocket("ws://192.168.4.1:8080");
+
+
+
+  let leftMotor = 0;
+  let rightMotor = 0;
+  let oldLeftMotor = 0;
+  let oldRightMotor = 0;
+
+
+  socket.onopen = function(e) {
+    console.log("Connection ws établie");
+    setInterval(() => {
+      if( (leftMotor != oldLeftMotor) || (rightMotor != oldRightMotor) ){ 
+            if(socket.readyState){
+              socketJoystick.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
+            }
+            oldLeftMotor = leftMotor;
+            oldRightMotor = rightMotor;
+        }
+      }, 10); 
+  }
+
+  // effectue l'envoi de paquets avec les infos moteur toutes les 10 ms,
+          // si et seulement si il y a eu un changement sur les 10 ms
+
+
+  
 
   // gestions des boutons haut gauche
   const armButtons = document.querySelectorAll(".armButton");
@@ -78,26 +107,25 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   
   // Configuration des sliders et angles
+
   setupSliderAndAngle("angle-slider1", "angle-number1", "angle-text1");
   setupSliderAndAngle("angle-slider2", "angle-number2", "angle-text2");
   setupSliderAndAngle("angle-slider3", "angle-number3", "angle-text3");
   setupSliderAndAngle("angle-slider4", "angle-number4", "angle-text4");
+  
+  let angle1 = document.getElementById("angle-number1");
+  let angle2 = document.getElementById("angle-number2");
+  let angle3 = document.getElementById("angle-number3");
+  let angle4 = document.getElementById("angle-number4");
 
 
   // bouton de validation
   let check_button = document.getElementById("check_button");
   check_button.addEventListener("click", function() {
-    let angle1 = document.getElementById(angle1);
-    let angle2 = document.getElementById(angle2);
-    let angle3 = document.getElementById(angle3);
-    let angle4 = document.getElementById(angle4);
-    //envoi d'un socket
-    let socket = new WebSocket("ws://192.168.4.1:8080");
-    socket.onopen = function(e) {
+    if(socket.readyState){
         check_button.classList.toggle("active");
         socket.send(JSON.stringify({ angle1: angle1.value, angle2: angle2.value, angle3: angle3.value,angle4: angle4.value}));
-    };
-    socket.close();
+    }
   });
 
   // Sélectionne la div ayant l'id 'left'
@@ -122,3 +150,91 @@ document.addEventListener("DOMContentLoaded", function() {
     rightDiv.style.zIndex = "1";
   });
 });
+
+
+// Joystick pour Leenby - Nathan TASTET - 2023
+
+// Initialiser les variables
+document.addEventListener("DOMContentLoaded", function() {
+  
+  const container = document.getElementById('joystickControls2');
+  const base = document.getElementById('joystickBase');
+  const handle = document.getElementById('joystickHandle');
+  let joystickIsDragging = false;
+
+  // Ajouter des événements de souris
+  container.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    container.style.cursor = "grabbing";
+    joystickIsDragging = true;
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    e.preventDefault();
+    if (!joystickIsDragging) return;
+    
+    const rect = base.getBoundingClientRect();
+    let x = e.clientX - rect.left - rect.width / 2;
+    let y = e.clientY - rect.top - rect.height / 2;
+    
+    // Calculer les nouvelles positions
+    const distance = Math.sqrt(x * x + y * y);
+    const maxDistance = rect.width / 2;
+    
+    // Restreindre les déplacements
+    if (distance > maxDistance) {
+      x *= maxDistance / distance;
+      y *= maxDistance / distance;
+    }
+    
+    handle.style.left = `${x + maxDistance}px`;
+    handle.style.top = `${y + maxDistance}px`;
+
+    // Afficher les coordonnées
+    afficherCoordonnees(x,y,maxDistance);
+  });
+
+  document.addEventListener('mouseup', function() {
+    container.style.cursor = "default";
+    joystickIsDragging = false;
+
+    //Retour à la base si on lâche
+    const returnToCenter = () => {
+      if (joystickIsDragging) return;
+
+      var x = parseFloat(handle.style.left);
+      var y = parseFloat(handle.style.top);
+      const maxDistance = base.getBoundingClientRect().width / 2;
+      
+      if (x === maxDistance && y === maxDistance) return;
+
+      handle.style.left = `${x + (maxDistance - x) * 0.1}px`;
+      handle.style.top = `${y + (maxDistance - y) * 0.1}px`;
+
+      requestAnimationFrame(returnToCenter);
+      x = x-maxDistance;
+      y = y-maxDistance;
+      afficherCoordonnees(x,y,maxDistance);
+    };
+
+    returnToCenter();
+  });
+});
+
+function afficherCoordonnees(x, y, maxDistance) {
+    // Normalisation des distances x et y : conversion en un ratio compris entre 0 et 1
+    const normalizedX = x / maxDistance;
+    const normalizedY = - y / maxDistance; // l'axe y est a l'envers
+    // Calculer l'angle en radians
+    const angleRad = Math.atan2(normalizedY, normalizedX);
+    // Convertir en degrés
+    const angleDeg = (angleRad * 180 / Math.PI + 360) % 360;
+    // Calcul de la puissance de chaque moteur
+    leftMotor = normalizedY + normalizedX;
+    rightMotor = normalizedY - normalizedX;
+    leftMotor = Math.max(-1, Math.min(1, leftMotor)) * 100;
+    rightMotor = Math.max(-1, Math.min(1, rightMotor)) * 100;
+    // Affichage
+    document.getElementById('coordinates').textContent = `X: ${Math.round(normalizedX*100)}, Y: ${Math.round(normalizedY*100)}, Angle: ${Math.round(angleDeg)}°, 
+    Moteur gauche :  ${Math.round(leftMotor)}, Moteur droit : ${Math.round(rightMotor)} `;
+}
