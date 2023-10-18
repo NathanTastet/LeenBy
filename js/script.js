@@ -8,21 +8,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
   let leftMotor = 0;
   let rightMotor = 0;
-  let oldLeftMotor = 0;
-  let oldRightMotor = 0;
+  let oldLeftMotor = null;
+  let oldRightMotor = null;
 
 
   socket.onopen = function(e) {
     console.log("Connection ws établie");
     setInterval(() => {
-      if( (leftMotor != oldLeftMotor) || (rightMotor != oldRightMotor) ){ 
-            if(socket.readyState){
-              socket.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
-            }
-            oldLeftMotor = leftMotor;
-            oldRightMotor = rightMotor;
+      if( (leftMotor !== oldLeftMotor) || (rightMotor !== oldRightMotor) ){ 
+        if(socket.readyState === WebSocket.OPEN){
+          socket.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
+          console.log("ça marche");
         }
-      }, 10); 
+        console.log("ça marche aussi");
+        oldLeftMotor = leftMotor;
+        oldRightMotor = rightMotor;
+      }
+    }, 10); 
   }
 
   // effectue l'envoi de paquets avec les infos moteur toutes les 10 ms,
