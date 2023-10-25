@@ -292,7 +292,7 @@ div[id^="angle"] {
 
 #joystickControls2 {
   aspect-ratio: 1 / 1;
-  height: 50%;
+  height: 75%;
   margin: 25% auto;
   border-radius: 50%;
   box-shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.1);
@@ -301,7 +301,7 @@ div[id^="angle"] {
 /* Base du joystick */
 #joystickBase {
   aspect-ratio: 1 / 1;
-  height: 100%;
+  width: 100%;
   border-radius: 50%;
   background: radial-gradient(circle, #b5b6b8 0%, #5b5d5d 100%);
   box-shadow: inset 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2);
@@ -310,11 +310,11 @@ div[id^="angle"] {
 /* Encoches du joystick */
 .notch {
   position: absolute;
-  width: 2.5%;
-  height: 5%;
+  width: 4%;
+  height: 36%;
   padding-bottom: 28%;
   top: 25%;
-  left: 47%;
+  left: 50%;
   transform-origin: bottom;
   background-color: transparent;
 }
