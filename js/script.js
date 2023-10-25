@@ -53,24 +53,37 @@ document.addEventListener("DOMContentLoaded", function() {
     let texte = document.getElementById(angleText);
     let isDragging = false;
   
-    slider.addEventListener("mousedown", function(e) {
+    function startDragSlider(e) {
       isDragging = true;
-      texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, e.clientX)).toFixed(1)}°`;
-    });
-  
-    slider.addEventListener("mousemove", function(e) {
+      let clientX = e.touches ? e.touches[0].clientX : e.clientX; // choix de gauche si event tactile ou choix de droite si event souris
+      texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, clientX)).toFixed(1)}°`;
+    }
+    
+    slider.addEventListener("mousedown", startDragSlider);
+    slider.addEventListener("touchstart", startDragSlider);
+    
+    function moveDragSlider(e) {
       if (isDragging) {
-        texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, e.clientX)).toFixed(1)}°`;
+        let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, clientX)).toFixed(1)}°`;
       }
-    });
+    }
+
+    
+    slider.addEventListener("mousemove", moveDragSlider);
+    slider.addEventListener("touchmove", moveDragSlider);
   
-    slider.addEventListener("mouseup", function() {
+
+    function stopDragSlider(){
       isDragging = false;
-    });
-  
-    slider.addEventListener("mouseleave", function() {
-      isDragging = false;
-    });
+    }
+
+    
+    slider.addEventListener("mouseup", stopDragSlider);
+    slider.addEventListener("mouseleave", stopDragSlider);
+    slider.addEventListener("touchend", stopDragSlider);
+
+    
   
     angle.addEventListener("input", function() {
       if(-180 <= angle.value & angle.value<= 180){
@@ -212,9 +225,19 @@ document.addEventListener("DOMContentLoaded", function() {
     e.preventDefault();
     if (!joystickIsDragging) return;
     
+    // on détecte les positions x et y du joystick
+    let clientX, clientY;
+    if (e.touches) { // Si c'est un événement tactile
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else { // Si c'est un événement de souris
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+
     const rect = base.getBoundingClientRect();
-    let x = e.clientX - rect.left - rect.width / 2;
-    let y = e.clientY - rect.top - rect.height / 2;
+    let x = clientX - rect.left - rect.width / 2;
+    let y = clientY - rect.top - rect.height / 2;
     
     // Calculer les nouvelles positions
     const distance = Math.sqrt(x * x + y * y);
