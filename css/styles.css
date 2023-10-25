@@ -55,7 +55,7 @@ body {
   font-size: 2vw; 
 }
 /* Configuration du sélecteur de bras et des boutons */
-#armSelectBar, .armButton, #check_button {
+#armSelectBar, .armButton, #check_button, #reset_button {
   border-radius: 1vh;
   padding: 1vh 2vh;
   font-size: 2vh;
@@ -67,7 +67,7 @@ body {
   justify-content: flex-start;
 }
 
-.armButton {
+.armButton, #check_button  {
   cursor: pointer;
   background-color: #99A3A4;
   transition: background-color 0.3s ease;
@@ -75,13 +75,26 @@ body {
   margin-left: 1vh;
 }
 
-.armButton.active {
+.armButton.active, #check_button.active {
   background-color: #34495E;
   color: #FFFFFF;
 }
 
-.armButton:hover {
+.armButton:hover, #check_button:hover {
   background-color: #85929E;
+}
+
+
+#reset_button{
+  cursor: pointer;
+  background-color: #FF4136;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0.3vh 0.1vh rgba(0, 0, 0, 0.1);
+  margin-left: 1vh;
+}
+
+#reset_button:hover {
+  background-color: #FF6347;
 }
 
 /* Configuration du slider */
@@ -125,23 +138,6 @@ input[type="number"] {
 input[type="number"]:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-#check_button{
-  cursor: pointer;
-  background-color: #99A3A4;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 0.3vh 0.1vh rgba(0, 0, 0, 0.1);
-  margin-left: 1vh;
-}
-
-#check_button.active {
-  background-color: #34495E;
-  color: #FFFFFF;
-}
-
-#check_button.hover {
-  background-color: #85929E;
 }
 
 /* Styliser le tableau */

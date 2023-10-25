@@ -112,13 +112,25 @@ document.addEventListener("DOMContentLoaded", function() {
   setupSliderAndAngle("angle-slider3", "angle-number3", "angle-text3");
   setupSliderAndAngle("angle-slider4", "angle-number4", "angle-text4");
   
-  // initation des angles pour le bouton de validation
+  // initation des angles pour le bouton de validation et de RAZ
+
+  let slider1 = document.getElementById("angle-slider1");
+  let slider2 = document.getElementById("angle-slider2");
+  let slider3 = document.getElementById("angle-slider3");
+  let slider4 = document.getElementById("angle-slider4");
 
   let angle1 = document.getElementById("angle-number1");
   let angle2 = document.getElementById("angle-number2");
   let angle3 = document.getElementById("angle-number3");
   let angle4 = document.getElementById("angle-number4");
 
+  let txt1 = document.getElementById("angle-text1");
+  let txt2 = document.getElementById("angle-text2");
+  let txt3 = document.getElementById("angle-text3");
+  let txt4 = document.getElementById("angle-text4");
+
+
+  
 
   // bouton de validation
   let check_button = document.getElementById("check_button");
@@ -127,6 +139,24 @@ document.addEventListener("DOMContentLoaded", function() {
         check_button.classList.toggle("active");
         socket.send(JSON.stringify({ angle1: angle1.value, angle2: angle2.value, angle3: angle3.value,angle4: angle4.value}));
     }
+  });
+
+  // bouton de raz
+  let reset_button = document.getElementById("reset_button");
+  reset_button.addEventListener("click", function() {
+    slider1.value = 0;
+    slider2.value = 0;
+    slider3.value = 0;
+    slider4.value = 0;
+    angle1.value = 0;
+    angle2.value = 0;
+    angle3.value = 0;
+    angle4.value = 0;
+    txt1.textContent = '0.0°';
+    txt2.textContent = '0.0°';
+    txt3.textContent = '0.0°';
+    txt4.textContent = '0.0°';
+
   });
 
   // Sélectionne la div ayant l'id 'left'
@@ -164,13 +194,21 @@ document.addEventListener("DOMContentLoaded", function() {
   let joystickIsDragging = false;
 
   // Ajouter des événements de souris
-  container.addEventListener('mousedown', function(e) {
+  container.addEventListener('mousedown', startGrab);
+  container.addEventListener('touchstart', startGrab);
+  
+  
+  function startGrab(e) {
     e.preventDefault();
     container.style.cursor = "grabbing";
     joystickIsDragging = true;
-  });
+  }
 
-  document.addEventListener('mousemove', function(e) {
+  document.addEventListener('mousemove', moveJoystick);
+  document.addEventListener('touchmove', moveJoystick);
+
+  
+  function moveJoystick(e) {
     e.preventDefault();
     if (!joystickIsDragging) return;
     
@@ -193,9 +231,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Afficher les coordonnées
     afficherCoordonnees(x,y,maxDistance);
-  });
+  };
 
-  document.addEventListener('mouseup', function() {
+  document.addEventListener('mouseup', endDrag);
+  document.addEventListener('touchend', endDrag);
+  
+  
+  function endDrag() {
     container.style.cursor = "default";
     joystickIsDragging = false;
 
@@ -219,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     returnToCenter();
-  });
+  }
 });
 
 function afficherCoordonnees(x, y, maxDistance) {
