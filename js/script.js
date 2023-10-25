@@ -28,8 +28,42 @@ socket.onmessage = function(event) {
   document.getElementById("infoTexte").textContent = 'Message reçu : ' + event.data;
 };
 
-document.addEventListener("DOMContentLoaded", function() {
+  
+// initation des angles pour le bouton de validation et de RAZ
 
+let slider1 = document.getElementById("angle-slider1");
+let slider2 = document.getElementById("angle-slider2");
+let slider3 = document.getElementById("angle-slider3");
+let slider4 = document.getElementById("angle-slider4");
+
+let angle1 = document.getElementById("angle-number1");
+let angle2 = document.getElementById("angle-number2");
+let angle3 = document.getElementById("angle-number3");
+let angle4 = document.getElementById("angle-number4");
+
+let txt1 = document.getElementById("angle-text1");
+let txt2 = document.getElementById("angle-text2");
+let txt3 = document.getElementById("angle-text3");
+let txt4 = document.getElementById("angle-text4");
+
+//fonction de remise à zéro
+function remiseazero() {
+  slider1.value = 0;
+  slider2.value = 0;
+  slider3.value = 0;
+  slider4.value = 0;
+  angle1.value = 0;
+  angle2.value = 0;
+  angle3.value = 0;
+  angle4.value = 0;
+  txt1.textContent = '0.0°';
+  txt2.textContent = '0.0°';
+  txt3.textContent = '0.0°';
+  txt4.textContent = '0.0°';
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  remiseazero();
   // gestions des boutons haut gauche
   const armButtons = document.querySelectorAll(".armButton");
 
@@ -124,26 +158,6 @@ document.addEventListener("DOMContentLoaded", function() {
   setupSliderAndAngle("angle-slider2", "angle-number2", "angle-text2");
   setupSliderAndAngle("angle-slider3", "angle-number3", "angle-text3");
   setupSliderAndAngle("angle-slider4", "angle-number4", "angle-text4");
-  
-  // initation des angles pour le bouton de validation et de RAZ
-
-  let slider1 = document.getElementById("angle-slider1");
-  let slider2 = document.getElementById("angle-slider2");
-  let slider3 = document.getElementById("angle-slider3");
-  let slider4 = document.getElementById("angle-slider4");
-
-  let angle1 = document.getElementById("angle-number1");
-  let angle2 = document.getElementById("angle-number2");
-  let angle3 = document.getElementById("angle-number3");
-  let angle4 = document.getElementById("angle-number4");
-
-  let txt1 = document.getElementById("angle-text1");
-  let txt2 = document.getElementById("angle-text2");
-  let txt3 = document.getElementById("angle-text3");
-  let txt4 = document.getElementById("angle-text4");
-
-
-  
 
   // bouton de validation
   let check_button = document.getElementById("check_button");
@@ -156,21 +170,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // bouton de raz
   let reset_button = document.getElementById("reset_button");
-  reset_button.addEventListener("click", function() {
-    slider1.value = 0;
-    slider2.value = 0;
-    slider3.value = 0;
-    slider4.value = 0;
-    angle1.value = 0;
-    angle2.value = 0;
-    angle3.value = 0;
-    angle4.value = 0;
-    txt1.textContent = '0.0°';
-    txt2.textContent = '0.0°';
-    txt3.textContent = '0.0°';
-    txt4.textContent = '0.0°';
+  reset_button.addEventListener("click", remiseazero);
+  
+  
 
-  });
 
   // Sélectionne la div ayant l'id 'left'
   const leftDiv = document.getElementById("left");
