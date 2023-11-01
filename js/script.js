@@ -48,6 +48,14 @@ let txt2 = document.getElementById("angle-text2");
 let txt3 = document.getElementById("angle-text3");
 let txt4 = document.getElementById("angle-text4");
 
+
+// mise a jour du remplissage du slider
+function updateSliderStyle(sliderElement) {
+      // Convertis la valeur de -180-180 en pourcentage 0-100
+  let percentage = (((sliderElement.value) / 360.0) * 100.0) + 50; 
+  sliderElement.style.setProperty('--value', percentage + '%');
+}
+
 //fonction de remise à zéro
 function remiseazero() {
   slider1.value = 0;
@@ -62,6 +70,10 @@ function remiseazero() {
   txt2.textContent = '0.0°';
   txt3.textContent = '0.0°';
   txt4.textContent = '0.0°';
+  updateSliderStyle(slider1);
+  updateSliderStyle(slider2);
+  updateSliderStyle(slider3);
+  updateSliderStyle(slider4);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -132,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
         slider.value = 180;
       }
       texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
+      updateSliderStyle(slider);
     });
   }
   
@@ -151,9 +164,11 @@ document.addEventListener("DOMContentLoaded", function() {
       slider.value = value.toFixed(1);
       angle.value = value.toFixed(1);
     }
+    updateSliderStyle(slider);
     return slider.value;
   }
-  
+
+
   // Configuration des sliders et angles
 
   setupSliderAndAngle("angle-slider1", "angle-number1", "angle-text1");
