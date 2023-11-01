@@ -8,19 +8,21 @@ let rightMotor = 0;
 let oldLeftMotor = null;
 let oldRightMotor = null;
 
+const anglemort = 0.2; // zone d'angle mort à ajuster
+const seuil_different = 5 ; //seuil de différence entre 2 valeurs
 
 
 socket.onopen = function(e) {
   console.log("Connection ws établie");
   setInterval(() => {
-    if( (leftMotor != oldLeftMotor) || (rightMotor != oldRightMotor) ){ 
+    if (Math.abs(leftMotor - oldLeftMotor) > seuil_different || Math.abs(rightMotor - oldRightMotor) > seuil_different) {
       if(socket.readyState){
         socket.send(JSON.stringify({ leftMotor: leftMotor, rightMotor: rightMotor }));
       }
       oldLeftMotor = leftMotor;
       oldRightMotor = rightMotor;
     }
-  }, 100); 
+  }, 250); 
 }
 
 
@@ -163,7 +165,6 @@ document.addEventListener("DOMContentLoaded", function() {
   let check_button = document.getElementById("check_button");
   check_button.addEventListener("click", function() {
     if(socket.readyState){
-        check_button.classList.toggle("active");
         socket.send(JSON.stringify({ angle1: angle1.value, angle2: angle2.value, angle3: angle3.value,angle4: angle4.value}));
     }
   });
@@ -298,13 +299,21 @@ function afficherCoordonnees(x, y, maxDistance) {
     const angleRad = Math.atan2(normalizedY, normalizedX);
     // Convertir en degrés
     const angleDeg = (angleRad * 180 / Math.PI + 360) % 360;
-    // Calcul de la puissance de chaque moteur
-    leftMotor = normalizedY + normalizedX;
-    rightMotor = normalizedY - normalizedX;
-    leftMotor = Math.max(-1, Math.min(1, leftMotor)) * 100;
-    rightMotor = Math.max(-1, Math.min(1, rightMotor)) * 100;
-    leftMotor = parseFloat(leftMotor).toFixed(1);
-    rightMotor = parseFloat(rightMotor).toFixed(1);
+
+    if(Math.abs(normalizedX) < anglemort && Math.abs(normalizedY) < anglemort) {
+      // on est dans l'angle mort, tout est nul.
+      leftMotor = 0;
+      rightMotor = 0;
+    }
+    else{
+      // Calcul de la puissance de chaque moteur
+      leftMotor = normalizedY + normalizedX;
+      rightMotor = normalizedY - normalizedX;
+      leftMotor = Math.max(-1, Math.min(1, leftMotor)) * 100;
+      rightMotor = Math.max(-1, Math.min(1, rightMotor)) * 100;
+      leftMotor = parseFloat(leftMotor).toFixed(1);
+      rightMotor = parseFloat(rightMotor).toFixed(1);
+    }
     // Affichage
     document.getElementById('coordinates').textContent = `X: ${Math.round(normalizedX*100)}, Y: ${Math.round(normalizedY*100)}, Angle: ${Math.round(angleDeg)}°, 
     Moteur gauche :  ${leftMotor}, Moteur droit : ${rightMotor} `;
