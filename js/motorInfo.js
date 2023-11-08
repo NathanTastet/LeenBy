@@ -1,5 +1,5 @@
 // motorInfo.js
-// Fonctions et variables liées au contrôle des moteurs
+// Variables liées au contrôle des moteurs
 // Par Nathan TASTET - 2023
 
 
