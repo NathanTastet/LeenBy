@@ -107,7 +107,14 @@ function stopDragSlider(slider) {
 // Met à jour le style du slider en fonction de sa valeur.
 export function updateSliderStyle(sliderElement) {
     let percentage = (((sliderElement.value) / (sliderElement.max - sliderElement.min)) * 100.0) + 50; 
-    sliderElement.style.setProperty('--value', percentage + '%');
+
+    if (percentage > 50) {
+        sliderElement.style.background = 
+        'linear-gradient(90deg, #a0a0a0 0%, #a0a0a0 50%, #56d8d8 50%, #56d8d8 ' + percentage + '%, #a0a0a0 ' + percentage + '%)';
+    } else {
+        sliderElement.style.background = 
+        'linear-gradient(90deg, #a0a0a0 0%, #a0a0a0 ' + percentage + '%, #56d8d8 ' + percentage + '%, #56d8d8 50%, #a0a0a0 50%, #a0a0a0 100%)';
+    }
 }
 
 
