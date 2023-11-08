@@ -9,40 +9,24 @@
     <div id="left">
         <div id="title">Paramétrage Leenby</div>
         <div id="armSelectBar">
-            <button class="armButton" id="leftArm">Bras Gauche</button>
-            <button class="armButton" id="rightArm">Bras Droit</button>
-            <button class="armButton" id="bothArms">Deux Bras</button>
+            <button class="armButton" id="brasGauche">Bras Gauche</button>
+            <button class="armButton" id="brasDroit">Bras Droit</button>
+            <button class="armButton" id="deuxBras">Deux Bras</button>
         </div>
-        <table>
-            <tr class="slider-container">
-                <th class="col1">Angle 1 :</th>
-                <th class="col2"><div id="angle-text1">0.0°</div></th>
-                <th class="col3"><input type="range" id="angle-slider1" min="-180" max="180" value="0" step="0.1"></th>
-                <th class="col4"><input type="number" id="angle-number1" min="-180" max="180" value="0" step="1"></th>
-            </tr>
-            <tr class="slider-container">
-                <th class="col1">Angle 2 :</th>
-                <th class="col2"><div id="angle-text2">0.0°</div></th>
-                <th class="col3"><input type="range" id="angle-slider2" min="-180" max="180" value="0" step="0.1"></th>
-                <th class="col4"><input type="number" id="angle-number2" min="-180" max="180" value="0" step="1"></th>
-            </tr>
-            <tr class="slider-container">
-                <th class="col1">Angle 3 :</th>
-                <th class="col2"><div id="angle-text3">0.0°</div></th>
-                <th class="col3"><input type="range" id="angle-slider3" min="-180" max="180" value="0" step="0.1"></th>
-                <th class="col4"><input type="number" id="angle-number3" min="-180" max="180" value="0" step="1"></th>
-            </tr>
-            <tr class="slider-container">
-                <th class="col1">Angle 4 :</th>
-                <th class="col2"><div id="angle-text4">0.0°</div></th>
-                <th class="col3"><input type="range" id="angle-slider4" min="-180" max="180" value="0" step="0.1"></th>
-                <th class="col4"><input type="number" id="angle-number4" min="-180" max="180" value="0" step="1"></th>
+        <table id="table-sliders">
+            <tr>
+                <th>Nom du moteur</th>
+                <th>N°</th>
+                <th>Angle</th>
+                <th></th>
+                <th></th>
             </tr>
             <tr>
-                <th><button id="reset_button">RAZ</button></th>
-                <th></th>
-                <th></th>
-                <th><button id="check_button">Valider</button></th>
+                <td><button id="reset_button">RAZ</button></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button id="check_button">Valider</button></td>
             </tr>
         </table>
     </div>
@@ -51,14 +35,14 @@
             <div id="infoTexte">Message reçu :</div>
         </div>
         <div id="presetSection">
-            <button class="presetBtn"><img class="btnIcon" src="img/macarena.webp" alt="Icon"><br><div class="btnText">Macarena</div></button>
-            <button class="presetBtn"><img class="btnIcon" src="img/clapclap.png" alt="Icon"><br><div class="btnText">Clap-Clap</div></button>
-            <button class="presetBtn"><img class="btnIcon" src="img/stick.png" alt="Icon"><br><div class="btnText">Elisabeth II</div></button>
-            <button class="presetBtn"><img class="btnIcon" src="img/stick.png" alt="Icon"><br><div class="btnText">Crabe</div></button>
-            <button class="presetBtn"><img class="btnIcon" src="img/stick.png" alt="Icon"><br><div class="btnText">Victoire</div></button>
-            <button class="presetBtn"><img class="btnIcon" src="img/tpose.png" alt="Icon"><br><div class="btnText">Robot</div></button>
-            <button class="presetBtn"><img class="btnIcon" src="img/beyblade.png" alt="Icon"><br><div class="btnText">Beyblade</div></button>
-            <button class="presetBtn"><img class="btnIcon" src="img/stick.png" alt="Icon"><br><div class="btnText">Ave Cesar</div></button>
+            <button class="presetBtn" id="macarena"><img class="btnIcon" src="img/macarena.webp" alt="Icon"><br><div class="btnText">Macarena</div></button>
+            <button class="presetBtn" id="clapclap"><img class="btnIcon" src="img/clapclap.png" alt="Icon"><br><div class="btnText">Clap-Clap</div></button>
+            <button class="presetBtn" id="elizabeth"><img class="btnIcon" src="img/stick.png" alt="Icon"><br><div class="btnText">Elisabeth II</div></button>
+            <button class="presetBtn" id="crabe"><img class="btnIcon" src="img/stick.png" alt="Icon"><br><div class="btnText">Crabe</div></button>
+            <button class="presetBtn" id="victoire"><img class="btnIcon" src="img/stick.png" alt="Icon"><br><div class="btnText">Victoire</div></button>
+            <button class="presetBtn" id="robot"><img class="btnIcon" src="img/tpose.png" alt="Icon"><br><div class="btnText">Robot</div></button>
+            <button class="presetBtn" id="beyblade"><img class="btnIcon" src="img/beyblade.png" alt="Icon"><br><div class="btnText">Beyblade</div></button>
+            <button class="presetBtn" id="cesar"><img class="btnIcon" src="img/stick.png" alt="Icon"><br><div class="btnText">Ave Cesar</div></button>
         </div>
         <div id="joystickSection">
             <div id="coordinates">Joystick Leenby</div>

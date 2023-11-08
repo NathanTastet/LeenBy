@@ -1,4 +1,13 @@
-
+// table d'informations moteurs éditable en fonction des besoins
+const motorInfo = [
+  { id: 1, name: 'Rotation Épaule', minAngle: -159.6, maxAngle: 159.6 },
+  { id: 2, name: 'Pliage épaule', minAngle: -159.6, maxAngle: 159.6 },
+  { id: 3, name: 'Rotation coude', minAngle: -159.6, maxAngle: 159.6 },
+  { id: 4, name: 'Pliage coude', minAngle: -159.6, maxAngle: 159.6 },
+  { id: 5, name: 'Rotation main', minAngle: -159.8, maxAngle: 159.8 },
+  { id: 6, name: 'Pliage main', minAngle: -159.8, maxAngle: 159.8 },
+  { id: 7, name: 'Pliage Pouce', minAngle: -159.8, maxAngle: 159.8 }
+];
 
 // créer un socket de données
 let socket = new WebSocket("ws://192.168.4.1:8080");
@@ -10,7 +19,6 @@ let oldRightMotor = null;
 
 const anglemort = 0.2; // zone d'angle mort à ajuster
 const seuil_different = 5 ; //seuil de différence entre 2 valeurs
-
 
 socket.onopen = function(e) {
   console.log("Connection ws établie");
@@ -30,54 +38,170 @@ socket.onmessage = function(event) {
   document.getElementById("infoTexte").textContent = 'Message reçu : ' + event.data;
 };
 
-  
-// initation des angles pour le bouton de validation et de RAZ
+// Fonction de setup
+function setup() {
+  const table = document.getElementById("table-sliders"); // Assurez-vous que votre table a un ID ou une classe spécifique si nécessaire
 
-let slider1 = document.getElementById("angle-slider1");
-let slider2 = document.getElementById("angle-slider2");
-let slider3 = document.getElementById("angle-slider3");
-let slider4 = document.getElementById("angle-slider4");
+  // Videz la table actuelle, à l'exception de la dernière ligne pour les boutons
+  while (table.children.length > 2) {
+    table.deleteRow(table.rows.length - 1);
+  }
 
-let angle1 = document.getElementById("angle-number1");
-let angle2 = document.getElementById("angle-number2");
-let angle3 = document.getElementById("angle-number3");
-let angle4 = document.getElementById("angle-number4");
+  // Créer une ligne de table pour chaque moteur et configurer les sliders, angles , .. . 
+  motorInfo.forEach(motor => {
 
-let txt1 = document.getElementById("angle-text1");
-let txt2 = document.getElementById("angle-text2");
-let txt3 = document.getElementById("angle-text3");
-let txt4 = document.getElementById("angle-text4");
+    const indexLigne = table.rows.length - 1;
+    const row = table.insertRow(indexLigne); // Insérer une nouvelle ligne
+    row.classList.add('slider-container');
 
+    // Colonne du nom de l'angle
+    const nameCell = row.insertCell(0);
+    nameCell.textContent = `${motor.name}`;
+    nameCell.classList.add('col1');
+
+    // Colonne de l'id de l'angle
+    const idCell = row.insertCell(1);
+    idCell.textContent = `${motor.id}`;
+    idCell.classList.add('col2');
+
+    // Colonne pour le texte de l'angle
+    const textCell = row.insertCell(2);
+    textCell.innerHTML = `<div id="angle-text${motor.id}">0.0°</div>`;
+    textCell.classList.add('col3');
+
+    // Colonne pour le curseur de l'angle
+    const sliderCell = row.insertCell(3);
+    sliderCell.innerHTML = `<input type="range" id="angle-slider${motor.id}" min="${motor.minAngle}" max="${motor.maxAngle}" value="0" step="0.1">`;
+    sliderCell.classList.add('col4');
+
+    // Colonne pour le numéro de l'angle
+    const numberCell = row.insertCell(4);
+    numberCell.innerHTML = `<input type="number" id="angle-number${motor.id}" min="${motor.minAngle}" max="${motor.maxAngle}" value="0" step="0.1">`;
+    numberCell.classList.add('col5');
+    
+    // Configurer le reste
+    let texte = document.getElementById(`angle-text${motor.id}`);
+    let slider = document.getElementById(`angle-slider${motor.id}`);
+    let angle = document.getElementById(`angle-number${motor.id}`);
+
+    slider.dataset.isDragging = 0;
+    
+    slider.addEventListener("mousedown", startDragSlider);
+    slider.addEventListener("touchstart", startDragSlider);
+
+    slider.addEventListener("mousemove", moveDragSlider);
+    slider.addEventListener("touchmove", moveDragSlider);
+    
+    slider.addEventListener("mouseup", stopDragSlider);
+    slider.addEventListener("mouseleave", stopDragSlider);
+    slider.addEventListener("touchend", stopDragSlider);
+    
+    function startDragSlider(e) {
+      slider.dataset.isDragging = 1;
+      let clientX = e.touches ? e.touches[0].clientX : e.clientX; // choix de gauche si event tactile ou choix de droite si event souris
+      texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, clientX)).toFixed(1)}°`;
+    }
+    
+    function moveDragSlider(e) {
+      if (slider.dataset.isDragging == 1) {
+        let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, clientX)).toFixed(1)}°`;
+      }
+    }
+    
+    function stopDragSlider(){
+      slider.dataset.isDragging = 0;
+    }
+
+    angle.addEventListener("input", function() {
+      if(angle.min <= angle.value & angle.value<= angle.max){
+        slider.value = angle.value;
+      }
+      if(angle.min > angle.value){
+        slider.value = angle.min;
+      }
+      if(angle.value > angle.max){
+        slider.value = angle.max;
+      }
+      texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
+      updateSliderStyle(slider);
+    });
+  });
+
+  document.getElementById("reset_button").addEventListener("click", remiseazero);
+  document.getElementById("check_button").addEventListener("click", validerAngles);
+}
 
 // mise a jour du remplissage du slider
 function updateSliderStyle(sliderElement) {
-      // Convertis la valeur de -180-180 en pourcentage 0-100
-  let percentage = (((sliderElement.value) / 360.0) * 100.0) + 50; 
+  // Convertis la valeur de min, max en pourcentage 0-100
+  let percentage = (((sliderElement.value) / (sliderElement.max - sliderElement.min)) * 100.0) + 50; 
   sliderElement.style.setProperty('--value', percentage + '%');
 }
 
 //fonction de remise à zéro
 function remiseazero() {
-  slider1.value = 0;
-  slider2.value = 0;
-  slider3.value = 0;
-  slider4.value = 0;
-  angle1.value = 0;
-  angle2.value = 0;
-  angle3.value = 0;
-  angle4.value = 0;
-  txt1.textContent = '0.0°';
-  txt2.textContent = '0.0°';
-  txt3.textContent = '0.0°';
-  txt4.textContent = '0.0°';
-  updateSliderStyle(slider1);
-  updateSliderStyle(slider2);
-  updateSliderStyle(slider3);
-  updateSliderStyle(slider4);
+  motorInfo.forEach(motor => {
+    
+    let texte = document.getElementById(`angle-text${motor.id}`);
+    let slider = document.getElementById(`angle-slider${motor.id}`);
+    let angle = document.getElementById(`angle-number${motor.id}`);
+    texte.textContent = '0.0°';
+    slider.value = 0;
+    angle.value = 0;
+    updateSliderStyle(slider);
+  });
 }
 
+function validerAngles(){
+  // Trouver le bouton actif entre bras gauche, droit et les deux
+  let activeButton = document.querySelector('.armButton.active');
+  // Récupérer l'identifiant du bouton actif
+  let armChoice = activeButton ? activeButton.id : null; // 'leftArm', 'rightArm', ou 'bothArms'
+
+  // Préparer l'objet à envoyer contenant les informations des angles
+  let anglesInfo = {
+    bras: armChoice,
+    angle: {}
+  };
+
+  // Collecter les valeurs pour chaque moteur
+
+  motorInfo.forEach(motor => {
+    let angleValue = document.getElementById(`angle-number${motor.id}`).value;
+    anglesInfo.angle[`angle${motor.id}`] = angleValue;
+  });
+
+  if(socket.readyState){
+      socket.send(JSON.stringify({anglesInfo}));
+  }
+}
+
+function updateSliderAndAngle(slider, angle, clientX) {
+  const rect = slider.getBoundingClientRect();
+  const x = clientX !== null ? clientX - rect.left : null;
+  const width = rect.right - rect.left;
+  const value = x !== null ? (x / width) * (slider.max - slider.min) - slider.max : parseFloat(angle.value);
+
+  if (value < slider.min) {
+    slider.value = slider.min;
+    angle.value = slider.min;
+  } else if (value > slider.max) {
+    slider.value = slider.max;
+    angle.value = slider.max;
+  } else {
+    slider.value = value.toFixed(1);
+    angle.value = value.toFixed(1);
+  }
+  updateSliderStyle(slider);
+  return slider.value;
+}
+
+
 document.addEventListener("DOMContentLoaded", function() {
+  setup();
   remiseazero();
+
   // gestions des boutons haut gauche
   const armButtons = document.querySelectorAll(".armButton");
 
@@ -92,104 +216,6 @@ document.addEventListener("DOMContentLoaded", function() {
       button.classList.add("active");
     });
   });
-
-
-
-  function setupSliderAndAngle(sliderId, angleId, angleText) {
-    let slider = document.getElementById(sliderId);
-    let angle = document.getElementById(angleId);
-    let texte = document.getElementById(angleText);
-    let isDragging = false;
-  
-    function startDragSlider(e) {
-      isDragging = true;
-      let clientX = e.touches ? e.touches[0].clientX : e.clientX; // choix de gauche si event tactile ou choix de droite si event souris
-      texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, clientX)).toFixed(1)}°`;
-    }
-    
-    slider.addEventListener("mousedown", startDragSlider);
-    slider.addEventListener("touchstart", startDragSlider);
-    
-    function moveDragSlider(e) {
-      if (isDragging) {
-        let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, clientX)).toFixed(1)}°`;
-      }
-    }
-
-    
-    slider.addEventListener("mousemove", moveDragSlider);
-    slider.addEventListener("touchmove", moveDragSlider);
-  
-
-    function stopDragSlider(){
-      isDragging = false;
-    }
-
-    
-    slider.addEventListener("mouseup", stopDragSlider);
-    slider.addEventListener("mouseleave", stopDragSlider);
-    slider.addEventListener("touchend", stopDragSlider);
-
-    
-  
-    angle.addEventListener("input", function() {
-      if(-180 <= angle.value & angle.value<= 180){
-        slider.value = angle.value;
-      }
-      if(-180 > angle.value){
-        slider.value = -180;
-      }
-      if(angle.value > 180){
-        slider.value = 180;
-      }
-      texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
-      updateSliderStyle(slider);
-    });
-  }
-  
-  function updateSliderAndAngle(slider, angle, clientX) {
-    const rect = slider.getBoundingClientRect();
-    const x = clientX !== null ? clientX - rect.left : null;
-    const width = rect.right - rect.left;
-    const value = x !== null ? (x / width) * 360 - 180 : parseFloat(angle.value);
-  
-    if (value < -180) {
-      slider.value = -180;
-      angle.value = -180;
-    } else if (value > 180) {
-      slider.value = 180;
-      angle.value = 180;
-    } else {
-      slider.value = value.toFixed(1);
-      angle.value = value.toFixed(1);
-    }
-    updateSliderStyle(slider);
-    return slider.value;
-  }
-
-
-  // Configuration des sliders et angles
-
-  setupSliderAndAngle("angle-slider1", "angle-number1", "angle-text1");
-  setupSliderAndAngle("angle-slider2", "angle-number2", "angle-text2");
-  setupSliderAndAngle("angle-slider3", "angle-number3", "angle-text3");
-  setupSliderAndAngle("angle-slider4", "angle-number4", "angle-text4");
-
-  // bouton de validation
-  let check_button = document.getElementById("check_button");
-  check_button.addEventListener("click", function() {
-    if(socket.readyState){
-        socket.send(JSON.stringify({ angle1: angle1.value, angle2: angle2.value, angle3: angle3.value,angle4: angle4.value}));
-    }
-  });
-
-  // bouton de raz
-  let reset_button = document.getElementById("reset_button");
-  reset_button.addEventListener("click", remiseazero);
-  
-  
-
 
   // Sélectionne la div ayant l'id 'left'
   const leftDiv = document.getElementById("left");
@@ -214,6 +240,25 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+//mouvements prédéfinis
+
+// Sélectionnez tous les boutons prédéfinis
+const presetButtons = document.querySelectorAll('.presetBtn');
+
+// Ajoutez un écouteur d'événements à chaque bouton
+presetButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    // Retirez la classe 'active' de tous les boutons
+    presetButtons.forEach(btn => btn.classList.remove('active'));
+    // Ajoutez la classe 'active' au bouton cliqué
+    this.classList.add('active');
+    let movement = this.id;
+    // envoyer le mouvement
+    if(socket.readyState){
+      socket.send(JSON.stringify({ command: movement }));
+    }
+  });
+});
 
 // Joystick pour Leenby - Nathan TASTET - 2023
 

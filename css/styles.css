@@ -164,6 +164,7 @@ tr {
 
 /* Table cells */
 th, td {
+  background-color: #f2f2f2;
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -177,19 +178,22 @@ div[id^="angle"] {
 }
 
 .col1{
-  width: 10%;
+  width: 14%;
 }
 
-
 .col2{
-  width: 10%;
+  width: 3%;
 }
 
 .col3{
-  width: 60%;
+  width: 10%;
 }
 
 .col4{
+  width: 53%;
+}
+
+.col5{
   width: 15%;
 }
 
@@ -235,12 +239,21 @@ div[id^="angle"] {
   cursor: pointer;
   box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
+  border-radius: 1vh;
 }
 
-.presetBtn:hover {
-  box-shadow: 0 2vh 4vh rgba(0, 0, 0, 0.3);
-  transform: translateY(-0.5vh);
-  background-color: #6A0DAD;
+/* Styles supplémentaires pour l'état :hover et :active */
+.presetBtn:hover, .presetBtn:active {
+  box-shadow: 0 4vh 8vh rgba(0, 0, 0, 0.4); /* Ombre plus prononcée */
+  transform: translateY(-1vh); /* Déplacement plus visible */
+  background-color: #7B1FA2; /* Couleur de fond légèrement différente */
+}
+
+/* Style spécifique pour l'état actif */
+.presetBtn.active {
+  background-color: #9C27B0; /* Couleur de fond beaucoup plus différente pour l'état actif */
+  transform: scale(0.95); /* Réduction de la taille pour simuler un bouton enfoncé */
+  border: 0.2vh solid #000000;
 }
 
 /* Style pour le texte dans les boutons */
