@@ -1,19 +1,40 @@
+<!-- 
+  Titre: Contrôle Leenby
+  Description: Interface de paramétrage et de contrôle pour le robot Leenby.
+  Auteur: Nathan TASTET
+
+  Ce document HTML constitue la structure principale de l'interface utilisateur pour le contrôle du robot Leenby. 
+  Il inclut les boutons de sélection des bras, les sliders pour les moteurs des bras, une section d'information, ainsi que 
+  les boutons de contrôle prédéfinis pour différents mouvements de danse.
+  Il y a aussi un joystick pour les déplacements du robot.
+-->
+
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contrôle Leenby</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <!-- Inclusion des fichiers CSS -->
+    <link rel="stylesheet" href="css/left-section.css">
+    <link rel="stylesheet" href="css/right-section.css">
+    <link rel="stylesheet" href="css/general-styles.css">
 </head>
+
 <body>
+    <!-- Section de gauche pour le paramétrage -->
     <div id="left">
         <div id="title">Paramétrage Leenby</div>
+        <!-- Sélection des bras -->
         <div id="armSelectBar">
             <button class="armButton" id="brasGauche">Bras Gauche</button>
             <button class="armButton" id="brasDroit">Bras Droit</button>
             <button class="armButton" id="deuxBras">Deux Bras</button>
         </div>
+        <!-- Table des sliders pour les moteurs -->
         <table id="table-sliders">
+            <!-- En-têtes de table -->
             <tr>
                 <th>Nom du moteur</th>
                 <th>N°</th>
@@ -21,6 +42,7 @@
                 <th></th>
                 <th></th>
             </tr>
+            <!-- Boutons RAZ et Valider -->
             <tr>
                 <td><button id="reset_button">RAZ</button></td>
                 <td></td>
@@ -29,43 +51,95 @@
                 <td><button id="check_button">Valider</button></td>
             </tr>
         </table>
+        <div id="signature">
+            <img src="img/logo_iut.png">
+            <span class="right-text">
+                Réalisé avec ❤️ par :<br>
+                Nathan TASTET - Théo BAZIN - Daphné RODELET - Jean TSAGOURIA<br>
+            </span>
+        </div>        
     </div>
+
+    <!-- Section de droite : retour d'informations, mouvements prédéfinis et joystick-->
     <div id="right">
+        <!-- Retour d'infos serveur -->
         <div id="infoSection">
             <div id="infoTexte">Message reçu :</div>
         </div>
+
+        <!-- Boutons de mouvements prédéfinis-->
         <div id="presetSection">
-            <button class="presetBtn" id="macarena"><img class="btnIcon" src="img/macarena.svg" alt="Icon"><br><div class="btnText">Macarena</div></button>
-            <button class="presetBtn" id="clapclap"><img class="btnIcon" src="img/clapclap.svg" alt="Icon"><br><div class="btnText">Clap-Clap</div></button>
-            <button class="presetBtn" id="elizabeth"><img class="btnIcon" src="img/crown.svg" alt="Icon"><br><div class="btnText">Elisabeth II</div></button>
-            <button class="presetBtn" id="crabe"><img class="btnIcon" src="img/crabe.svg" alt="Icon"><br><div class="btnText">Crabe</div></button>
-            <button class="presetBtn" id="victoire"><img class="btnIcon" src="img/trophee.svg" alt="Icon"><br><div class="btnText">Victoire</div></button>
-            <button class="presetBtn" id="robot"><img class="btnIcon" src="img/robot.svg" alt="Icon"><br><div class="btnText">Robot</div></button>
-            <button class="presetBtn" id="beyblade"><img class="btnIcon" src="img/beyblade.svg" alt="Icon"><br><div class="btnText">Beyblade</div></button>
-            <button class="presetBtn" id="cesar"><img class="btnIcon" src="img/cesar.svg" alt="Icon"><br><div class="btnText">Ave Cesar</div></button>
+            <button class="presetBtn" id="macarena"><img class="btnIcon" src="img/macarena.svg"><br><span
+                    class="btnText">Macarena</span></button>
+            <button class="presetBtn" id="clapclap"><img class="btnIcon" src="img/clapclap.svg"><br><span
+                    class="btnText">Clap-Clap</span></button>
+            <button class="presetBtn" id="elizabeth"><img class="btnIcon" src="img/crown.svg"><br><span
+                    class="btnText">Elisabeth II</span></button>
+            <button class="presetBtn" id="crabe"><img class="btnIcon" src="img/crabe.svg"><br><span
+                    class="btnText">Crabe</span></button>
+            <button class="presetBtn" id="victoire"><img class="btnIcon" src="img/trophee.svg"><br><span
+                    class="btnText">Victoire</span></button>
+            <button class="presetBtn" id="robot"><img class="btnIcon" src="img/robot.svg"><br><span
+                    class="btnText">Robot</span></button>
+            <button class="presetBtn" id="beyblade"><img class="btnIcon" src="img/beyblade.svg"><br><span
+                    class="btnText">Beyblade</span></button>
+            <button class="presetBtn" id="cesar"><img class="btnIcon" src="img/cesar.svg"><br><span class="btnText">Ave
+                    Cesar</span></button>
         </div>
+
+        <!-- Joystick -->
         <div id="joystickSection">
-            <div id="coordinates">Joystick Leenby</div>
+            <!-- Affichage des coordonnées a gauche du joystick -->
+            <!-- Gauche du joystick -->
+            <div id="joystickLeftDisplay">
+                <div class="infoLabel">X:</div>
+                <div class="infoValue" id="joystickXValue">0.0</div>
+                <div class="infoLabel">Y:</div>
+                <div class="infoValue" id="joystickYValue">0.0</div>
+                <div class="infoLabel">Moteur gauche:</div>
+                <div class="infoValue" id="leftMotorValue">0</div>
+                <div class="infoLabel">Moteur droit:</div>
+                <div class="infoValue" id="rightMotorValue">0</div>
+            </div>
             <div id="joystickControls">
                 <div id="joystickControls2">
                     <div id="joystickBase">
-                        <div class="notch" style="transform: rotate(0deg);"><div class="notch-inner"></div></div>
-                        <div class="notch" style="transform: rotate(45deg);"><div class="notch-inner"></div></div>
-                        <div class="notch" style="transform: rotate(90deg);"><div class="notch-inner"></div></div>
-                        <div class="notch" style="transform: rotate(135deg);"><div class="notch-inner"></div></div>
-                        <div class="notch" style="transform: rotate(180deg);"><div class="notch-inner"></div></div>
-                        <div class="notch" style="transform: rotate(225deg);"><div class="notch-inner"></div></div>
-                        <div class="notch" style="transform: rotate(270deg);"><div class="notch-inner"></div></div>
-                        <div class="notch" style="transform: rotate(315deg);"><div class="notch-inner"></div></div>
-                        <div class="notch" style="transform: rotate(360deg);"><div class="notch-inner"></div></div>
+                        <div class="notch" style="transform: rotate(0deg);">
+                            <div class="notch-inner"></div>
+                        </div>
+                        <div class="notch" style="transform: rotate(45deg);">
+                            <div class="notch-inner"></div>
+                        </div>
+                        <div class="notch" style="transform: rotate(90deg);">
+                            <div class="notch-inner"></div>
+                        </div>
+                        <div class="notch" style="transform: rotate(135deg);">
+                            <div class="notch-inner"></div>
+                        </div>
+                        <div class="notch" style="transform: rotate(180deg);">
+                            <div class="notch-inner"></div>
+                        </div>
+                        <div class="notch" style="transform: rotate(225deg);">
+                            <div class="notch-inner"></div>
+                        </div>
+                        <div class="notch" style="transform: rotate(270deg);">
+                            <div class="notch-inner"></div>
+                        </div>
+                        <div class="notch" style="transform: rotate(315deg);">
+                            <div class="notch-inner"></div>
+                        </div>
+                        <div class="notch" style="transform: rotate(360deg);">
+                            <div class="notch-inner"></div>
+                        </div>
                         <div id="joystickHandle"></div>
-                    </div>    
+                    </div>
                 </div>
             </div>
-            <div id="name">Par Nathan TASTET - 2023</div>
         </div>
     </div>
+
     <!-- Scripts JavaScript -->
     <script type="module" src="js/main.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,170 @@
+/* 
+  left-section.css
+  Auteur: Nathan TASTET
+  Styles spécifiques à la section gauche de l'interface de contrôle Leenby.
+  Contient les styles pour les éléments de paramétrage des moteurs des bras du robot : sliders, boutons.
+*/
+
+/* Configuration principale de la section gauche */
+#left {
+  flex-basis: 60%;
+  background-color: #EAEDED;
+  box-shadow: 2vh 0 8vh rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+/* En-tête de la section gauche, y compris le titre */
+#title {
+  text-align: center;
+  margin: 1%;
+  font-size: 2vw; 
+}
+
+/* Barre de sélection des bras et styles des boutons */
+#armSelectBar {
+  display: flex;
+  justify-content: flex-start;
+  font-weight: bold;
+  margin-bottom: 2vh; /* Espacement après la barre de sélection */
+}
+
+.armButton {
+  cursor: pointer;
+  background-color: #99A3A4;
+  border-radius: 1vh;
+  padding: 1vh 2vh;
+  font-size: 2vh;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0.3vh 0.1vh rgba(0, 0, 0, 0.1);
+  margin-left: 1vh; /* Espacement entre les boutons */
+}
+
+/* Styles pour les boutons lorsqu'ils sont actifs ou en survol */
+.armButton.active {
+  background-color: #34495E;
+  color: #FFFFFF;
+}
+
+.armButton:hover {
+  background-color: #85929E;
+}
+
+/* Styles des boutons de réinitialisation et de validation */
+#reset_button, #check_button {
+  /* Styles communs aux boutons RAZ et Valider */
+  cursor: pointer;
+  border-radius: 1vh;
+  padding: 1vh 2vh;
+  font-size: 2vh;
+  margin-left: 1vh;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0.3vh 0.1vh rgba(0, 0, 0, 0.1);
+}
+
+#reset_button {
+  background-color: #FF4136;
+}
+
+#reset_button:hover {
+  background-color: #FF6347;
+}
+
+#check_button {
+  background-color: #2ECC40;
+}
+
+#check_button:hover {
+  background-color: #51f851;
+}
+
+/* Configuration des sliders pour le contrôle des angles des moteurs */
+.slider-container {
+  width: 100%;
+  padding: 2vh 1.5vh;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1.5vh;
+  border-radius: 1vh; /* Arrondir les bords */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  background-color: #56d8d8;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* Styles des inputs de type number pour l'affichage des angles */
+input[type="number"] {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: block;
+  margin: 0 auto; /* Centre l'élément horizontalement dans la cellule */
+}
+
+input[type="number"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Styles du tableau contenant les sliders */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 8px;
+  text-align: center; /* Centre le contenu horizontal dans la cellule */
+  vertical-align: middle; /* Centre le contenu vertical dans la cellule */
+}
+
+th {
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #ddd;
+}
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Styles des colonnes pour l'alignement et la largeur */
+.col1 { width: 14%; }
+.col2 { width: 3%; }
+.col3 { width: 10%; }
+.col4 { width: 53%; }
+.col5 { width: 15%; }
+
+
+#signature {
+  color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#signature img{
+  width: 10vw; /* Spécifiez la largeur souhaitée ici */
+  height: auto; /* Permet de conserver la proportion originale de l'image */
+  float: left;
+  margin-right: 10px; /* Espace entre l'image et le texte */
+}
+
+/* Style du texte à droite */
+.right-text {
+  display: inline-block;
+}

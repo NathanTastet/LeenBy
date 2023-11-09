@@ -130,7 +130,14 @@ export function afficherCoordonnees(x, y, maxDistance) {
         rightMotor = parseFloat(rightMotor).toFixed(1);
     }
     // Affichage
-    document.getElementById('coordinates').textContent = `X: ${Math.round(normalizedX * 100)}, Y: ${Math.round(normalizedY * 100)}, Angle: ${Math.round(angleDeg)}°, 
-    Moteur gauche :  ${leftMotor}, Moteur droit : ${rightMotor} `;
+    const joystickXValue = document.getElementById('joystickXValue');
+    const joystickYValue = document.getElementById('joystickYValue');
+    const leftMotorValue = document.getElementById('leftMotorValue');
+    const rightMotorValue = document.getElementById('rightMotorValue');
+
+    joystickXValue.textContent = x.toFixed(1); // Afficher la valeur de X
+    joystickYValue.textContent = y.toFixed(1); // Afficher la valeur de Y
+    leftMotorValue.textContent = leftMotor; // Afficher la valeur du moteur gauche
+    rightMotorValue.textContent = rightMotor; // Afficher la valeur du moteur droit
     updateMotorValues(leftMotor,rightMotor);
 }
