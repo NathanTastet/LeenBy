@@ -107,7 +107,7 @@
 #joystickLeftDisplay {
   flex-basis: 50%;
   display: grid;
-  grid-template-columns: 65% 35%;
+  grid-template-columns: 50% 50%;
   grid-gap: 7px;
   padding: 1.5vh;
   background-color: #ffffff;
