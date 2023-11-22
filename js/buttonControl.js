@@ -6,7 +6,7 @@
 // ---- IMPORTS ----
 import { motorInfo } from './motorInfo.js';
 import { updateSliderStyle } from './sliderControl.js';
-import { sendAnglesInfo } from './websocket.js';
+import { sendAnglesInfo, sendPresetCommand } from './websocket.js';
 
 // ---- FONCTIONS ----
 
