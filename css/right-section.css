@@ -5,11 +5,12 @@
   Inclut les styles pour l'affichage des informations, les boutons de mouvements prédéfinis et le joystick.
 */
 
-#right {
+#right, #right2 {
   flex-basis: 40%;
   background-color: #F4F6F7;
   box-shadow: -2vh 0 8vh rgba(0, 0, 0, 0.2);
   z-index: 1;
+  transition: opacity 0.5s ease;
 }
 
 /* Configuration des sections */

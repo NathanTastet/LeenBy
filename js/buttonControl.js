@@ -78,3 +78,44 @@ export function setupPresetButtons() {
       });
     });
   }
+
+
+  export function setup3DButton() {
+    const button = document.getElementById("vue3DButton");
+    const rightDiv = document.getElementById("right");
+    const right2Div = document.getElementById("right2");
+  
+    button.addEventListener("click", () => {
+      // Si rightDiv est visible, commencez la transition vers right2Div
+      if (getComputedStyle(rightDiv).opacity === "1") {
+        rightDiv.style.opacity = "0";
+        button.classList.add("active");
+  
+        setTimeout(() => {
+          rightDiv.style.display = "none";
+          right2Div.style.display = "block";
+          // Utilisez requestAnimationFrame pour s'assurer que la transition d'opacité démarre après que la div soit visible
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              right2Div.style.opacity = "1";
+            });
+          });
+        }, 500); // Ce délai doit correspondre à la durée de la transition CSS
+      } else {
+        right2Div.style.opacity = "0";
+        button.classList.remove("active");
+  
+        setTimeout(() => {
+          right2Div.style.display = "none";
+          rightDiv.style.display = "block";
+          // Utilisez requestAnimationFrame ici également
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              rightDiv.style.opacity = "1";
+            });
+          });
+        }, 500);
+      }
+    });
+  }
+  

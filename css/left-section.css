@@ -28,7 +28,7 @@
   margin-bottom: 2vh; /* Espacement après la barre de sélection */
 }
 
-.armButton {
+.armButton, #vue3DButton {
   cursor: pointer;
   background-color: #99A3A4;
   border-radius: 1vh;
@@ -47,6 +47,44 @@
 
 .armButton:hover {
   background-color: #85929E;
+}
+
+#vue3DButton{
+  position: absolute;
+  width : 8.5%;
+  max-width: 100px;
+  aspect-ratio: 1/1;
+  left : 50%;
+  background-color: #ECF0F1;
+  color : #333;
+  border-radius: 10px; 
+  transition: all 0.3s;
+  border: none;
+  align-items: center;
+}
+
+/* Styles pour les boutons lorsqu'ils sont actifs ou en survol */
+#vue3DButton.active {
+  background-color: #333;
+  color: #ECF0F1;
+}
+
+#vue3DButton:hover {
+  transform: scale(0.95);
+}
+
+#vue3DButton .btnText{
+  font-size: 110%;
+  font-weight: bold;
+  padding: 2px;
+}
+
+#vue3DButton .icon {
+  filter: brightness(0) saturate(100%) invert(10%); /* Ceci est une estimation pour transformer l'image en #333 */
+}
+
+#vue3DButton.active .icon {
+  filter: brightness(0) saturate(100%) invert(90%); /* Ceci est une estimation pour transformer l'image en #ECF0F1 */
 }
 
 /* Styles des boutons de réinitialisation et de validation */
