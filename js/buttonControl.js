@@ -29,17 +29,44 @@ export function setupArmSelection() {
 }
 
 
-// Remet à zéro tous les sliders et les angles.
 export function remiseazero() {
-    motorInfo.forEach(motor => {
-        let texte = document.getElementById(`angle-text${motor.id}`);
-        let slider = document.getElementById(`angle-slider${motor.id}`);
-        let angle = document.getElementById(`angle-number${motor.id}`);
-        texte.textContent = '0.0°';
-        slider.value = 0;
-        angle.value = 0;
-        updateSliderStyle(slider);
-    });
+  motorInfo.forEach(motor => {
+      let slider = document.getElementById(`angle-slider${motor.id}`);
+      let angle = document.getElementById(`angle-number${motor.id}`);
+      let texte = document.getElementById(`angle-text${motor.id}`);
+
+      // Animation
+      let currentVal = parseFloat(slider.value);
+      let interval = 5; // Interval en millisecondes pour la transition
+      let duration = 200; // Durée totale de l'animation en millisecondes
+      let step = Math.abs(currentVal) / (duration / interval); // Combien soustraire à chaque intervalle
+      if(currentVal>=0){
+        let animateSlider = setInterval(() => {
+            currentVal -= step;
+            if (currentVal <= 0) {
+                currentVal = 0;
+                clearInterval(animateSlider);
+            }
+            slider.value = currentVal;
+            angle.value = currentVal.toFixed(1);
+            texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
+            updateSliderStyle(slider); // Mettez à jour le style si nécessaire
+        }, interval);
+      }
+      else {
+        let animateSlider2 = setInterval(() => {
+            currentVal += step; // Incrémente la valeur puisqu'elle est négative
+            if (currentVal >= 0) {
+                currentVal = 0; // Assurez-vous de ne pas dépasser zéro
+                clearInterval(animateSlider2);
+            }
+            slider.value = currentVal;
+            angle.value = currentVal.toFixed(1);
+            texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
+            updateSliderStyle(slider); // Mettez à jour le style si nécessaire
+        }, interval);
+      }
+   });
 }
 
 
