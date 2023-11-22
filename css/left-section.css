@@ -13,20 +13,49 @@
   z-index: 2;
 }
 
-/* En-tête de la section gauche, y compris le titre */
 #title {
+  font-size: 2.5em;
   text-align: center;
-  margin: 1%;
-  font-size: 2vw; 
+  font-weight: bold;
+  color: #333;
+  padding-top: 0.2em;
+  padding-bottom : 0.2em;
+  margin: 0;
+  background-color: transparent;
+  letter-spacing: 0.05em;
 }
 
-/* Barre de sélection des bras et styles des boutons */
-#armSelectBar {
-  display: flex;
-  justify-content: flex-start;
-  font-weight: bold;
-  margin-bottom: 2vh; /* Espacement après la barre de sélection */
+
+
+/* Styles du tableau contenant les sliders */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
+
+th, td {
+  padding: 8px;
+  text-align: center; /* Centre le contenu horizontal dans la cellule */
+  vertical-align: middle; /* Centre le contenu vertical dans la cellule */
+}
+
+th {
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #ddd;
+}
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Styles des colonnes pour l'alignement et la largeur */
+.col1 { width: 14%; }
+.col2 { width: 3%; }
+.col3 { width: 10%; }
+.col4 { width: 51%; }
+.col5 { width: 17%; }
+
 
 .armButton, #vue3DButton {
   cursor: pointer;
@@ -50,37 +79,43 @@
 }
 
 #vue3DButton{
-  position: absolute;
-  width : 8.5%;
-  max-width: 100px;
-  aspect-ratio: 1/1;
-  left : 50%;
+  width: 90%;
+  height: 100%;
   background-color: #ECF0F1;
-  color : #333;
+  color: #333; 
+  border: 2px solid #333;
   border-radius: 10px; 
   transition: all 0.3s;
-  border: none;
+  display: flex; 
   align-items: center;
+  justify-content: center;
 }
 
-/* Styles pour les boutons lorsqu'ils sont actifs ou en survol */
+
+/* Styles pour le bouton lorsqu'ils est actif ou en survol */
 #vue3DButton.active {
   background-color: #333;
-  color: #ECF0F1;
+  color : #ECF0F1;
+  border: 2px solid #999;
 }
 
 #vue3DButton:hover {
   transform: scale(0.95);
 }
 
-#vue3DButton .btnText{
-  font-size: 110%;
-  font-weight: bold;
-  padding: 2px;
-}
 
 #vue3DButton .icon {
   filter: brightness(0) saturate(100%) invert(10%); /* Ceci est une estimation pour transformer l'image en #333 */
+  height: 5vh;
+  aspect-ratio: 1/1;
+  margin-right: 8px; /* Espace entre l'icône et le texte */
+}
+
+
+#vue3DButton .btnText{
+  font-size: 115%;
+  font-weight: bold;
+  padding: 2px;
 }
 
 #vue3DButton.active .icon {
@@ -157,36 +192,6 @@ input[type="number"]:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-
-/* Styles du tableau contenant les sliders */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-th, td {
-  padding: 8px;
-  text-align: center; /* Centre le contenu horizontal dans la cellule */
-  vertical-align: middle; /* Centre le contenu vertical dans la cellule */
-}
-
-th {
-  background-color: #f2f2f2;
-  border-bottom: 1px solid #ddd;
-}
-
-tr {
-  border-bottom: 1px solid #ddd;
-}
-
-/* Styles des colonnes pour l'alignement et la largeur */
-.col1 { width: 14%; }
-.col2 { width: 3%; }
-.col3 { width: 10%; }
-.col4 { width: 53%; }
-.col5 { width: 15%; }
-
 
 #signature {
   color: #333;

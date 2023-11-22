@@ -26,14 +26,6 @@
     <!-- Section de gauche pour le paramétrage -->
     <div id="left">
         <div id="title">Paramétrage Leenby</div>
-        <!-- Sélection des bras -->
-        <div id="armSelectBar">
-            <button class="armButton" id="brasGauche">Bras Gauche</button>
-            <button class="armButton" id="brasDroit">Bras Droit</button>
-            <button class="armButton" id="deuxBras">Deux Bras</button>
-            <button id="vue3DButton"><img class="icon" src="img/vue3d.svg"><br><span
-                class="btnText">Vue 3D</span></button>
-        </div>
         <!-- Table des sliders pour les moteurs -->
         <table id="table-sliders">
             <!-- En-têtes de table -->
@@ -41,8 +33,13 @@
                 <th>Nom du moteur</th>
                 <th>N°</th>
                 <th>Angle</th>
-                <th></th>
-                <th></th>
+                <th><!-- Sélection des bras -->
+                    <button class="armButton" id="brasGauche">Bras Gauche</button>
+                    <button class="armButton" id="brasDroit">Bras Droit</button>
+                    <button class="armButton" id="deuxBras">Deux Bras</button>
+                </th>
+                <th><button id="vue3DButton"><img class="icon" src="img/vue3d.svg"><br><span
+                    class="btnText">Vue 3D</span></button></th>
             </tr>
             <!-- Boutons RAZ et Valider -->
             <tr>
