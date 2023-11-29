@@ -24,7 +24,7 @@ body {
 }
 
 /* Configuration des colonnes gauche et droite */
-#left, #right, #right2 {
+#left, #right{
   display: flex;
   flex-direction: column;
   height: 100%;

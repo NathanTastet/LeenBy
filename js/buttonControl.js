@@ -7,6 +7,7 @@
 import { motorInfo } from './motorInfo.js';
 import { updateSliderStyle } from './sliderControl.js';
 import { sendAnglesInfo, sendPresetCommand } from './websocket.js';
+import { resize3d } from './vue3d.js';
 
 // ---- FONCTIONS ----
 
@@ -121,6 +122,7 @@ export function setupPresetButtons() {
         setTimeout(() => {
           rightDiv.style.display = "none";
           right2Div.style.display = "block";
+          resize3d();
           // Utilisez requestAnimationFrame pour s'assurer que la transition d'opacité démarre après que la div soit visible
           requestAnimationFrame(() => {
             requestAnimationFrame(() => {

@@ -6,6 +6,7 @@
 */
 
 #right, #right2 {
+  
   flex-basis: 40%;
   background-color: #F4F6F7;
   box-shadow: -2vh 0 8vh rgba(0, 0, 0, 0.2);
@@ -13,6 +14,17 @@
   transition: opacity 0.5s ease;
 }
 
+#right2{
+  height: 100%;
+  width: 40%;
+  border-radius: 2vh;
+  transition: all 0.3s ease;
+}
+
+#vue3d{
+  height: 100%;
+  width: 100%;
+}
 /* Configuration des sections */
 #infoSection, #presetSection, #joystickSection {
   flex-grow: 1;
@@ -89,6 +101,7 @@
 
 /* Style pour les icônes dans les boutons */
 .btnIcon {
+  margin-bottom: 10%;
   height: 60%; /* prend 60% de l'espace vertical du bouton */
   display: flex;
   align-items: center;
