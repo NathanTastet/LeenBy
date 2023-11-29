@@ -3,9 +3,14 @@
 // Par Nathan TASTET - 2023
 // on utilise la librairie three.js qui est importée depuis le html.
 
+// IMPORT 
+
+import * as THREE from '../lib/three.module.js';
+import { OBJLoader } from '../lib/OBJLoader.js'; // OBJETS
+
 // CONSTANTES
 
-const distance_cam = 5;
+const distance_cam = 100;
 
 // --- VARIABLES GLOBALES ---
 let container3d, camera3d, renderer3d;
@@ -28,17 +33,31 @@ export function setup3D(){
     renderer3d.setSize(container3d.clientWidth, container3d.clientHeight);
     container3d.appendChild(renderer3d.domElement);
 
-    // Créer un cube
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0xb900ff });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
-    // Créer les arêtes pour le cube
-    const edgeGeometry = new THREE.EdgesGeometry(geometry);
-    const edgeMaterial = new THREE.LineBasicMaterial({ color: 0xffffff }); // Choisissez la couleur souhaitée
-    const edges = new THREE.LineSegments(edgeGeometry, edgeMaterial);
-    cube.add(edges); 
+    // Charger le modèle 3d
+    const objLoader = new OBJLoader();
+    objLoader.load(
+        // chemin vers le fichier .obj
+        './model3d/torse.obj',
+        // appelé lorsque la ressource est chargée
+        function (object) {
+            object.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.material = new THREE.MeshBasicMaterial({ color: 0xb900ff });
+                }
+            });
+            scene.add(object);
+            object.position.set(0, 0, 0);
+            object.scale.set(1, 1, 1);
+        },
+        // appelé lorsque le téléchargement progresse
+        function (xhr) {
+            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        },
+        // appelé lorsque le chargement échoue
+        function (error) {
+            console.error('An error happened', error);
+        }
+    );
 
     // Ajouter l'écouteur d'événement pour les changements de taille
     window.addEventListener('resize', resize3d);
