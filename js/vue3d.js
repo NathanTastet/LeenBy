@@ -6,11 +6,11 @@
 // IMPORT 
 
 import * as THREE from '../lib/three.module.js';
-import { OBJLoader } from '../lib/OBJLoader.js'; // OBJETS
+import { FBXLoader } from '../lib/FBXLoader.js'; // OBJETS
 
 // CONSTANTES
 
-const distance_cam = 10;
+const distance_cam = 100;
 
 // --- VARIABLES GLOBALES ---
 let container3d, camera3d, renderer3d;
@@ -34,10 +34,10 @@ export function setup3D(){
     container3d.appendChild(renderer3d.domElement);
 
     // Charger le modèle 3d
-    const objLoader = new OBJLoader();
-    objLoader.load(
-        // chemin vers le fichier .obj
-        './model3d/robot.obj',
+    const fbxLoader = new FBXLoader();
+    fbxLoader.load(
+        // chemin vers le fichier .fbx
+        './model3d/robot.fbx',
         // appelé lorsque la ressource est chargée
         function (object) {
             object.traverse(function (child) {
