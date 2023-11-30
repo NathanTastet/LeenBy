@@ -99,7 +99,7 @@ export function setup3D(){
             x: e.offsetX || e.touches?.[0].pageX,
             y: e.offsetY || e.touches?.[0].pageY
         };
-
+    
         // Vérifier si la souris est toujours dans le conteneur
         if (currentPosition.x < 0 || currentPosition.x > container3d.clientWidth || 
         currentPosition.y < 0 || currentPosition.y > container3d.clientHeight) {
@@ -114,15 +114,10 @@ export function setup3D(){
     
         let rotationSpeed = 0.005;
         theta -= deltaMove.x * rotationSpeed;
-        phi -= deltaMove.y * rotationSpeed;
     
-        // Restreindre phi pour éviter des rotations étranges
-        phi = Math.min(Math.max(-Math.PI / 2, phi), Math.PI / 2);
-    
-        // Calculer les coordonnées sphériques
-        camera3d.position.x = distance_cam * Math.sin(theta) * Math.cos(phi);
-        camera3d.position.y = distance_cam * Math.sin(phi);
-        camera3d.position.z = distance_cam * Math.cos(theta) * Math.cos(phi);
+        // Calculer les coordonnées sphériques pour la rotation autour de l'axe Y
+        camera3d.position.x = distance_cam * Math.sin(theta);
+        camera3d.position.z = distance_cam * Math.cos(theta);
     
         // Faire pointer la caméra vers le cube
         camera3d.lookAt(scene.position);
