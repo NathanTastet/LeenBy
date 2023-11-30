@@ -10,7 +10,7 @@ import { OBJLoader } from '../lib/OBJLoader.js'; // OBJETS
 
 // CONSTANTES
 
-const distance_cam = 100;
+const distance_cam = 10;
 
 // --- VARIABLES GLOBALES ---
 let container3d, camera3d, renderer3d;
@@ -37,12 +37,12 @@ export function setup3D(){
     const objLoader = new OBJLoader();
     objLoader.load(
         // chemin vers le fichier .obj
-        './model3d/torse.obj',
+        './model3d/robot.obj',
         // appelé lorsque la ressource est chargée
         function (object) {
             object.traverse(function (child) {
                 if (child instanceof THREE.Mesh) {
-                    child.material = new THREE.MeshBasicMaterial({ color: 0xb900ff });
+                    child.material = new THREE.MeshBasicMaterial({ color: 0xffffff });
                 }
             });
             scene.add(object);
