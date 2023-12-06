@@ -50,7 +50,7 @@ export function remiseazero() {
         currentVal = parseFloat(slider.value);
         break;
         case 'deuxBras':
-        currentVal = 0; // REPARE MOI PLS
+        currentVal = 0; // REPARE MOI PLS, remet à zéro le tableau qui mémorise les left et les right
         break;
      }
       
