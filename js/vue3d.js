@@ -206,7 +206,7 @@ export function update3d(slider){
             }
         }
     });
-    
+
     os_abouger.forEach(boneName => {
         const bone = bones.find(b => b.name === boneName);
         if (bone) {
@@ -214,10 +214,20 @@ export function update3d(slider){
             const initialRotation = boneInitialRotations[boneName];
 
             if (initialRotation) {
+
+                let appliedAngle = angle;
+                // Inverser l'angle pour les os du côté droit dans le cas d'une rotation sur l'axe y
+                if (boneName.includes("Right") & motor.rotation_type == 'y') {
+                    appliedAngle *= -1;
+                }
+
+
                 // Appliquer la nouvelle rotation basée sur la référence initiale
-                bone.rotation[motor.rotation_type] = initialRotation[motor.rotation_type] + angle;
+                bone.rotation[motor.rotation_type] = initialRotation[motor.rotation_type] + appliedAngle;
             }
         }
     });
 
 }
+
+// amélioration possible: blocage corps humain
