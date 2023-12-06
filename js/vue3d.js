@@ -73,23 +73,9 @@ export function setup3D(){
         }
     );
 
-    // Ajouter le reste de la logique de mise à jour du mixer dans la boucle de rendu
-    const clock = new THREE.Clock();
-
-    // Noms des os des bras
-    const armBoneNames = ['mixamorigLeftForeArm', 'mixamorigHead', 'mixamorigRightForeArm'];
-
     // fonction récursive qui va s'appeller elle meme a chaque frame
     function animate() {
         requestAnimationFrame(animate);
-        const delta = clock.getDelta() * 5;
-        // Exemple de manipulation de chaque os
-        bones.forEach(bone => {
-            if (armBoneNames.includes(bone.name)) {
-                bone.rotation.y += delta; // Appliquer la rotation uniquement aux bras
-            }
-        });
-
         renderer3d.render(scene, camera3d);
     }
 
