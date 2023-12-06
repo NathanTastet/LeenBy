@@ -7,7 +7,7 @@
 import { motorInfo } from './motorInfo.js';
 import { updateSliderStyle } from './sliderControl.js';
 import { sendAnglesInfo, sendPresetCommand } from './websocket.js';
-import { resize3d } from './vue3d.js';
+import { resize3d, update3d } from './vue3d.js';
 
 // ---- FONCTIONS ----
 
@@ -21,6 +21,8 @@ export function setupControlButtons() {
 // Configure la sélection des bras (gauche, droit, les deux).
 export function setupArmSelection() {
     const armButtons = document.querySelectorAll(".armButton");
+    const deuxbras = document.getElementById("deuxBras");
+    deuxbras.classList.add("active");
     armButtons.forEach(button => {
         button.addEventListener("click", () => {
             armButtons.forEach(innerButton => innerButton.classList.remove("active"));
@@ -51,6 +53,7 @@ export function remiseazero() {
             slider.value = currentVal;
             angle.value = currentVal.toFixed(1);
             texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
+            update3d(slider);
             updateSliderStyle(slider); // Mettez à jour le style si nécessaire
         }, interval);
       }
@@ -64,6 +67,7 @@ export function remiseazero() {
             slider.value = currentVal;
             angle.value = currentVal.toFixed(1);
             texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
+            update3d(slider);
             updateSliderStyle(slider); // Mettez à jour le style si nécessaire
         }, interval);
       }

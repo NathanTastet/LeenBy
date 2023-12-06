@@ -5,6 +5,7 @@
 
 // ---- VARIABLES ----
 import { motorInfo } from './motorInfo.js';
+import { update3d } from './vue3d.js';
 
 
 // ---- FONCTIONS ----
@@ -77,6 +78,7 @@ export function setupSliderEventListeners(motor) {
     angle.addEventListener("input", () => {
         adjustSliderValue(angle, slider);
         texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
+        update3d(slider);
         updateSliderStyle(slider);
     });
 }
@@ -135,6 +137,7 @@ export function updateSliderAndAngle(slider, angle, clientX) {
       slider.value = value.toFixed(1);
       angle.value = value.toFixed(1);
     }
+    update3d(slider);
     updateSliderStyle(slider);
     return slider.value;
 }

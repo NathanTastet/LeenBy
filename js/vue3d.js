@@ -7,6 +7,7 @@
 
 import * as THREE from '../lib/three.module.js';
 import { FBXLoader } from '../lib/FBXLoader.js'; // OBJETS
+import { motorInfo } from './motorInfo.js';
 
 // CONSTANTES
 
@@ -14,6 +15,8 @@ const distance_cam = 100;
 
 // --- VARIABLES GLOBALES ---
 let container3d, camera3d, renderer3d;
+let bones = []; // tableau des os du modèle 3d
+let boneInitialRotations = {}; // tableau des angles initaux
 // --- FONCTION ---
 
 // fonction permettant d'initialiser la vue 3d
@@ -36,7 +39,6 @@ export function setup3D(){
     // Charger le modèle 3D
     const fbxLoader = new FBXLoader();
     let mixer; // Déclarer le mixer en dehors de la fonction de chargement
-    let bones = []; // tableau des os du modèle 3d
 
     fbxLoader.load(
         './model3d/robot.fbx', // chemin vers le fichier .fbx
@@ -48,6 +50,11 @@ export function setup3D(){
                 // détection des os
                 if (child.isBone) {
                 bones.push(child); // Ajouter l'os au tableau
+                boneInitialRotations[child.name] = {
+                    x: child.rotation.x,
+                    y: child.rotation.y,
+                    z: child.rotation.z
+                };
                 }
             });
 
@@ -163,4 +170,54 @@ export function resize3d() {
 
     // Mettre à jour le rendu
     renderer3d.setSize(width, height);
+}
+
+
+// fonction pour mettre à jour le modèle 3d quand on bouge un slider
+
+export function update3d(slider){
+    // déterminer à quel moteur le slider correspond sur MoteurInfo
+    const motorId = parseInt(slider.id.replace('angle-slider', '')); // on enleve angle-slider au nom du slider ce qui laisse que l'id.
+    // trouver le moteur correspondant dans motorInfo
+    const motor = motorInfo.find(m => m.id === motorId);
+    if (!motor) return; // Sortir si le moteur n'est pas trouvé
+    // Récupérer l'angle du slider
+    const angle = THREE.MathUtils.degToRad(slider.value); // Convertir les degrés en radians
+
+    // Déterminer quel os bouger
+    // faut qu'il regarde l'état du sélecteur de bras
+    const armButtons = document.querySelectorAll(".armButton");
+    const os_abouger = [];
+
+    armButtons.forEach(button => {
+        if(button.classList.contains("active")){
+            // faut que je prenne l'id du bouton, ensuite on regarde quel bras c'était
+            switch(button.id){
+                case 'brasGauche' : 
+                os_abouger.push(motor.leftBone);
+                break;
+                case 'brasDroit' : 
+                os_abouger.push(motor.rightBone);
+                break;
+                case 'deuxBras':
+                os_abouger.push(motor.leftBone);
+                os_abouger.push(motor.rightBone);
+                break;
+            }
+        }
+    });
+    
+    os_abouger.forEach(boneName => {
+        const bone = bones.find(b => b.name === boneName);
+        if (bone) {
+            // Récupérer la rotation initiale
+            const initialRotation = boneInitialRotations[boneName];
+
+            if (initialRotation) {
+                // Appliquer la nouvelle rotation basée sur la référence initiale
+                bone.rotation[motor.rotation_type] = initialRotation[motor.rotation_type] + angle;
+            }
+        }
+    });
+
 }

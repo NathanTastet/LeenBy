@@ -11,5 +11,5 @@ export const motorInfo = [
   { id: 4, name: 'Pliage coude', minAngle: -159.6, maxAngle: 159.6, leftBone: 'mixamorigLeftForeArm', rightBone: 'mixamorigRightForeArm' , rotation_type: 'x' },
   { id: 5, name: 'Rotation main', minAngle: -159.8, maxAngle: 159.8, leftBone: 'mixamorigLeftHand', rightBone: 'mixamorigRightHand' , rotation_type: 'x'},
   { id: 6, name: 'Pliage main', minAngle: -159.8, maxAngle: 159.8, leftBone: 'mixamorigLeftHand', rightBone: 'mixamorigRightHand' , rotation_type: 'y' },
-  { id: 7, name: 'Pliage Pouce', minAngle: -159.8, maxAngle: 159.8, leftBone: 'mixamorigRightHandIndex1', rightBone: 'mixamorigRightHandIndex1' , rotation_type: 'x' }
+  { id: 7, name: 'Pliage Pouce', minAngle: -159.8, maxAngle: 159.8, leftBone: 'mixamorigLeftHandIndex1', rightBone: 'mixamorigRightHandIndex1' , rotation_type: 'x' }
 ];
