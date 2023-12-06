@@ -33,31 +33,61 @@ export function setup3D(){
     renderer3d.setSize(container3d.clientWidth, container3d.clientHeight);
     container3d.appendChild(renderer3d.domElement);
 
-    // Charger le modèle 3d
+    // Charger le modèle 3D
     const fbxLoader = new FBXLoader();
+    let mixer; // Déclarer le mixer en dehors de la fonction de chargement
+    let bones = []; // tableau des os du modèle 3d
+
     fbxLoader.load(
-        // chemin vers le fichier .fbx
-        './model3d/robot.fbx',
-        // appelé lorsque la ressource est chargée
-        function (object) {
-            object.traverse(function (child) {
+        './model3d/robot.fbx', // chemin vers le fichier .fbx
+        function (fbx) { // appelé lorsque la ressource est chargée
+            fbx.traverse(function (child) {
                 if (child instanceof THREE.Mesh) {
                     child.material = new THREE.MeshBasicMaterial({ color: 0xffffff });
                 }
+                // détection des os
+                if (child.isBone) {
+                bones.push(child); // Ajouter l'os au tableau
+                console.log(child.name); // Imprimer le nom de l'os sur la console
+                }
             });
-            scene.add(object);
-            object.position.set(0, 0, 0);
-            object.scale.set(1, 1, 1);
+
+            // Créer et ajouter le squelette
+            const skeleton = new THREE.SkeletonHelper(fbx);
+            scene.add(skeleton);
+
+            // Configurer le mixer et les animations
+            mixer = new THREE.AnimationMixer(fbx);
+            if (fbx.animations && fbx.animations.length > 0) {
+                const action = mixer.clipAction(fbx.animations[0]);
+                action.play();
+            }
+
+            scene.add(fbx);
+
         },
-        // appelé lorsque le téléchargement progresse
-        function (xhr) {
+        function (xhr) { // appelé lorsque le téléchargement progresse
             console.log((xhr.loaded / xhr.total * 100) + '% loaded');
         },
-        // appelé lorsque le chargement échoue
-        function (error) {
+        function (error) { // appelé lorsque le chargement échoue
             console.error('An error happened', error);
         }
     );
+
+    // Ajouter le reste de la logique de mise à jour du mixer dans la boucle de rendu
+    const clock = new THREE.Clock();
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Exemple de manipulation de chaque os
+        bones.forEach(bone => {
+            const delta = clock.getDelta();
+            bone.rotation.y += delta; // Modifier cette ligne pour manipuler la rotation
+        });
+
+        renderer.render(scene, camera);
+    }
+
 
     // Ajouter l'écouteur d'événement pour les changements de taille
     window.addEventListener('resize', resize3d);

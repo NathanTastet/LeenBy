@@ -127,7 +127,7 @@ export function afficherCoordonnees(x, y, maxDistance) {
         leftMotor = Math.max(-1, Math.min(1, leftMotor)) * 100;
         rightMotor = Math.max(-1, Math.min(1, rightMotor)) * 100;
         leftMotor = parseFloat(leftMotor).toFixed(1);
-        rightMotor = parseFloat(rightMotor).toFixed(1);
+        rightMotor = - parseFloat(rightMotor).toFixed(1);
     }
     // Affichage
     const joystickXValue = document.getElementById('joystickXValue');
