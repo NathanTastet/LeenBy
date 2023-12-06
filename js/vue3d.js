@@ -176,10 +176,8 @@ export function resize3d() {
 // fonction pour mettre à jour le modèle 3d quand on bouge un slider
 
 export function update3d(slider){
-    // déterminer à quel moteur le slider correspond sur MoteurInfo
-    const motorId = parseInt(slider.id.replace('angle-slider', '')); // on enleve angle-slider au nom du slider ce qui laisse que l'id.
     // trouver le moteur correspondant dans motorInfo
-    const motor = motorInfo.find(m => m.id === motorId);
+    const motor = motorInfo.find(m => m.id === parseInt(slider.dataset.motorId));
     if (!motor) return; // Sortir si le moteur n'est pas trouvé
     // Récupérer l'angle du slider
     const angle = THREE.MathUtils.degToRad(slider.value); // Convertir les degrés en radians

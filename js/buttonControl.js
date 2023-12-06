@@ -5,7 +5,7 @@
 
 // ---- IMPORTS ----
 import { motorInfo } from './motorInfo.js';
-import { updateSliderStyle } from './sliderControl.js';
+import { updateSliderStyle, changerBras} from './sliderControl.js';
 import { sendAnglesInfo, sendPresetCommand } from './websocket.js';
 import { resize3d, update3d } from './vue3d.js';
 
@@ -27,20 +27,33 @@ export function setupArmSelection() {
         button.addEventListener("click", () => {
             armButtons.forEach(innerButton => innerButton.classList.remove("active"));
             button.classList.add("active");
-            // ici il faudrait que je change les valeurs de sliders pour chaque bras
+            changerBras(button);
         });
     });
 }
 
 
 export function remiseazero() {
+  
   motorInfo.forEach(motor => {
+  
       let slider = document.getElementById(`angle-slider${motor.id}`);
       let angle = document.getElementById(`angle-number${motor.id}`);
       let texte = document.getElementById(`angle-text${motor.id}`);
 
+      let currentVal;
+
       // Animation
-      let currentVal = parseFloat(slider.value);
+      switch(document.querySelector('.armButton.active').id){
+        case 'brasGauche' : 
+        case 'brasDroit' : 
+        currentVal = parseFloat(slider.value);
+        break;
+        case 'deuxBras':
+        currentVal = 0; // REPARE MOI PLS
+        break;
+     }
+      
       let interval = 5; // Interval en millisecondes pour la transition
       let duration = 200; // Durée totale de l'animation en millisecondes
       let step = Math.abs(currentVal) / (duration / interval); // Combien soustraire à chaque intervalle
@@ -73,6 +86,8 @@ export function remiseazero() {
         }, interval);
       }
    });
+
+   // il faut juste faire ensuite en sorte que le bon tableau se réinitialise en fonction du bras choisi
 }
 
 

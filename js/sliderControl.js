@@ -7,8 +7,8 @@
 import { motorInfo } from './motorInfo.js';
 import { update3d } from './vue3d.js';
 
-let sliderValuesLeft = {};
-let sliderValuesRight = {};
+export let sliderValuesLeft = {};
+export let sliderValuesRight = {};
 
 // ---- FONCTIONS ----
 
@@ -48,7 +48,8 @@ function addMotorRowToTable(table, motor) {
 
     // Colonne pour le curseur de l'angle
     const sliderCell = row.insertCell(3);
-    sliderCell.innerHTML = `<input type="range" id="angle-slider${motor.id}" min="${motor.minAngle}" max="${motor.maxAngle}" value="0" step="0.1">`;
+    sliderCell.innerHTML = `<input type="range" id="angle-slider${motor.id}" data-motor-id="${motor.id}" min="${motor.minAngle}" max="${motor.maxAngle}"
+    value="0" step="0.1">`;
     sliderCell.classList.add('col4');
 
     // Colonne pour le numéro de l'angle
@@ -141,11 +142,27 @@ export function updateSliderAndAngle(slider, angle, clientX) {
       slider.value = value.toFixed(1);
       angle.value = value.toFixed(1);
     }
-    // ici il faut modifier le tableau des valeurs gauche et droit en fonction du bras choisi
-    const selectedArm = document.querySelector('.armButton.active').id;
-    switch(selectedArm){
-        // a faire
+
+    //on retrouve le numéro de moteur stocké dans le dataset du slider
+    const motorId = parseInt(slider.dataset.motorId);
+
+    // mémorisation des valeurs dans un tableau pour que lorsqu'on change de bras les valeurs soient conservées
+    switch(document.querySelector('.armButton.active').id){
+        case 'brasGauche' : 
+            sliderValuesLeft[motorId] = slider.value;
+        break;
+        case 'brasDroit' : 
+            sliderValuesRight[motorId] = slider.value;
+        break;
+        case 'deuxBras':
+            sliderValuesLeft[motorId] = slider.value;
+            sliderValuesRight[motorId] = slider.value;
+        break;
     }
+
+    console.log(sliderValuesLeft);
+    console.log(sliderValuesRight);
+
 
     update3d(slider);
     updateSliderStyle(slider);
@@ -166,4 +183,31 @@ function adjustSliderValue(angle, slider) {
         slider.value = max;
         angle.value = max;
     }
+}
+
+export function changerBras(button) {
+    motorInfo.forEach(motor => {
+        const slider = document.getElementById(`angle-slider${motor.id}`);
+        const angleNumber = document.getElementById(`angle-number${motor.id}`);
+        const angleText = document.getElementById(`angle-text${motor.id}`);
+
+        let newValue;
+        switch (button.id) {
+            case 'brasGauche':
+                newValue = parseFloat(sliderValuesLeft[motor.id]);
+                break;
+            case 'brasDroit':
+                newValue = parseFloat(sliderValuesRight[motor.id]);
+                break;
+            case 'deuxBras':
+                newValue = 0; // Réinitialiser à 0 pour les deux bras
+                break;
+        }
+
+        // Mettre à jour les sliders et leurs valeurs associées
+        slider.value = newValue;
+        angleNumber.value = newValue;
+        angleText.textContent = `${newValue.toFixed(1)}°`;
+        updateSliderStyle(slider);
+    });
 }
