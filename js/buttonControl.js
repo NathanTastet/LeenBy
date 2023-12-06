@@ -27,6 +27,7 @@ export function setupArmSelection() {
         button.addEventListener("click", () => {
             armButtons.forEach(innerButton => innerButton.classList.remove("active"));
             button.classList.add("active");
+            // ici il faudrait que je change les valeurs de sliders pour chaque bras
         });
     });
 }

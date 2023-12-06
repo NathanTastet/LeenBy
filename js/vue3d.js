@@ -186,26 +186,21 @@ export function update3d(slider){
 
     // Déterminer quel os bouger
     // faut qu'il regarde l'état du sélecteur de bras
-    const armButtons = document.querySelectorAll(".armButton");
+
     const os_abouger = [];
 
-    armButtons.forEach(button => {
-        if(button.classList.contains("active")){
-            // faut que je prenne l'id du bouton, ensuite on regarde quel bras c'était
-            switch(button.id){
-                case 'brasGauche' : 
-                os_abouger.push(motor.leftBone);
-                break;
-                case 'brasDroit' : 
-                os_abouger.push(motor.rightBone);
-                break;
-                case 'deuxBras':
-                os_abouger.push(motor.leftBone);
-                os_abouger.push(motor.rightBone);
-                break;
-            }
-        }
-    });
+    switch(document.querySelector('.armButton.active').id){
+        case 'brasGauche' : 
+        os_abouger.push(motor.leftBone);
+        break;
+        case 'brasDroit' : 
+        os_abouger.push(motor.rightBone);
+        break;
+        case 'deuxBras':
+        os_abouger.push(motor.leftBone);
+        os_abouger.push(motor.rightBone);
+        break;
+    }
 
     os_abouger.forEach(boneName => {
         const bone = bones.find(b => b.name === boneName);

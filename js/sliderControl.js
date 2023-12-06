@@ -7,6 +7,8 @@
 import { motorInfo } from './motorInfo.js';
 import { update3d } from './vue3d.js';
 
+let sliderValuesLeft = {};
+let sliderValuesRight = {};
 
 // ---- FONCTIONS ----
 
@@ -18,6 +20,8 @@ export function setupMotorSliders() {
     }
     motorInfo.forEach(motor => {
         addMotorRowToTable(table, motor);
+        sliderValuesLeft[motor.id] = 0; // Valeur par défaut pour le bras gauche
+        sliderValuesRight[motor.id] = 0; // Valeur par défaut pour le bras droit
     });
 }
 
@@ -137,6 +141,12 @@ export function updateSliderAndAngle(slider, angle, clientX) {
       slider.value = value.toFixed(1);
       angle.value = value.toFixed(1);
     }
+    // ici il faut modifier le tableau des valeurs gauche et droit en fonction du bras choisi
+    const selectedArm = document.querySelector('.armButton.active').id;
+    switch(selectedArm){
+        // a faire
+    }
+
     update3d(slider);
     updateSliderStyle(slider);
     return slider.value;
@@ -157,4 +167,3 @@ function adjustSliderValue(angle, slider) {
         angle.value = max;
     }
 }
-//aaa
