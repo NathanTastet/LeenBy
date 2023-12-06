@@ -48,7 +48,6 @@ export function setup3D(){
                 // détection des os
                 if (child.isBone) {
                 bones.push(child); // Ajouter l'os au tableau
-                console.log(child.name); // Imprimer le nom de l'os sur la console
                 }
             });
 
@@ -76,27 +75,29 @@ export function setup3D(){
 
     // Ajouter le reste de la logique de mise à jour du mixer dans la boucle de rendu
     const clock = new THREE.Clock();
+
+    // Noms des os des bras
+    const armBoneNames = ['mixamorigLeftForeArm', 'mixamorigHead', 'mixamorigRightForeArm'];
+
+    // fonction récursive qui va s'appeller elle meme a chaque frame
     function animate() {
         requestAnimationFrame(animate);
-
+        const delta = clock.getDelta() * 5;
         // Exemple de manipulation de chaque os
         bones.forEach(bone => {
-            const delta = clock.getDelta();
-            bone.rotation.y += delta; // Modifier cette ligne pour manipuler la rotation
+            if (armBoneNames.includes(bone.name)) {
+                bone.rotation.y += delta; // Appliquer la rotation uniquement aux bras
+            }
         });
 
-        renderer.render(scene, camera);
+        renderer3d.render(scene, camera3d);
     }
 
 
     // Ajouter l'écouteur d'événement pour les changements de taille
     window.addEventListener('resize', resize3d);
 
-    // Fonction de rendu récursive qui va s'appeller elle meme a chaque frame
-    function animate() {
-        requestAnimationFrame(animate);
-        renderer3d.render(scene, camera3d);
-    }
+    
 
     // Appeler la fonction de rendu
     animate();
@@ -104,7 +105,6 @@ export function setup3D(){
     let isDragging3d = false;
     let previousMousePosition = { x: 0, y: 0 };
     let theta = 0; // Angle autour de l'axe Y
-    let phi = 0; // Angle autour de l'axe X
     
     function startGrab(e) {
         isDragging3d = true;
