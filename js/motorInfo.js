@@ -25,7 +25,7 @@ export const motorInfo = [
   },
   {
     "id": 3,
-    "name": "Rotation avant bras",
+    "name": "Rotation Avant-Bras",
     "minAngle": -159.6,
     "maxAngle": 159.6,
     "leftBone": "mixamorigLeftForeArm",
@@ -34,7 +34,7 @@ export const motorInfo = [
   },
   {
     "id": 4,
-    "name": "Pliage coude",
+    "name": "Pliage Coude",
     "minAngle": -159.6,
     "maxAngle": 159.6,
     "leftBone": "mixamorigLeftForeArm",
@@ -43,7 +43,7 @@ export const motorInfo = [
   },
   {
     "id": 5,
-    "name": "Rotation main",
+    "name": "Rotation Main",
     "minAngle": -159.8,
     "maxAngle": 159.8,
     "leftBone": "mixamorigLeftHand",
@@ -52,7 +52,7 @@ export const motorInfo = [
   },
   {
     "id": 6,
-    "name": "Pliage main",
+    "name": "Pliage Main",
     "minAngle": -159.8,
     "maxAngle": 159.8,
     "leftBone": "mixamorigLeftHand",

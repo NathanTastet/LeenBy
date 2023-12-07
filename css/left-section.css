@@ -50,10 +50,10 @@ tr {
 }
 
 /* Styles des colonnes pour l'alignement et la largeur */
-.col1 { width: 14%; }
-.col2 { width: 3%; }
+.col1 { width: 12%; }
+.col2 { width: 10%; }
 .col3 { width: 10%; }
-.col4 { width: 51%; }
+.col4 { width: 50%; }
 .col5 { width: 17%; }
 
 

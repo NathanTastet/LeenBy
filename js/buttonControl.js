@@ -5,9 +5,13 @@
 
 // ---- IMPORTS ----
 import { motorInfo } from './motorInfo.js';
-import { updateSliderStyle, changerBras} from './sliderControl.js';
+import { updateSliderStyle, changerBras, adjustText} from './sliderControl.js';
 import { sendAnglesInfo, sendPresetCommand } from './websocket.js';
 import { resize3d, update3d } from './vue3d.js';
+
+// ---- VARIABLE ----
+
+export let modeBras;
 
 // ---- FONCTIONS ----
 
@@ -23,11 +27,13 @@ export function setupArmSelection() {
     const armButtons = document.querySelectorAll(".armButton");
     const deuxbras = document.getElementById("deuxBras");
     deuxbras.classList.add("active");
+    modeBras = deuxbras.id;
     armButtons.forEach(button => {
         button.addEventListener("click", () => {
             armButtons.forEach(innerButton => innerButton.classList.remove("active"));
             button.classList.add("active");
-            changerBras(button);
+            modeBras = button.id;
+            changerBras();
         });
     });
 }
@@ -39,20 +45,11 @@ export function remiseazero() {
   
       let slider = document.getElementById(`angle-slider${motor.id}`);
       let angle = document.getElementById(`angle-number${motor.id}`);
-      let texte = document.getElementById(`angle-text${motor.id}`);
+      let texte_gauche = document.getElementById(`angle-text-left${motor.id}`);
+      let texte_droite = document.getElementById(`angle-text-right${motor.id}`);
 
       let currentVal;
-
-      // Animation
-      switch(document.querySelector('.armButton.active').id){
-        case 'brasGauche' : 
-        case 'brasDroit' : 
-        currentVal = parseFloat(slider.value);
-        break;
-        case 'deuxBras':
-        currentVal = 0; // REPARE MOI PLS, remet à zéro le tableau qui mémorise les left et les right
-        break;
-     }
+      currentVal = parseFloat(slider.value);
       
       let interval = 5; // Interval en millisecondes pour la transition
       let duration = 200; // Durée totale de l'animation en millisecondes
@@ -66,7 +63,7 @@ export function remiseazero() {
             }
             slider.value = currentVal;
             angle.value = currentVal.toFixed(1);
-            texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
+            adjustText(slider,texte_gauche, texte_droite);
             update3d(slider);
             updateSliderStyle(slider); // Mettez à jour le style si nécessaire
         }, interval);
@@ -80,7 +77,7 @@ export function remiseazero() {
             }
             slider.value = currentVal;
             angle.value = currentVal.toFixed(1);
-            texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
+            adjustText(slider,texte_gauche, texte_droite);
             update3d(slider);
             updateSliderStyle(slider); // Mettez à jour le style si nécessaire
         }, interval);

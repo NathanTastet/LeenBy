@@ -8,6 +8,7 @@
 import * as THREE from '../lib/three.module.js';
 import { FBXLoader } from '../lib/FBXLoader.js'; // OBJETS
 import { motorInfo } from './motorInfo.js';
+import { modeBras } from './buttonControl.js';
 
 // CONSTANTES
 
@@ -187,7 +188,7 @@ export function update3d(slider){
 
     const os_abouger = [];
 
-    switch(document.querySelector('.armButton.active').id){
+    switch(modeBras){
         case 'brasGauche' : 
         os_abouger.push(motor.leftBone);
         break;

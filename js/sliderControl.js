@@ -4,6 +4,7 @@
 
 
 // ---- VARIABLES ----
+import { modeBras } from './buttonControl.js';
 import { motorInfo } from './motorInfo.js';
 import { update3d } from './vue3d.js';
 
@@ -38,12 +39,12 @@ function addMotorRowToTable(table, motor) {
 
     // Colonne de l'id de l'angle
     const idCell = row.insertCell(1);
-    idCell.textContent = `${motor.id}`;
+    idCell.innerHTML = `<div id="angle-text-left${motor.id}">0.0°</div>`;
     idCell.classList.add('col2');
 
     // Colonne pour le texte de l'angle
     const textCell = row.insertCell(2);
-    textCell.innerHTML = `<div id="angle-text${motor.id}">0.0°</div>`;
+    textCell.innerHTML = `<div id="angle-text-right${motor.id}">0.0°</div>`;
     textCell.classList.add('col3');
 
     // Colonne pour le curseur de l'angle
@@ -66,15 +67,16 @@ function addMotorRowToTable(table, motor) {
 export function setupSliderEventListeners(motor) {
     const slider = document.getElementById(`angle-slider${motor.id}`);
     const angle = document.getElementById(`angle-number${motor.id}`);
-    const texte = document.getElementById(`angle-text${motor.id}`);
+    const texte_gauche = document.getElementById(`angle-text-left${motor.id}`);
+    const texte_droite = document.getElementById(`angle-text-right${motor.id}`);
 
     slider.dataset.isDragging = 0;
 
-    slider.addEventListener("mousedown", (e) => startDragSlider(e, slider, angle, texte));
-    slider.addEventListener("touchstart", (e) => startDragSlider(e, slider, angle, texte));
+    slider.addEventListener("mousedown", (e) => startDragSlider(e, slider, angle, texte_gauche, texte_droite));
+    slider.addEventListener("touchstart", (e) => startDragSlider(e, slider, angle, texte_gauche, texte_droite));
 
-    slider.addEventListener("mousemove", (e) => moveDragSlider(e, slider, angle, texte));
-    slider.addEventListener("touchmove", (e) => moveDragSlider(e, slider, angle, texte));
+    slider.addEventListener("mousemove", (e) => moveDragSlider(e, slider, angle, texte_gauche, texte_droite));
+    slider.addEventListener("touchmove", (e) => moveDragSlider(e, slider, angle, texte_gauche, texte_droite));
 
     slider.addEventListener("mouseup", () => stopDragSlider(slider));
     slider.addEventListener("mouseleave", () => stopDragSlider(slider));
@@ -82,25 +84,29 @@ export function setupSliderEventListeners(motor) {
 
     angle.addEventListener("input", () => {
         adjustSliderValue(angle, slider);
-        texte.textContent = `${parseFloat(slider.value).toFixed(1)}°`;
+        adjustText(slider,texte_gauche, texte_droite);
         update3d(slider);
         updateSliderStyle(slider);
     });
 }
 
+
+
 // Démarre le glissement du slider.
-function startDragSlider(e, slider, angle, texte) {
+function startDragSlider(e, slider, angle, texte_gauche, texte_droite) {
     slider.dataset.isDragging = 1;
     let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, clientX)).toFixed(1)}°`;
+    updateSliderAndAngle(slider, angle, clientX);
+    adjustText(slider,texte_gauche, texte_droite);
 }
 
 
 // Déplace le slider lors du glissement.
-function moveDragSlider(e, slider, angle, texte) {
+function moveDragSlider(e, slider, angle, texte_gauche, texte_droite) {
     if (slider.dataset.isDragging == 1) {
         let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        texte.textContent = `${parseFloat(updateSliderAndAngle(slider, angle, clientX)).toFixed(1)}°`;
+        updateSliderAndAngle(slider, angle, clientX, texte_gauche, texte_droite);
+        adjustText(slider,texte_gauche, texte_droite);
     }
 }
 
@@ -143,31 +149,11 @@ export function updateSliderAndAngle(slider, angle, clientX) {
       angle.value = value.toFixed(1);
     }
 
-    //on retrouve le numéro de moteur stocké dans le dataset du slider
-    const motorId = parseInt(slider.dataset.motorId);
-
-    // mémorisation des valeurs dans un tableau pour que lorsqu'on change de bras les valeurs soient conservées
-    switch(document.querySelector('.armButton.active').id){
-        case 'brasGauche' : 
-            sliderValuesLeft[motorId] = slider.value;
-        break;
-        case 'brasDroit' : 
-            sliderValuesRight[motorId] = slider.value;
-        break;
-        case 'deuxBras':
-            sliderValuesLeft[motorId] = slider.value;
-            sliderValuesRight[motorId] = slider.value;
-        break;
-    }
-
-    console.log(sliderValuesLeft);
-    console.log(sliderValuesRight);
-
-
     update3d(slider);
     updateSliderStyle(slider);
-    return slider.value;
+
 }
+
 
 
 // Ajuste la valeur du slider en fonction des entrées de l'angle.
@@ -185,14 +171,38 @@ function adjustSliderValue(angle, slider) {
     }
 }
 
-export function changerBras(button) {
+// fonction qui met a jour les textes de l'angle d'un slider
+export function adjustText(slider, texte_gauche, texte_droite) {
+
+    let motorId = parseInt(slider.dataset.motorId);
+
+    switch (modeBras) {
+        case 'brasGauche':
+            sliderValuesLeft[motorId] = slider.value;
+            texte_gauche.textContent = parseFloat(slider.value).toFixed(1) + '°';
+            break;
+        case 'brasDroit':
+            sliderValuesRight[motorId] = slider.value;
+            texte_droite.textContent = parseFloat(slider.value).toFixed(1) + '°';
+            break;
+        case 'deuxBras':
+            sliderValuesLeft[motorId] = slider.value;
+            sliderValuesRight[motorId] = slider.value;
+            texte_gauche.textContent = parseFloat(slider.value).toFixed(1) + '°';
+            texte_droite.textContent = parseFloat(slider.value).toFixed(1) + '°';
+            break;
+    }
+    console.log(sliderValuesLeft);
+}
+
+// fonction qui met a jour les textes quand on change de bras
+export function changerBras() {
     motorInfo.forEach(motor => {
         const slider = document.getElementById(`angle-slider${motor.id}`);
         const angleNumber = document.getElementById(`angle-number${motor.id}`);
-        const angleText = document.getElementById(`angle-text${motor.id}`);
 
         let newValue;
-        switch (button.id) {
+        switch (modeBras) {
             case 'brasGauche':
                 newValue = parseFloat(sliderValuesLeft[motor.id]);
                 break;
@@ -207,7 +217,6 @@ export function changerBras(button) {
         // Mettre à jour les sliders et leurs valeurs associées
         slider.value = newValue;
         angleNumber.value = newValue;
-        angleText.textContent = `${newValue.toFixed(1)}°`;
         updateSliderStyle(slider);
     });
 }
