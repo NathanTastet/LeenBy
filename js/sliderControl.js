@@ -192,7 +192,6 @@ export function adjustText(slider, texte_gauche, texte_droite) {
             texte_droite.textContent = parseFloat(slider.value).toFixed(1) + '°';
             break;
     }
-    console.log(sliderValuesLeft);
 }
 
 // fonction qui met a jour les textes quand on change de bras

@@ -10,14 +10,12 @@ import { FBXLoader } from '../lib/FBXLoader.js'; // OBJETS
 import { motorInfo } from './motorInfo.js';
 import { modeBras } from './buttonControl.js';
 
-// CONSTANTES
-
-const distance_cam = 100;
-
 // --- VARIABLES GLOBALES ---
-let container3d, camera3d, renderer3d;
+
+let container3d, camera3d, renderer3d, distance_cam;
 let bones = []; // tableau des os du modèle 3d
 let boneInitialRotations = {}; // tableau des angles initaux
+
 // --- FONCTION ---
 
 // fonction permettant d'initialiser la vue 3d
@@ -27,11 +25,12 @@ export function setup3D(){
 
     // Initialiser la scène
     const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xF4F6F7);
+
 
     // Créer une caméra perspective
     camera3d = new THREE.PerspectiveCamera(75, container3d.clientWidth / container3d.clientHeight, 0.1, 1000);
-    camera3d.position.z = distance_cam;
-    
+
     // Créer le rendu WebGL
     renderer3d = new THREE.WebGLRenderer();
     renderer3d.setSize(container3d.clientWidth, container3d.clientHeight);
@@ -39,14 +38,13 @@ export function setup3D(){
 
     // Charger le modèle 3D
     const fbxLoader = new FBXLoader();
-    let mixer; // Déclarer le mixer en dehors de la fonction de chargement
 
     fbxLoader.load(
         './model3d/robot.fbx', // chemin vers le fichier .fbx
         function (fbx) { // appelé lorsque la ressource est chargée
             fbx.traverse(function (child) {
                 if (child instanceof THREE.Mesh) {
-                    child.material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+                    child.material = new THREE.MeshBasicMaterial({ color: 0x303030});
                 }
                 // détection des os
                 if (child.isBone) {
@@ -63,15 +61,35 @@ export function setup3D(){
             const skeleton = new THREE.SkeletonHelper(fbx);
             scene.add(skeleton);
 
-            // Configurer le mixer et les animations
-            mixer = new THREE.AnimationMixer(fbx);
-            if (fbx.animations && fbx.animations.length > 0) {
-                const action = mixer.clipAction(fbx.animations[0]);
-                action.play();
-            }
-
             scene.add(fbx);
+            
+            // Calculer la boîte englobante du modèle complet
+            var box = new THREE.Box3().setFromObject(fbx);
 
+            // La taille est la différence entre les valeurs minimales et maximales
+            var size = box.getSize(new THREE.Vector3());
+
+            distance_cam = size.y;
+
+            // Ajouter un quadrillage
+            // Divisions dans le quadrillage
+            var divisions = 10;
+
+            // Création du quadrillage XZ (le quadrillage par défaut s'étend déjà le long de XZ)
+            var gridHelperXZ = new THREE.GridHelper(size.y, divisions, 0x00ff00, 0x444444);
+            // Pas besoin de rotation pour XZ
+            gridHelperXZ.position.y = -size.y / 2; // Déplacez le sur l'axe Y pour qu'il soit visible
+
+            scene.add(gridHelperXZ);
+
+            // Positionner la caméra en fonction de la taille du modèle
+            camera3d.position.z = distance_cam; 
+            
+            // Assurez-vous que la caméra regarde le centre de votre modèle
+            camera3d.lookAt(fbx.position);
+
+            // Appeler la fonction de rendu
+            animate();
         },
         function (xhr) { // appelé lorsque le téléchargement progresse
             console.log((xhr.loaded / xhr.total * 100) + '% loaded');
@@ -80,6 +98,9 @@ export function setup3D(){
             console.error('An error happened', error);
         }
     );
+
+   
+
 
     // fonction récursive qui va s'appeller elle meme a chaque frame
     function animate() {
@@ -91,10 +112,6 @@ export function setup3D(){
     // Ajouter l'écouteur d'événement pour les changements de taille
     window.addEventListener('resize', resize3d);
 
-    
-
-    // Appeler la fonction de rendu
-    animate();
 
     let isDragging3d = false;
     let previousMousePosition = { x: 0, y: 0 };

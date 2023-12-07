@@ -5,21 +5,6 @@
   Inclut les styles pour l'affichage des informations, les boutons de mouvements prédéfinis et le joystick.
 */
 
-#right, #right2 {
-  flex-basis: 40%;
-  background-color: #F4F6F7;
-  box-shadow: -2vh 0 8vh rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  transition: opacity 0.5s ease;
-}
-
-#right2{
-  height: 100%;
-  width: 40%;
-  border-radius: 2vh;
-  transition: all 0.3s ease;
-}
-
 #vue3d{
   height: 100%;
   width: 100%;
@@ -147,8 +132,6 @@
   font-weight: bold;
   transition: width 0.3s ease, background-color 0.3s ease;
 }
-
-
 
 
 #joystickControls {

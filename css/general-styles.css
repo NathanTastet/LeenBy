@@ -32,3 +32,31 @@ body {
   border-radius: 2vh;
   transition: all 0.3s ease;
 }
+
+/* Configuration principale de la section gauche */
+#left {
+  flex-basis: 60%;
+  background-color: #EAEDED;
+  box-shadow: 2vh 0 8vh rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+/* Styles pour les éléments de droite */
+#right, #right2 {
+  flex-basis: 40%;
+  background-color: #F4F6F7;
+  box-shadow: -2vh 0 8vh rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* Styles pour la vue 3D */
+#right2{
+  height: 100%;
+  width: 40%;
+  border-radius: 2vh;
+}
+
+canvas{
+  border-radius: 2vh;
+}
