@@ -9,6 +9,7 @@ import * as THREE from '../lib/three.module.js';
 import { FBXLoader } from '../lib/FBXLoader.js'; // OBJETS
 import { motorInfo } from './motorInfo.js';
 import { modeBras } from './buttonControl.js';
+import { sliderValuesLeft, sliderValuesRight } from './sliderControl.js';
 
 // --- VARIABLES GLOBALES ---
 
@@ -142,8 +143,8 @@ export function setup3D(){
         };
     
         // Vérifier si la souris est toujours dans le conteneur
-        if (currentPosition.x < 0 || currentPosition.x > container3d.clientWidth || 
-        currentPosition.y < 0 || currentPosition.y > container3d.clientHeight) {
+        if (currentPosition.x < 5 || currentPosition.x > container3d.clientWidth || 
+        currentPosition.y < 5 || currentPosition.y > container3d.clientHeight) {
         endDrag();
         return;
         }
@@ -191,54 +192,40 @@ export function resize3d() {
 }
 
 
-// fonction pour mettre à jour le modèle 3d quand on bouge un slider
+// fonction pour mettre à jour le modèle 3d en fonction du tableau de valeurs
+export function update3d() {
+    motorInfo.forEach(motor => {
+        let angleLeft = THREE.MathUtils.degToRad(sliderValuesLeft[motor.id]);
+        let angleRight = THREE.MathUtils.degToRad(sliderValuesRight[motor.id]);
 
-export function update3d(slider){
-    // trouver le moteur correspondant dans motorInfo
-    const motor = motorInfo.find(m => m.id === parseInt(slider.dataset.motorId));
-    if (!motor) return; // Sortir si le moteur n'est pas trouvé
-    // Récupérer l'angle du slider
-    const angle = THREE.MathUtils.degToRad(slider.value); // Convertir les degrés en radians
+        const os_abouger = [];
 
-    // Déterminer quel os bouger
-    // faut qu'il regarde l'état du sélecteur de bras
-
-    const os_abouger = [];
-
-    switch(modeBras){
-        case 'brasGauche' : 
-        os_abouger.push(motor.leftBone);
-        break;
-        case 'brasDroit' : 
-        os_abouger.push(motor.rightBone);
-        break;
-        case 'deuxBras':
-        os_abouger.push(motor.leftBone);
-        os_abouger.push(motor.rightBone);
-        break;
-    }
-
-    os_abouger.forEach(boneName => {
-        const bone = bones.find(b => b.name === boneName);
-        if (bone) {
-            // Récupérer la rotation initiale
-            const initialRotation = boneInitialRotations[boneName];
-
-            if (initialRotation) {
-
-                let appliedAngle = angle;
-                // Inverser l'angle pour les os du côté droit dans le cas d'une rotation sur l'axe y
-                if (boneName.includes("Right") & motor.rotation_type == 'y') {
-                    appliedAngle *= -1;
-                }
-
-
-                // Appliquer la nouvelle rotation basée sur la référence initiale
-                bone.rotation[motor.rotation_type] = initialRotation[motor.rotation_type] + appliedAngle;
-            }
+        switch (modeBras) {
+            case 'brasGauche':
+                os_abouger.push({ boneName: motor.leftBone, angle: angleLeft });
+                break;
+            case 'brasDroit':
+                os_abouger.push({ boneName: motor.rightBone, angle: angleRight });
+                break;
+            case 'deuxBras':
+                os_abouger.push({ boneName: motor.leftBone, angle: angleLeft });
+                os_abouger.push({ boneName: motor.rightBone, angle: angleRight });
+                break;
         }
-    });
 
+        os_abouger.forEach(({ boneName, angle }) => {
+            const bone = bones.find(b => b.name === boneName);
+            if (bone) {
+                const initialRotation = boneInitialRotations[boneName];
+                if (initialRotation) {
+                    let appliedAngle = angle;
+                    if (boneName.includes("Right") & motor.rotation_type == 'y') {
+                        appliedAngle *= -1;
+                    }
+                    bone.rotation[motor.rotation_type] = initialRotation[motor.rotation_type] + appliedAngle;
+                }
+            }
+        });
+    });
 }
 
-// amélioration possible: blocage corps humain

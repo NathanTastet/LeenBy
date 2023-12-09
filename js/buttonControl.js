@@ -5,7 +5,7 @@
 
 // ---- IMPORTS ----
 import { motorInfo } from './motorInfo.js';
-import { updateSliderStyle, changerBras, adjustText} from './sliderControl.js';
+import { updateSliderStyle, changerBras, adjustText, sliderValuesLeft, sliderValuesRight} from './sliderControl.js';
 import { sendAnglesInfo, sendPresetCommand } from './websocket.js';
 import { resize3d, update3d } from './vue3d.js';
 
@@ -38,54 +38,94 @@ export function setupArmSelection() {
     });
 }
 
-
 export function remiseazero() {
-  
+
   motorInfo.forEach(motor => {
-  
-      let slider = document.getElementById(`angle-slider${motor.id}`);
-      let angle = document.getElementById(`angle-number${motor.id}`);
-      let texte_gauche = document.getElementById(`angle-text-left${motor.id}`);
-      let texte_droite = document.getElementById(`angle-text-right${motor.id}`);
 
-      let currentVal;
-      currentVal = parseFloat(slider.value);
-      
-      let interval = 5; // Interval en millisecondes pour la transition
-      let duration = 200; // Durée totale de l'animation en millisecondes
+    let slider = document.getElementById(`angle-slider${motor.id}`);
+    let angle = document.getElementById(`angle-number${motor.id}`);
+    let texte_gauche = document.getElementById(`angle-text-left${motor.id}`);
+    let texte_droite = document.getElementById(`angle-text-right${motor.id}`);
+
+
+
+    let interval = 5; // Interval en millisecondes pour la transition
+    let duration = 200; // Durée totale de l'animation en millisecondes
+
+    if (modeBras == "deuxBras") {
+      let currentValLeft = parseFloat(sliderValuesLeft[motor.id]);
+      let currentValRight = parseFloat(sliderValuesRight[motor.id]);
+
+
+      let stepLeft = Math.abs(currentValLeft) / (duration / interval);
+      let stepRight = Math.abs(currentValRight) / (duration / interval);
+
+      let currentVal = parseFloat(slider.value);
       let step = Math.abs(currentVal) / (duration / interval); // Combien soustraire à chaque intervalle
-      if(currentVal>=0){
-        let animateSlider = setInterval(() => {
-            currentVal -= step;
-            if (currentVal <= 0) {
-                currentVal = 0;
-                clearInterval(animateSlider);
-            }
-            slider.value = currentVal;
-            angle.value = currentVal.toFixed(1);
-            adjustText(slider,texte_gauche, texte_droite);
-            update3d(slider);
-            updateSliderStyle(slider); // Mettez à jour le style si nécessaire
-        }, interval);
-      }
-      else {
-        let animateSlider2 = setInterval(() => {
-            currentVal += step; // Incrémente la valeur puisqu'elle est négative
-            if (currentVal >= 0) {
-                currentVal = 0; // Assurez-vous de ne pas dépasser zéro
-                clearInterval(animateSlider2);
-            }
-            slider.value = currentVal;
-            angle.value = currentVal.toFixed(1);
-            adjustText(slider,texte_gauche, texte_droite);
-            update3d(slider);
-            updateSliderStyle(slider); // Mettez à jour le style si nécessaire
-        }, interval);
-      }
-   });
 
-   // il faut juste faire ensuite en sorte que le bon tableau se réinitialise en fonction du bras choisi
+      let animateBothArms = setInterval(() => {
+        if (currentValLeft != 0) {
+        // Animation pour le bras gauche
+          currentValLeft += currentValLeft> 0 ? -stepLeft : stepLeft;
+
+          if (Math.abs(currentValLeft) < stepLeft) currentValLeft = 0;
+          sliderValuesLeft[motor.id] = currentValLeft;
+          texte_gauche.textContent = parseFloat(sliderValuesLeft[motor.id]).toFixed(1) + '°';
+        }
+
+        // Animation pour le bras droit
+        if (currentValRight != 0) {
+          currentValRight += currentValRight > 0 ? -stepRight : stepRight;
+          if (Math.abs(currentValRight) < stepRight) currentValRight = 0;
+          sliderValuesRight[motor.id] = currentValRight;
+          texte_droite.textContent = parseFloat(sliderValuesRight[motor.id]).toFixed(1) + '°';
+        }
+
+        // animation pour le slider
+        if(currentVal != 0){
+          currentVal += currentVal > 0 ? -step : step;
+    
+          // Vérification si la valeur est proche de zéro
+          if (Math.abs(currentVal) < step) currentVal = 0;
+          slider.value = currentVal;
+          angle.value = currentVal.toFixed(1);
+
+        }
+
+        update3d();
+        updateSliderStyle(slider);
+
+        // Vérifier si les trois animations sont terminées
+        if (currentValLeft === 0 && currentValRight === 0 && currentVal === 0) {
+          clearInterval(animateBothArms);
+        }
+      }, interval);
+    }
+
+    else {
+      let currentVal = parseFloat(slider.value);
+      let step = Math.abs(currentVal) / (duration / interval); // Combien soustraire à chaque intervalle
+    
+      let animateSlider = setInterval(() => {
+
+        currentVal += currentVal > 0 ? -step : step;
+    
+        // Vérification si la valeur est proche de zéro
+        if (Math.abs(currentVal) < step) {
+          currentVal = 0;
+          clearInterval(animateSlider);
+        }
+    
+        slider.value = currentVal;
+        angle.value = currentVal.toFixed(1);
+        adjustText(slider, texte_gauche, texte_droite);
+        update3d();
+        updateSliderStyle(slider);
+      }, interval);
+    }
+  });
 }
+
 
 
 // Valide les angles sélectionnés et les envoie.
@@ -134,6 +174,7 @@ export function setupPresetButtons() {
       // Si rightDiv est visible, commencez la transition vers right2Div
       if (getComputedStyle(rightDiv).opacity === "1") {
         rightDiv.style.opacity = "0";
+        right2Div.style.opacity = "0";
         button.classList.add("active");
   
         setTimeout(() => {
@@ -149,6 +190,7 @@ export function setupPresetButtons() {
         }, 500); // Ce délai doit correspondre à la durée de la transition CSS
       } else {
         right2Div.style.opacity = "0";
+        rightDiv.style.opacity = "0";
         button.classList.remove("active");
   
         setTimeout(() => {

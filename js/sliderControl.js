@@ -85,7 +85,7 @@ export function setupSliderEventListeners(motor) {
     angle.addEventListener("input", () => {
         adjustSliderValue(angle, slider);
         adjustText(slider,texte_gauche, texte_droite);
-        update3d(slider);
+        update3d();
         updateSliderStyle(slider);
     });
 }
@@ -149,7 +149,7 @@ export function updateSliderAndAngle(slider, angle, clientX) {
       angle.value = value.toFixed(1);
     }
 
-    update3d(slider);
+    update3d();
     updateSliderStyle(slider);
 
 }
