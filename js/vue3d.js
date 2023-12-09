@@ -16,6 +16,7 @@ import { sliderValuesLeft, sliderValuesRight } from './sliderControl.js';
 let container3d, camera3d, renderer3d, distance_cam;
 let bones = []; // tableau des os du modèle 3d
 let boneInitialRotations = {}; // tableau des angles initaux
+let pointLight; // lumière
 
 // --- FONCTION ---
 
@@ -35,8 +36,15 @@ export function setup3D(){
     // Créer le rendu WebGL
     renderer3d = new THREE.WebGLRenderer();
     renderer3d.setSize(container3d.clientWidth, container3d.clientHeight);
+    renderer3d.shadowMap.enabled = true; // Active les ombres
     container3d.appendChild(renderer3d.domElement);
 
+    // Créer une lumière ponctuelle
+    pointLight = new THREE.PointLight(0xFFFFFF, 3000, 3*distance_cam);
+
+    pointLight.castShadow = true; // Active les ombres pour cette lumière
+    scene.add(pointLight);
+    
     // Charger le modèle 3D
     const fbxLoader = new FBXLoader();
 
@@ -45,7 +53,9 @@ export function setup3D(){
         function (fbx) { // appelé lorsque la ressource est chargée
             fbx.traverse(function (child) {
                 if (child instanceof THREE.Mesh) {
-                    child.material = new THREE.MeshBasicMaterial({ color: 0x303030});
+                    child.material = new THREE.MeshStandardMaterial({ color: 0xB2B2B2});
+                    child.castShadow = true; // Permet à l'objet de projeter des ombres
+                    child.receiveShadow = true; // Permet à l'objet de recevoir des ombres
                 }
                 // détection des os
                 if (child.isBone) {
@@ -85,6 +95,9 @@ export function setup3D(){
 
             // Positionner la caméra en fonction de la taille du modèle
             camera3d.position.z = distance_cam; 
+
+            // Positionne la lumière au même endroit que la caméra
+            pointLight.position.set(camera3d.position.x, camera3d.position.y, camera3d.position.z);
             
             // Assurez-vous que la caméra regarde le centre de votre modèle
             camera3d.lookAt(fbx.position);
@@ -160,9 +173,12 @@ export function setup3D(){
         // Calculer les coordonnées sphériques pour la rotation autour de l'axe Y
         camera3d.position.x = distance_cam * Math.sin(theta);
         camera3d.position.z = distance_cam * Math.cos(theta);
-    
+            
         // Faire pointer la caméra vers le cube
         camera3d.lookAt(scene.position);
+
+        // Mettre à jour la position de la lumière
+        pointLight.position.set(camera3d.position.x, camera3d.position.y, camera3d.position.z);
     
         previousMousePosition = currentPosition;
     }

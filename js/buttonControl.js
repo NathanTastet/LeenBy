@@ -15,14 +15,13 @@ export let modeBras;
 
 // ---- FONCTIONS ----
 
-// Configure les boutons de contrôle, tels que reset et valider.
+// Initialise les boutons de contrôle, tels que reset et valider.
 export function setupControlButtons() {
     document.getElementById("reset_button").addEventListener("click", remiseazero);
     document.getElementById("check_button").addEventListener("click", validerAngles);
 }
 
-
-// Configure la sélection des bras (gauche, droit, les deux).
+// Initialise la sélection des bras (gauche, droit, les deux).
 export function setupArmSelection() {
     const armButtons = document.querySelectorAll(".armButton");
     const deuxbras = document.getElementById("deuxBras");
@@ -127,8 +126,6 @@ export function remiseazero() {
   });
 }
 
-
-
 // Valide les angles sélectionnés et les envoie.
 function validerAngles() {
 
@@ -162,46 +159,46 @@ export function setupPresetButtons() {
     });
   }
 
+// Initialise le bouton de la vue 3D
+export function setup3DButton() {
+  const button = document.getElementById("vue3DButton");
+  const rightDiv = document.getElementById("right");
+  const right2Div = document.getElementById("right2");
 
-  export function setup3DButton() {
-    const button = document.getElementById("vue3DButton");
-    const rightDiv = document.getElementById("right");
-    const right2Div = document.getElementById("right2");
-  
-    button.addEventListener("click", () => {
-      // Si rightDiv est visible, commencez la transition vers right2Div
-      if (getComputedStyle(rightDiv).opacity === "1") {
-        rightDiv.style.opacity = "0";
-        right2Div.style.opacity = "0";
-        button.classList.add("active");
-  
-        setTimeout(() => {
-          rightDiv.style.display = "none";
-          right2Div.style.display = "block";
-          resize3d();
-          // Utilisez requestAnimationFrame pour s'assurer que la transition d'opacité démarre après que la div soit visible
+  button.addEventListener("click", () => {
+    // Si rightDiv est visible, commencez la transition vers right2Div
+    if (getComputedStyle(rightDiv).opacity === "1") {
+      rightDiv.style.opacity = "0";
+      right2Div.style.opacity = "0";
+      button.classList.add("active");
+
+      setTimeout(() => {
+        rightDiv.style.display = "none";
+        right2Div.style.display = "block";
+        resize3d();
+        // Utilisez requestAnimationFrame pour s'assurer que la transition d'opacité démarre après que la div soit visible
+        requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              right2Div.style.opacity = "1";
-            });
+            right2Div.style.opacity = "1";
           });
-        }, 500); // Ce délai doit correspondre à la durée de la transition CSS
-      } else {
-        right2Div.style.opacity = "0";
-        rightDiv.style.opacity = "0";
-        button.classList.remove("active");
-  
-        setTimeout(() => {
-          right2Div.style.display = "none";
-          rightDiv.style.display = "block";
-          // Utilisez requestAnimationFrame ici également
+        });
+      }, 500); // Ce délai doit correspondre à la durée de la transition CSS
+    } else {
+      right2Div.style.opacity = "0";
+      rightDiv.style.opacity = "0";
+      button.classList.remove("active");
+
+      setTimeout(() => {
+        right2Div.style.display = "none";
+        rightDiv.style.display = "block";
+        // Utilisez requestAnimationFrame ici également
+        requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              rightDiv.style.opacity = "1";
-            });
+            rightDiv.style.opacity = "1";
           });
-        }, 500);
-      }
-    });
-  }
+        });
+      }, 500);
+    }
+  });
+}
   
