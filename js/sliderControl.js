@@ -171,7 +171,7 @@ function adjustSliderValue(angle, slider) {
     }
 }
 
-// fonction qui met a jour les textes de l'angle d'un slider
+// fonction qui met a jour les textes de l'angle d'un slider, et le tableau slider
 export function adjustText(slider, texte_gauche, texte_droite) {
 
     let motorId = parseInt(slider.dataset.motorId);
