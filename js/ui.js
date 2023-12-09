@@ -5,12 +5,14 @@
 // --- IMPORT ---
 import { setupMotorSliders } from './sliderControl.js';
 import { setupControlButtons, setupArmSelection, setupPresetButtons, remiseazero, setup3DButton } from './buttonControl.js';
+import { setupJoystick } from './joystick.js';
 
 // --- FONCTIONS ---
 
 
 // Fonction principale pour initialiser l'interface utilisateur.
 export function initUI() {
+    setupJoystick();         // Configure le joystick
     setupMotorSliders();
     setupControlButtons();
     setupArmSelection();
