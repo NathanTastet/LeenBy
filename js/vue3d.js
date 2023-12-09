@@ -40,7 +40,7 @@ export function setup3D(){
     container3d.appendChild(renderer3d.domElement);
 
     // Créer une lumière ponctuelle
-    pointLight = new THREE.PointLight(0xFFFFFF, 3000, 3*distance_cam);
+    pointLight = new THREE.PointLight(0xFFFFFF, 3000, distance_cam);
 
     pointLight.castShadow = true; // Active les ombres pour cette lumière
     scene.add(pointLight);
