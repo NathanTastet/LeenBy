@@ -38,6 +38,7 @@ export function setupArmSelection() {
     });
 }
 
+// fonction pour remettre à 0 les sliders, et les angles du bras sélectionné
 export function remiseazero() {
 
   motorInfo.forEach(motor => {
@@ -49,7 +50,7 @@ export function remiseazero() {
 
 
 
-    let interval = 5; // Interval en millisecondes pour la transition
+    let interval = 5; // Intervalle en millisecondes pour la transition
     let duration = 200; // Durée totale de l'animation en millisecondes
 
     if (modeBras == "deuxBras") {
@@ -130,24 +131,21 @@ export function remiseazero() {
 
 // Valide les angles sélectionnés et les envoie.
 function validerAngles() {
-    // Trouver le bouton actif entre bras gauche, droit et les deux
-    let activeButton = document.querySelector('.armButton.active');
-    // Récupérer l'identifiant du bouton actif
-    let armChoice = activeButton ? activeButton.id : null; // 'leftArm', 'rightArm', ou 'bothArms'
 
-    // Préparer l'objet à envoyer contenant les informations des angles
     let anglesInfo = {
-        bras: armChoice,
-        angle: {}
+        angles_gauche: [],
+        angles_droite: []
     };
 
-    // Collecter les valeurs pour chaque moteur
-
     motorInfo.forEach(motor => {
-        let angleValue = document.getElementById(`angle-number${motor.id}`).value;
-        anglesInfo.angle[`angle${motor.id}`] = angleValue;
+
+      anglesInfo.angles_gauche[motor.id] = sliderValuesLeft[motor.id];
+      anglesInfo.angles_droite[motor.id] = sliderValuesRight[motor.id];
+
     });
+
     sendAnglesInfo(anglesInfo);
+
 }
 
 // Configuration des mouvements prédéfinis
