@@ -17,8 +17,6 @@ let container3d, camera3d, renderer3d, distance_Cam;
 let bones = []; // tableau des os du modèle 3d
 let boneInitialRotations = {}; // tableau des angles initaux
 let pointLight; // lumière
-let boundingBoxes = []; //boites englobantes des meshes du modèles 3d
-let meshCount = 0; // nombre de meshes du modèle 3d 
 
 // --- FONCTION ---
 
@@ -60,13 +58,6 @@ export function setup3D(){
                     child.material = new THREE.MeshStandardMaterial({ color: 0xB2B2B2});
                     child.castShadow = true; // Permet à l'objet de projeter des ombres
                     child.receiveShadow = true; // Permet à l'objet de recevoir des ombres
-                    // calcul des bounding boxes
-                    let boundingBox = new THREE.Box3().setFromObject(child);
-                    scene.add(new THREE.BoxHelper(child, 0xffff00));
-                    boundingBoxes.push(boundingBox);
-
-                    meshCount++;
-
                 }
                 // détection des os
                 if (child.isBone) {
@@ -79,7 +70,6 @@ export function setup3D(){
                 }
             });
             
-            console.log(meshCount   + " meshes loaded");
             // Créer et ajouter le squelette
             const skeleton = new THREE.SkeletonHelper(fbx);
             scene.add(skeleton);
@@ -256,12 +246,3 @@ export function update3d() {
         });
     });
 }
-
-// fonction pour détecter les collisions sur le modèle 3d
-
-export function detectionCollisions(){
-    if (collision_Detector.detectCollisions()){
-        console.log("collision");
-    }
-}
-
