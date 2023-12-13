@@ -18,7 +18,6 @@ let bones = []; // tableau des os du modèle 3d
 let boneInitialRotations = {}; // tableau des angles initaux
 let pointLight; // lumière
 let boundingBoxes = []; //boites englobantes des meshes du modèles 3d
-let meshCount = 0; // nombre de meshes du modèle 3d 
 
 // --- FONCTION ---
 
@@ -34,7 +33,7 @@ export function setup3D(){
 
 
     // Créer une caméra perspective
-    camera3d = new THREE.PerspectiveCamera(75, container3d.clientWidth / container3d.clientHeight, 0.1, 1000);
+    camera3d = new THREE.PerspectiveCamera(75, container3d.clientWidth / container3d.clientHeight, 0.1, 10000);
 
     // Créer le rendu WebGL
     renderer3d = new THREE.WebGLRenderer();
@@ -43,7 +42,7 @@ export function setup3D(){
     container3d.appendChild(renderer3d.domElement);
 
     // Créer une lumière ponctuelle
-    pointLight = new THREE.PointLight(0xFFFFFF, 3000, distance_Cam);
+    pointLight = new THREE.PointLight(0xFFFFFF, 50000, 10000);
 
     pointLight.castShadow = true; // Active les ombres pour cette lumière
     scene.add(pointLight);
@@ -52,47 +51,50 @@ export function setup3D(){
     const fbxLoader = new FBXLoader();
 
     fbxLoader.load(
-        './model3d/robot.fbx', // chemin vers le fichier .fbx
+        './model3d/robotv2.fbx', // chemin vers le fichier .fbx
         function (fbx) { // appelé lorsque la ressource est chargée
+
+             // Calculer la boîte englobante du modèle complet
+             var box = new THREE.Box3().setFromObject(fbx);
+
+             // La taille est la différence entre les valeurs minimales et maximales
+             var size = box.getSize(new THREE.Vector3());
+             
+             fbx.position.y = -size.y/2; // centrer le modèle sur l'axe Y
+             // régler la caméra en fonction de la taille du modèle
+             distance_Cam = size.y;
+
+            // Parcourir tous les enfants du modèle
             fbx.traverse(function (child) {
                 if (child instanceof THREE.Mesh) {
-
-                    child.material = new THREE.MeshStandardMaterial({ color: 0xB2B2B2});
+                    child.material = new THREE.MeshStandardMaterial({ color: 0xB2B2B2 });
                     child.castShadow = true; // Permet à l'objet de projeter des ombres
                     child.receiveShadow = true; // Permet à l'objet de recevoir des ombres
-                    // calcul des bounding boxes
-                    let boundingBox = new THREE.Box3().setFromObject(child);
-                    scene.add(new THREE.BoxHelper(child, 0xffff00));
-                    boundingBoxes.push(boundingBox);
 
-                    meshCount++;
-
+                    // créer une boite englobante pour chaque mesh
                 }
+
                 // détection des os
                 if (child.isBone) {
-                bones.push(child); // Ajouter l'os au tableau
-                boneInitialRotations[child.name] = {
-                    x: child.rotation.x,
-                    y: child.rotation.y,
-                    z: child.rotation.z
-                };
+                    bones.push(child); // Ajouter l'os au tableau
+                    boneInitialRotations[child.name] = {
+                        x: child.rotation.x,
+                        y: child.rotation.y,
+                        z: child.rotation.z
+                    };
+
                 }
             });
             
-            console.log(meshCount   + " meshes loaded");
+            
+
             // Créer et ajouter le squelette
             const skeleton = new THREE.SkeletonHelper(fbx);
             scene.add(skeleton);
 
             scene.add(fbx);
-            
-            // Calculer la boîte englobante du modèle complet
-            var box = new THREE.Box3().setFromObject(fbx);
 
-            // La taille est la différence entre les valeurs minimales et maximales
-            var size = box.getSize(new THREE.Vector3());
-
-            distance_Cam = size.y;
+           
 
             // Ajouter un quadrillage
             // Divisions dans le quadrillage
@@ -101,18 +103,22 @@ export function setup3D(){
             // Création du quadrillage XZ (le quadrillage par défaut s'étend déjà le long de XZ)
             var gridHelperXZ = new THREE.GridHelper(size.y, divisions, 0x00ff00, 0x444444);
             // Pas besoin de rotation pour XZ
-            gridHelperXZ.position.y = -size.y / 2; // Déplacez le sur l'axe Y pour qu'il soit visible
+            gridHelperXZ.position.y = -size.y/2;
 
             scene.add(gridHelperXZ);
 
+            
             // Positionner la caméra en fonction de la taille du modèle
-            camera3d.position.z = distance_Cam; 
+            camera3d.position.y = 0;
+            camera3d.position.x = 0;
+            camera3d.position.z = distance_Cam;
+
+            // Assurez-vous que la caméra regarde le centre de votre modèle
+            camera3d.lookAt(scene.position);
+
 
             // Positionne la lumière au même endroit que la caméra
             pointLight.position.set(camera3d.position.x, camera3d.position.y, camera3d.position.z);
-            
-            // Assurez-vous que la caméra regarde le centre de votre modèle
-            camera3d.lookAt(fbx.position);
 
             // Appeler la fonction de rendu
             animate();
@@ -186,7 +192,7 @@ export function setup3D(){
         camera3d.position.x = distance_Cam * Math.sin(theta);
         camera3d.position.z = distance_Cam * Math.cos(theta);
             
-        // Faire pointer la caméra vers le cube
+        // Faire pointer la caméra vers l'objet
         camera3d.lookAt(scene.position);
 
         // Mettre à jour la position de la lumière
@@ -264,4 +270,3 @@ export function detectionCollisions(){
         console.log("collision");
     }
 }
-

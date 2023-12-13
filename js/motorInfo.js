@@ -10,8 +10,8 @@ export const motorInfo = [
     "name": "Rotation Bras",
     "minAngle": -159.6,
     "maxAngle": 159.6,
-    "leftBone": "mixamorigLeftArm",
-    "rightBone": "mixamorigRightArm",
+    "leftBone": "bras-gauche",
+    "rightBone": "bras-droit",
     "rotation_type": "y"
   },
   {
@@ -19,8 +19,8 @@ export const motorInfo = [
     "name": "Pliage Bras",
     "minAngle": -159.6,
     "maxAngle": 159.6,
-    "leftBone": "mixamorigLeftArm",
-    "rightBone": "mixamorigRightArm",
+    "leftBone": "bras-gauche",
+    "rightBone": "bras-droit",
     "rotation_type": "x"
   },
   {
@@ -28,8 +28,8 @@ export const motorInfo = [
     "name": "Rotation Avant-Bras",
     "minAngle": -159.6,
     "maxAngle": 159.6,
-    "leftBone": "mixamorigLeftForeArm",
-    "rightBone": "mixamorigRightForeArm",
+    "leftBone": "avant-bras-gauche",
+    "rightBone": "avant-bras-droit",
     "rotation_type": "y"
   },
   {
@@ -37,8 +37,8 @@ export const motorInfo = [
     "name": "Pliage Coude",
     "minAngle": -159.6,
     "maxAngle": 159.6,
-    "leftBone": "mixamorigLeftForeArm",
-    "rightBone": "mixamorigRightForeArm",
+    "leftBone": "avant-bras-gauche",
+    "rightBone": "avant-bras-droit",
     "rotation_type": "x"
   },
   {
@@ -46,8 +46,8 @@ export const motorInfo = [
     "name": "Rotation Main",
     "minAngle": -159.8,
     "maxAngle": 159.8,
-    "leftBone": "mixamorigLeftHand",
-    "rightBone": "mixamorigRightHand",
+    "leftBone": "doigt1-gauche",
+    "rightBone": "doigt1-droit",
     "rotation_type": "y"
   },
   {
@@ -55,8 +55,8 @@ export const motorInfo = [
     "name": "Pliage Main",
     "minAngle": -159.8,
     "maxAngle": 159.8,
-    "leftBone": "mixamorigLeftHand",
-    "rightBone": "mixamorigRightHand",
+    "leftBone": "doigt1-gauche",
+    "rightBone": "doigt1-droit",
     "rotation_type": "x"
   },
   {
@@ -64,8 +64,8 @@ export const motorInfo = [
     "name": "Pliage Pouce",
     "minAngle": -159.8,
     "maxAngle": 159.8,
-    "leftBone": "mixamorigLeftHandIndex3",
-    "rightBone": "mixamorigRightHandIndex3",
+    "leftBone": "doigt2-gauche",
+    "rightBone": "doigt2-droit",
     "rotation_type": "x"
   }
 ];
