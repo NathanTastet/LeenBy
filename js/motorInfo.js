@@ -10,8 +10,8 @@ export const motorInfo = [
     "name": "Rotation Bras",
     "minAngle": -159.6,
     "maxAngle": 159.6,
-    "leftBone": "bras-gauche",
-    "rightBone": "bras-droit",
+    "leftBone": "mixamorigLeftArm",
+    "rightBone": "mixamorigRightArm",
     "rotation_type": "y"
   },
   {
@@ -19,8 +19,8 @@ export const motorInfo = [
     "name": "Pliage Bras",
     "minAngle": -159.6,
     "maxAngle": 159.6,
-    "leftBone": "bras-gauche",
-    "rightBone": "bras-droit",
+    "leftBone": "mixamorigLeftArm",
+    "rightBone": "mixamorigRightArm",
     "rotation_type": "x"
   },
   {
@@ -28,8 +28,8 @@ export const motorInfo = [
     "name": "Rotation Avant-Bras",
     "minAngle": -159.6,
     "maxAngle": 159.6,
-    "leftBone": "avant-bras-gauche",
-    "rightBone": "avant-bras-droit",
+    "leftBone": "mixamorigLeftForeArm",
+    "rightBone": "mixamorigRightForeArm",
     "rotation_type": "y"
   },
   {
@@ -37,8 +37,8 @@ export const motorInfo = [
     "name": "Pliage Coude",
     "minAngle": -159.6,
     "maxAngle": 159.6,
-    "leftBone": "avant-bras-gauche",
-    "rightBone": "avant-bras-droit",
+    "leftBone": "mixamorigLeftForeArm",
+    "rightBone": "mixamorigRightForeArm",
     "rotation_type": "x"
   },
   {
@@ -46,8 +46,8 @@ export const motorInfo = [
     "name": "Rotation Main",
     "minAngle": -159.8,
     "maxAngle": 159.8,
-    "leftBone": "doigt1-gauche",
-    "rightBone": "doigt1-droit",
+    "leftBone": "mixamorigLeftHand",
+    "rightBone": "mixamorigRightHand",
     "rotation_type": "y"
   },
   {
@@ -55,8 +55,8 @@ export const motorInfo = [
     "name": "Pliage Main",
     "minAngle": -159.8,
     "maxAngle": 159.8,
-    "leftBone": "doigt1-gauche",
-    "rightBone": "doigt1-droit",
+    "leftBone": "mixamorigLeftHand",
+    "rightBone": "mixamorigRightHand",
     "rotation_type": "x"
   },
   {
@@ -64,8 +64,8 @@ export const motorInfo = [
     "name": "Pliage Pouce",
     "minAngle": -159.8,
     "maxAngle": 159.8,
-    "leftBone": "doigt2-gauche",
-    "rightBone": "doigt2-droit",
+    "leftBone": "mixamorigLeftHandIndex3",
+    "rightBone": "mixamorigRightHandIndex3",
     "rotation_type": "x"
   }
 ];
