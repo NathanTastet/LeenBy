@@ -5,7 +5,7 @@
 
 // IMPORT 
 
-import * as THREE from '../lib/three.module.js';
+import * as THREE from '../lib/three.module.js'; // VUE 3D
 import { FBXLoader } from '../lib/FBXLoader.js'; // OBJETS
 import { motorInfo } from './motorInfo.js';
 import { modeBras } from './buttonControl.js';
@@ -13,15 +13,17 @@ import { sliderValuesLeft, sliderValuesRight } from './sliderControl.js';
 
 // --- VARIABLES GLOBALES ---
 
-let container3d, camera3d, renderer3d, distance_cam;
+let container3d, camera3d, renderer3d, distance_Cam;
 let bones = []; // tableau des os du modèle 3d
 let boneInitialRotations = {}; // tableau des angles initaux
 let pointLight; // lumière
+let boundingBoxes = []; //boites englobantes du squelette
 
 // --- FONCTION ---
 
 // fonction permettant d'initialiser la vue 3d
 export function setup3D(){
+
     // Sélectionner le conteneur pour la scène 3D
     container3d = document.getElementById('right2');
 
@@ -40,7 +42,7 @@ export function setup3D(){
     container3d.appendChild(renderer3d.domElement);
 
     // Créer une lumière ponctuelle
-    pointLight = new THREE.PointLight(0xFFFFFF, 3000, distance_cam);
+    pointLight = new THREE.PointLight(0xFFFFFF, 3000, distance_Cam);
 
     pointLight.castShadow = true; // Active les ombres pour cette lumière
     scene.add(pointLight);
@@ -67,6 +69,7 @@ export function setup3D(){
                 };
                 }
             });
+            
 
             // Créer et ajouter le squelette
             const skeleton = new THREE.SkeletonHelper(fbx);
@@ -80,7 +83,7 @@ export function setup3D(){
             // La taille est la différence entre les valeurs minimales et maximales
             var size = box.getSize(new THREE.Vector3());
 
-            distance_cam = size.y;
+            distance_Cam = size.y;
 
             // Ajouter un quadrillage
             // Divisions dans le quadrillage
@@ -94,7 +97,7 @@ export function setup3D(){
             scene.add(gridHelperXZ);
 
             // Positionner la caméra en fonction de la taille du modèle
-            camera3d.position.z = distance_cam; 
+            camera3d.position.z = distance_Cam; 
 
             // Positionne la lumière au même endroit que la caméra
             pointLight.position.set(camera3d.position.x, camera3d.position.y, camera3d.position.z);
@@ -171,8 +174,8 @@ export function setup3D(){
         theta -= deltaMove.x * rotationSpeed;
     
         // Calculer les coordonnées sphériques pour la rotation autour de l'axe Y
-        camera3d.position.x = distance_cam * Math.sin(theta);
-        camera3d.position.z = distance_cam * Math.cos(theta);
+        camera3d.position.x = distance_Cam * Math.sin(theta);
+        camera3d.position.z = distance_Cam * Math.cos(theta);
             
         // Faire pointer la caméra vers le cube
         camera3d.lookAt(scene.position);
@@ -243,5 +246,13 @@ export function update3d() {
             }
         });
     });
+}
+
+// fonction pour détecter les collisions sur le modèle 3d
+
+export function detectionCollisions(){
+    if (collision_Detector.detectCollisions()){
+        console.log("collision");
+    }
 }
 
