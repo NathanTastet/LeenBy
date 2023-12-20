@@ -58,6 +58,12 @@ export function setup3D(){
                     child.material = new THREE.MeshStandardMaterial({ color: 0xB2B2B2});
                     child.castShadow = true; // Permet à l'objet de projeter des ombres
                     child.receiveShadow = true; // Permet à l'objet de recevoir des ombres
+                    // calcul des bounding boxes
+                    let boundingBox = new THREE.Box3().setFromObject(child);
+                    scene.add(new THREE.BoxHelper(child, 0xffff00));
+                    boundingBoxes.push(boundingBox);
+
+                    meshCount++;
 
                 }
                 // détection des os
@@ -247,12 +253,3 @@ export function update3d() {
         });
     });
 }
-
-// fonction pour détecter les collisions sur le modèle 3d
-
-export function detectionCollisions(){
-    if (collision_Detector.detectCollisions()){
-        console.log("collision");
-    }
-}
-
