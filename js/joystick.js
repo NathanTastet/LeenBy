@@ -109,7 +109,7 @@ function endDrag() {
 export function afficherCoordonnees(x, y, maxDistance) {
     // Normalisation des distances x et y : conversion en un ratio compris entre 0 et 1
     const normalizedX = x / maxDistance;
-    const normalizedY = - y / maxDistance; // l'axe y est a l'envers
+    const normalizedY = y / maxDistance; // l'axe y est a l'endroit
     // Calculer l'angle en radians
     const angleRad = Math.atan2(normalizedY, normalizedX);
     // Convertir en degrés
@@ -127,7 +127,7 @@ export function afficherCoordonnees(x, y, maxDistance) {
         leftMotor = Math.max(-1, Math.min(1, leftMotor)) * 100;
         rightMotor = Math.max(-1, Math.min(1, rightMotor)) * 100;
         leftMotor = parseFloat(leftMotor).toFixed(1);
-        rightMotor = - parseFloat(rightMotor).toFixed(1);
+        rightMotor = -parseFloat(rightMotor).toFixed(1);
     }
     // Affichage
     const joystickXValue = document.getElementById('joystickXValue');
