@@ -171,8 +171,26 @@ export function updateSliderStyle(sliderElement) {
 // updateSliderStyleVit est la même fonction que updateSliderStyle mais pour le slider de vitesse
 
 export function updateSliderStyleVit(sliderElement) {
-    let percentage = (((sliderElement.value) / (sliderElement.max - sliderElement.min)) * 100.0) + 50; 
-    sliderElement.style.background = 'linear-gradient(90deg, #56d8d8 0%, #56d8d8 ' + percentage + '%, #a0a0a0 ' + percentage + '%, #a0a0a0 100%)';
+    const minSpeed = sliderElement.min;
+    const maxSpeed = sliderElement.max;
+    const speed = sliderElement.value;
+
+    // Calculer la valeur normalisée de la vitesse entre 0 et 1
+    const normalizedSpeed = (speed - minSpeed) / (maxSpeed - minSpeed);
+
+    // Utiliser l'échelle de couleurs pour mapper la valeur normalisée à une couleur
+    const color = getColorFromScale(normalizedSpeed);
+
+    // Appliquer la couleur au fond du slider
+    sliderElement.style.background = `linear-gradient(90deg, ${color} 0%, ${color} ${normalizedSpeed * 100}%, #ddd ${normalizedSpeed * 100}%, #ddd 100%)`;
+
+    // Appliquer la couleur au thumb du slider
+    document.documentElement.style.setProperty('--thumb-color', color);}
+
+// Fonction pour mapper une valeur normalisée à une couleur entre le vert et le rouge
+function getColorFromScale(value) {
+    const hue = (1 - value) * 120; // Convertir la valeur en teinte entre 0 et 120 (vert à rouge)
+    return `hsl(${hue}, 100%, 50%)`; // Utiliser HSL pour définir la couleur en fonction de la teinte
 }
 
 
@@ -272,6 +290,8 @@ export function setupSpeedSlider() {
     const sliderVit = document.getElementById('vit_bras_slider');
 
     sliderVit.value = 20;
+    // changer le style 
+    updateSliderStyleVit(sliderVit);
 
     sliderVit.addEventListener("mousedown", (e) => startDragSlider(e, sliderVit));
     sliderVit.addEventListener("touchstart", (e) => startDragSlider(e, sliderVit));

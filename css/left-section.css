@@ -224,7 +224,7 @@ input[type="number"]:focus {
 .slider-marks {
   z-index : 1;
   position : relative;
-  top: -3.5vh;
+  top: -4vh;
   display: flex;
   justify-content: space-between;
   margin-top: 5px;
@@ -240,9 +240,9 @@ input[type="number"]:focus {
 
 .mark p{
   position: relative;
-  left : -2.1vh;
+  left : -2vh;
   text-align: center;
-  font-size: 90%;
+  top : 0.7vh;
 }
 
 #el2{
@@ -253,4 +253,19 @@ input[type="number"]:focus {
 .elevated input[type="range"] {
   position: relative;
   z-index: 2; /* La poignée est au-dessus des marques de pourcentage */
+  background :linear-gradient(90deg, #56d8d8 0%, #56d8d8 60%, #ddd 60%, #ddd 100%);
+}
+
+.elevated input[type="range"]::-webkit-slider-thumb {
+  background-color: var(--thumb-color);
+  cursor: pointer;
+}
+
+.elevated input[type="range"]::-moz-range-thumb {
+  background-color: var(--thumb-color);
+  cursor: pointer;
+}
+
+:root {
+  --thumb-color: #56d8d8; /* Couleur par défaut */
 }

@@ -6,7 +6,7 @@
 
 import { setup3D } from './vue3d.js';
 import { setupJoystick } from './joystick.js';
-import { setupMotorSliders } from './sliderControl.js'; 
+import { setupMotorSliders, setupSpeedSlider } from './sliderControl.js'; 
 import { setupArmSelection, setup3DButton, setupControlButtons, setupPresetButtons, remiseazero} from './buttonControl.js';
 
 // --- FONCTIONS ---
@@ -15,6 +15,7 @@ import { setupArmSelection, setup3DButton, setupControlButtons, setupPresetButto
 document.addEventListener("DOMContentLoaded", function() {
     setupJoystick();
     setupMotorSliders();
+    setupSpeedSlider();
     setupControlButtons();
     setupArmSelection();
     setup3DButton();
