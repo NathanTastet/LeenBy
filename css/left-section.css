@@ -240,8 +240,9 @@ input[type="number"]:focus {
 
 .mark p{
   position: relative;
-  left : -2vh;
+  left : -2.1vh;
   text-align: center;
+  font-size: 90%;
 }
 
 #el2{
