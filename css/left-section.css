@@ -7,12 +7,12 @@
 
 
 #title {
-  font-size: 2.5em;
+  font-size: 2.3em;
   text-align: center;
   font-weight: bold;
   color: #333;
-  padding-top: 0.2em;
-  padding-bottom : 0.2em;
+  padding-top: 0.1em;
+  padding-bottom : 0.1em;
   margin: 0;
   background-color: transparent;
   letter-spacing: 0.05em;
@@ -24,7 +24,7 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 0.1em;
 }
 
 th, td {
@@ -40,6 +40,12 @@ th {
 
 tr {
   border-bottom: 1px solid #ddd;
+}
+
+.elevated{
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Effet d'ombre pour la surélévation */
+  background: #ccc;
+  user-select: none;
 }
 
 /* Styles des colonnes pour l'alignement et la largeur */
@@ -213,4 +219,37 @@ input[type="number"]:focus {
 /* Style du texte à droite */
 .right-text {
   display: inline-block;
+}
+
+.slider-marks {
+  z-index : 1;
+  position : relative;
+  top: -3.5vh;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  padding : 0 1.5vh;
+}
+
+.slider-marks .mark {
+  z-index : 0;
+  height: 10px;
+  width: 2px;
+  background-color: black;
+}
+
+.mark p{
+  position: relative;
+  left : -2vh;
+  text-align: center;
+}
+
+#el2{
+  position:relative;
+  padding: 0.5vh 3vh;
+}
+
+.elevated input[type="range"] {
+  position: relative;
+  z-index: 2; /* La poignée est au-dessus des marques de pourcentage */
 }

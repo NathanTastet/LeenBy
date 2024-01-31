@@ -22,7 +22,7 @@ let oldRightMotor = null;
 const seuil_different = 5;
 
 // Délai entre les envois de données des moteurs (en millisecondes).
-const delai_envoi = 250;
+const delai_envoi = 500;
 
 
 // ---- FONCTIONS ----

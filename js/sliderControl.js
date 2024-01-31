@@ -24,6 +24,8 @@ export function setupMotorSliders() {
         sliderValuesLeft[motor.id] = 0; // Valeur par défaut pour le bras gauche
         sliderValuesRight[motor.id] = 0; // Valeur par défaut pour le bras droit
     });
+    
+
 }
 
 
