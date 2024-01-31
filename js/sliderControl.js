@@ -119,9 +119,9 @@ function moveDragSlider(e, slider, angle, texte_gauche, texte_droite) {
 function stopDragSlider(slider) {
     slider.dataset.isDragging = 0;
     if(slider.id == 'vit_bras_slider') {
-        // Aimante la valeur du slider au modulo 40 avec une animation
+        // Aimante la valeur du slider au modulo 25 avec une animation
         const sliderValue = parseInt(slider.value);
-        const magnetizedValue = Math.round((sliderValue+100) / 40) * 40 - 100;
+        const magnetizedValue = Math.round((sliderValue+50) / 25) * 25 - 50;
         animateSliderValue(slider, magnetizedValue);
     }
 }
@@ -129,10 +129,18 @@ function stopDragSlider(slider) {
 // Anime la valeur du slider jusqu'à la valeur aimantée
 let animationFrame;
 
+let isAnimating = false; // Ajoutez cette variable pour suivre l'état de l'animation
+
 function animateSliderValue(slider, targetValue) {
-    const animationDuration = 200; // Durée de l'animation en millisecondes
+    if (isAnimating) {
+        return; // If animation is already in progress, do nothing
+    }
+
+    isAnimating = true; // Set animation state to true
+
+    const animationDuration = 200; // Animation duration in milliseconds
     const initialValue = parseInt(slider.value);
-    const valueChangePerFrame = (targetValue - initialValue) / (animationDuration / 16); // 16ms par frame (60fps)
+    const valueChangePerFrame = (targetValue - initialValue) / (animationDuration / 16); // 16ms per frame (60fps)
 
     let currentValue = initialValue;
 
@@ -141,11 +149,16 @@ function animateSliderValue(slider, targetValue) {
         if ((valueChangePerFrame > 0 && currentValue >= targetValue) || (valueChangePerFrame < 0 && currentValue <= targetValue)) {
             currentValue = targetValue;
             cancelAnimationFrame(animationFrame);
+            isAnimating = false; // Reset animation state to false
+        } else if (Math.abs(currentValue - targetValue) < 0.1) {
+            currentValue = targetValue;
+            cancelAnimationFrame(animationFrame);
+            isAnimating = false; // Reset animation state to false
         } else {
             animationFrame = requestAnimationFrame(updateValue);
         }
         slider.value = Math.round(currentValue);
-        updateSliderStyleVit(slider)
+        updateSliderStyleVit(slider);
     }
 
     if (animationFrame) {
@@ -153,7 +166,6 @@ function animateSliderValue(slider, targetValue) {
     }
     animationFrame = requestAnimationFrame(updateValue);
 }
-
 
 // Met à jour le style du slider en fonction de sa valeur.
 export function updateSliderStyle(sliderElement) {
@@ -289,7 +301,7 @@ export function setupSpeedSlider() {
 
     const sliderVit = document.getElementById('vit_bras_slider');
 
-    sliderVit.value = 20;
+    sliderVit.value = 0;
     // changer le style 
     updateSliderStyleVit(sliderVit);
 
