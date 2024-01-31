@@ -99,7 +99,8 @@ function startDragSlider(e, slider, angle, texte_gauche, texte_droite) {
     slider.dataset.isDragging = 1;
     let clientX = e.touches ? e.touches[0].clientX : e.clientX;
     updateSliderAndAngle(slider, angle, clientX);
-    adjustText(slider,texte_gauche, texte_droite);
+    if(texte_gauche)adjustText(slider,texte_gauche, texte_droite);
+    else updateSliderStyleVit(slider);
 }
 
 
@@ -107,8 +108,9 @@ function startDragSlider(e, slider, angle, texte_gauche, texte_droite) {
 function moveDragSlider(e, slider, angle, texte_gauche, texte_droite) {
     if (slider.dataset.isDragging == 1) {
         let clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        updateSliderAndAngle(slider, angle, clientX, texte_gauche, texte_droite);
-        adjustText(slider,texte_gauche, texte_droite);
+        updateSliderAndAngle(slider, angle, clientX);
+        if(texte_gauche)adjustText(slider,texte_gauche, texte_droite);
+        else updateSliderStyleVit(slider);
     }
 }
 
@@ -116,6 +118,40 @@ function moveDragSlider(e, slider, angle, texte_gauche, texte_droite) {
 // Arrête le glissement du slider.
 function stopDragSlider(slider) {
     slider.dataset.isDragging = 0;
+    if(slider.id == 'vit_bras_slider') {
+        // Aimante la valeur du slider au modulo 40 avec une animation
+        const sliderValue = parseInt(slider.value);
+        const magnetizedValue = Math.round((sliderValue+100) / 40) * 40 - 100;
+        animateSliderValue(slider, magnetizedValue);
+    }
+}
+
+// Anime la valeur du slider jusqu'à la valeur aimantée
+let animationFrame;
+
+function animateSliderValue(slider, targetValue) {
+    const animationDuration = 200; // Durée de l'animation en millisecondes
+    const initialValue = parseInt(slider.value);
+    const valueChangePerFrame = (targetValue - initialValue) / (animationDuration / 16); // 16ms par frame (60fps)
+
+    let currentValue = initialValue;
+
+    function updateValue() {
+        currentValue += valueChangePerFrame;
+        if ((valueChangePerFrame > 0 && currentValue >= targetValue) || (valueChangePerFrame < 0 && currentValue <= targetValue)) {
+            currentValue = targetValue;
+            cancelAnimationFrame(animationFrame);
+        } else {
+            animationFrame = requestAnimationFrame(updateValue);
+        }
+        slider.value = Math.round(currentValue);
+        updateSliderStyleVit(slider)
+    }
+
+    if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+    }
+    animationFrame = requestAnimationFrame(updateValue);
 }
 
 
@@ -132,6 +168,13 @@ export function updateSliderStyle(sliderElement) {
     }
 }
 
+// updateSliderStyleVit est la même fonction que updateSliderStyle mais pour le slider de vitesse
+
+export function updateSliderStyleVit(sliderElement) {
+    let percentage = (((sliderElement.value) / (sliderElement.max - sliderElement.min)) * 100.0) + 50; 
+    sliderElement.style.background = 'linear-gradient(90deg, #56d8d8 0%, #56d8d8 ' + percentage + '%, #a0a0a0 ' + percentage + '%, #a0a0a0 100%)';
+}
+
 
 // Met à jour le slider et l'angle en fonction de la position de la souris.
 export function updateSliderAndAngle(slider, angle, clientX) {
@@ -142,17 +185,17 @@ export function updateSliderAndAngle(slider, angle, clientX) {
   
     if (value < slider.min) {
       slider.value = slider.min;
-      angle.value = slider.min;
+      if(angle)angle.value = slider.min;
     } else if (value > slider.max) {
       slider.value = slider.max;
-      angle.value = slider.max;
+      if(angle)angle.value = slider.max;
     } else {
       slider.value = value.toFixed(1);
-      angle.value = value.toFixed(1);
+      if(angle)angle.value = value.toFixed(1);
     }
 
     update3d();
-    updateSliderStyle(slider);
+    if(angle)updateSliderStyle(slider);
 
 }
 
@@ -220,4 +263,23 @@ export function changerBras() {
         angleNumber.value = newValue;
         updateSliderStyle(slider);
     });
+}
+
+// Configure le slider de vitesse
+export function setupSpeedSlider() {
+
+
+    const sliderVit = document.getElementById('vit_bras_slider');
+
+    sliderVit.value = 20;
+
+    sliderVit.addEventListener("mousedown", (e) => startDragSlider(e, sliderVit));
+    sliderVit.addEventListener("touchstart", (e) => startDragSlider(e, sliderVit));
+
+    sliderVit.addEventListener("mousemove", (e) => moveDragSlider(e, sliderVit));
+    sliderVit.addEventListener("touchmove", (e) => moveDragSlider(e, sliderVit));
+
+    sliderVit.addEventListener("mouseup", () => stopDragSlider(sliderVit));
+    sliderVit.addEventListener("mouseleave", () => stopDragSlider(sliderVit));
+    sliderVit.addEventListener("touchend", () => stopDragSlider(sliderVit));
 }
