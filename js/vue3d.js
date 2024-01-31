@@ -186,11 +186,11 @@ export function setup3D(){
     }
     
     container3d.addEventListener('mousedown', startGrab);
-    container3d.addEventListener('touchstart', startGrab);
+    container3d.addEventListener('touchstart', startGrab, {passive: false} );
     document.addEventListener('mousemove', move3d);
-    document.addEventListener('touchmove', move3d);
+    document.addEventListener('touchmove', move3d, {passive: false});
     document.addEventListener('mouseup', endDrag);
-    document.addEventListener('touchend', endDrag);
+    document.addEventListener('touchend', endDrag, {passive: false});
     container3d.addEventListener('mouseleave', endDrag);
 }
 
