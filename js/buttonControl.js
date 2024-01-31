@@ -129,19 +129,47 @@ export function remiseazero() {
 // Valide les angles sélectionnés et les envoie.
 function validerAngles() {
 
-    let anglesInfo = {
-        angles_gauche: [],
-        angles_droite: []
-    };
+  let anglesInfo = {
+    angles_gauche: [],
+    angles_droite: [],
+    vitesse_pt : 0
+  };
 
-    motorInfo.forEach(motor => {
+  motorInfo.forEach(motor => {
 
-      anglesInfo.angles_gauche[motor.id] = sliderValuesLeft[motor.id];
-      anglesInfo.angles_droite[motor.id] = sliderValuesRight[motor.id];
+    anglesInfo.angles_gauche[motor.id] = parseInt(sliderValuesLeft[motor.id]);
+    anglesInfo.angles_droite[motor.id] = parseInt(sliderValuesRight[motor.id]);
 
-    });
+  });
 
-    sendAnglesInfo(anglesInfo);
+  // ajouter la vitesse du mouvement à angles info
+  const sliderVit = document.getElementById('vit_bras_slider');
+  
+  // la valeur du slider est entre -50 et 50
+  // nous on veut une valeur de vitesse entre 0%, 20%, 40%, 60%, 80% ou 100%
+
+  const sliderValue = parseInt(sliderVit.value);
+  let vitesse = 0;
+
+  if (sliderValue < -40) {
+    vitesse = 0;
+  } else if (sliderValue < -20) {
+    vitesse = 20;
+  } else if (sliderValue < 0) {
+    vitesse = 40;
+  } else if (sliderValue < 20) {
+    vitesse = 60;
+  } else if (sliderValue < 40) {
+    vitesse = 80;
+  } else {
+    vitesse = 100;
+  }
+
+  anglesInfo.vitesse_pt = vitesse;
+  
+  console.log(anglesInfo.vitesse_pt);
+
+  sendAnglesInfo(anglesInfo);
 
 }
 
