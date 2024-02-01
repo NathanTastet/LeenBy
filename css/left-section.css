@@ -252,7 +252,7 @@ input[type="number"]:focus {
 
 .elevated input[type="range"] {
   position: relative;
-  z-index: 2; /* La poignée est au-dessus des marques de pourcentage */
+  z-index: 2; /* Pour que le thumb soit au-dessus du background */
   background :linear-gradient(90deg, #56d8d8 0%, #56d8d8 60%, #ddd 60%, #ddd 100%);
 }
 
@@ -267,5 +267,5 @@ input[type="number"]:focus {
 }
 
 :root {
-  --thumb-color: #56d8d8; /* Couleur par défaut */
+  --thumb-color: #56d8d8;
 }

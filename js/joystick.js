@@ -28,23 +28,24 @@ const handle = document.getElementById('joystickHandle');
 export function setupJoystick() {
     
     container.addEventListener('mousedown', startGrab);
-    container.addEventListener('touchstart', startGrab);
+    container.addEventListener('touchstart', startGrab, { passive: false });
     document.addEventListener('mousemove', moveJoystick);
-    document.addEventListener('touchmove', moveJoystick);
+    document.addEventListener('touchmove', moveJoystick, { passive: false });
     document.addEventListener('mouseup', endDrag);
     document.addEventListener('touchend', endDrag);
 }
 
 
 function startGrab(e) {
-    e.preventDefault();
+    e.preventDefault(); // Empêcher le comportement par défaut sur les tablettes
     container.style.cursor = "grabbing";
     joystickIsDragging = true;
 }
 
 
 function moveJoystick(e) {
-    e.preventDefault();
+    e.preventDefault(); // Empêcher le comportement par défaut sur les tablettes
+
     if (!joystickIsDragging) return;
 
     // on détecte les positions x et y du joystick

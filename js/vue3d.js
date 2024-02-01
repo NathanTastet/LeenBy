@@ -134,34 +134,45 @@ export function setup3D(){
     let theta = 0; // Angle autour de l'axe Y
     
     function startGrab(e) {
+        e.preventDefault();
         isDragging3d = true;
+    
+        // Adapter pour les événements tactiles
+        let touch = e.touches ? e.touches[0] : null;
+        let offsetX = touch ? touch.pageX - e.target.offsetLeft : e.offsetX;
+        let offsetY = touch ? touch.pageY - e.target.offsetTop : e.offsetY;
+    
         previousMousePosition = {
-            x: e.offsetX || e.touches?.[0].pageX,
-            y: e.offsetY || e.touches?.[0].pageY
+            x: offsetX,
+            y: offsetY
         };
     }
-    
+
     function endDrag(e) {
         isDragging3d = false;
     }
     
     function move3d(e) {
+        e.preventDefault();
         if (!isDragging3d) {
             return;
         }
     
-        e.preventDefault();
+        // Adapter pour les événements tactiles
+        let touch = e.touches ? e.touches[0] : null;
+        let offsetX = touch ? touch.pageX - e.target.offsetLeft : e.offsetX;
+        let offsetY = touch ? touch.pageY - e.target.offsetTop : e.offsetY;
     
         let currentPosition = {
-            x: e.offsetX || e.touches?.[0].pageX,
-            y: e.offsetY || e.touches?.[0].pageY
+            x: offsetX,
+            y: offsetY
         };
     
-        // Vérifier si la souris est toujours dans le conteneur
+        // Vérifier si la souris/touche est toujours dans le conteneur
         if (currentPosition.x < 5 || currentPosition.x > container3d.clientWidth || 
         currentPosition.y < 5 || currentPosition.y > container3d.clientHeight) {
-        endDrag();
-        return;
+            endDrag();
+            return;
         }
     
         let deltaMove = {
@@ -172,25 +183,22 @@ export function setup3D(){
         let rotationSpeed = 0.005;
         theta -= deltaMove.x * rotationSpeed;
     
-        // Calculer les coordonnées sphériques pour la rotation autour de l'axe Y
         camera3d.position.x = distance_Cam * Math.sin(theta);
         camera3d.position.z = distance_Cam * Math.cos(theta);
-            
-        // Faire pointer la caméra vers le cube
+                
         camera3d.lookAt(scene.position);
-
-        // Mettre à jour la position de la lumière
         pointLight.position.set(camera3d.position.x, camera3d.position.y, camera3d.position.z);
-    
+        
         previousMousePosition = currentPosition;
     }
     
+    
     container3d.addEventListener('mousedown', startGrab);
-    container3d.addEventListener('touchstart', startGrab, {passive: false} );
+    container3d.addEventListener('touchstart', startGrab, { passive: false });
     document.addEventListener('mousemove', move3d);
-    document.addEventListener('touchmove', move3d, {passive: false});
+    document.addEventListener('touchmove', move3d, { passive: false });
     document.addEventListener('mouseup', endDrag);
-    document.addEventListener('touchend', endDrag, {passive: false});
+    document.addEventListener('touchend', endDrag);
     container3d.addEventListener('mouseleave', endDrag);
 }
 
