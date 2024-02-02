@@ -6,7 +6,7 @@
 // ---- IMPORTS ----
 import { motorInfo } from './motorInfo.js';
 import { updateSliderStyle, changerBras, adjustText, sliderValuesLeft, sliderValuesRight} from './sliderControl.js';
-import { sendAnglesInfo, sendPresetCommand } from './websocket.js';
+import { sendAnglesInfo} from './websocket.js';
 import { resize3d, update3d } from './vue3d.js';
 
 // ---- VARIABLE ----
