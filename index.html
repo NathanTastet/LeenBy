@@ -46,18 +46,26 @@
             <tr>
                 <td><button id="reset_button">RAZ</button></td>
                 <td></td>
-                <td class="elevated"><b>Vit. Bras</b></td>
-                <td class="elevated" id="el2"><input type="range" id="vit_bras_slider" min="-50" max="50"
-                    value="0" step="0.1">
-                    <div class="slider-marks">
-                        <span class="mark"><br><p>20%</p></span>
-                        <span class="mark"><br><p>40%</p></span>
-                        <span class="mark"><br><p>60%</p></span>
-                        <span class="mark"><br><p>80%</p></span>
-                        <span class="mark"><br><p>100%</p></span>
+                <td class="elevated"><b>Vit. Bras<br>(%)</b></td>
+                <td class="elevated">
+                    <div id="el2">
+                        <div class="slider-marks">
+                            <span class="mark"></span>
+                            <span class="mark"></span>
+                            <span class="mark"></span>
+                            <span class="mark"></span>
+                            <span class="mark"></span>
+                        </div>
+                        <input type="range" id="vit_bras_slider" min="-50" max="50"
+                        value="0" step="0.1">
+                        <div class="slider-value">
+                            <p>20</p>
+                            <p>40</p></span>
+                            <p>60</p></span>
+                            <p>80</p></span>
+                            <p>100</p></span>
+                        </div>
                     </div>
-                
-                
                 </td>
                     
                 <td><button id="check_button">Valider</button></td>

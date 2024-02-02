@@ -62,11 +62,3 @@ export function sendAnglesInfo(anglesInfo) {
         socket.send(JSON.stringify({ anglesInfo }));
     }
 }
-
-
-// Envoie une commande prédéfinie via WebSocket.
-export function sendPresetCommand(command) {
-    if (socket.readyState) {
-        socket.send(JSON.stringify({ command }));
-    }
-}

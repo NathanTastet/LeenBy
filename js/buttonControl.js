@@ -181,8 +181,7 @@ export function setupPresetButtons() {
       button.addEventListener('click', function() {
         presetButtons.forEach(btn => btn.classList.remove('active'));
         this.classList.add('active');
-        let movement = this.id;
-        sendPresetCommand(movement); 
+        
       });
     });
   }

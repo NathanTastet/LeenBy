@@ -42,12 +42,6 @@ tr {
   border-bottom: 1px solid #ddd;
 }
 
-.elevated{
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Effet d'ombre pour la surélévation */
-  background: #ccc;
-  user-select: none;
-}
-
 /* Styles des colonnes pour l'alignement et la largeur */
 .col1 { width: 12%; }
 .col2 { width: 10%; }
@@ -221,47 +215,59 @@ input[type="number"]:focus {
   display: inline-block;
 }
 
+.elevated {
+  background: #ccc;
+  user-select: none;
+  padding: 10px;
+}
+
+#el2{
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .slider-marks {
-  z-index : 1;
-  position : relative;
-  top: -4vh;
   display: flex;
   justify-content: space-between;
-  margin-top: 5px;
-  padding : 0 1.5vh;
+  width: 100%; /* Assurez-vous que cela correspond à la largeur de votre curseur */
+  padding: 0 10px; /* Ajustez selon la marge intérieure souhaitée */
 }
 
 .slider-marks .mark {
-  z-index : 0;
   height: 10px;
   width: 2px;
   background-color: black;
 }
 
-.mark p{
-  position: relative;
-  left : -2vh;
+.slider-value {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; /* Assurez-vous que cela correspond à la largeur de votre curseur */
   text-align: center;
-  top : 0.7vh;
 }
 
-#el2{
-  position:relative;
-  padding: 0.5vh 3vh;
+.slider-value p {
+  margin: 0; /* Supprime les marges par défaut des paragraphes */
+  width: 5%;
 }
 
-.elevated input[type="range"] {
+
+#el2 input[type="range"] {
   position: relative;
   z-index: 2; /* Pour que le thumb soit au-dessus du background */
   background :linear-gradient(90deg, #56d8d8 0%, #56d8d8 60%, #ddd 60%, #ddd 100%);
+  width: 100%; /* Même largeur que les marques pour alignement */
+  margin: 10px 0; /* Espacement autour du curseur */
 }
 
-.elevated input[type="range"]::-webkit-slider-thumb {
+#el2 input[type="range"]::-webkit-slider-thumb {
   background-color: var(--thumb-color);
   cursor: pointer;
 }
 
-.elevated input[type="range"]::-moz-range-thumb {
+#el2 input[type="range"]::-moz-range-thumb {
   background-color: var(--thumb-color);
   cursor: pointer;
 }

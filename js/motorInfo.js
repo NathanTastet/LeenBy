@@ -69,3 +69,4 @@ export const motorInfo = [
     "rotation_type": "x"
   }
 ];
+
