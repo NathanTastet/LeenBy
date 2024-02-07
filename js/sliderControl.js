@@ -6,6 +6,7 @@
 // ---- VARIABLES ----
 import { modeBras } from './buttonControl.js';
 import { motorInfo } from './motorInfo.js';
+import { isRecording } from './presetButtons.js';
 import { update3d } from './vue3d.js';
 
 export let sliderValuesLeft = {};
@@ -85,6 +86,9 @@ export function setupSliderEventListeners(motor) {
     slider.addEventListener("touchend", () => stopDragSlider(slider));
 
     angle.addEventListener("input", () => {
+        if(isRecording){
+            document.querySelectorAll('.presetBtn:not(#enregBtn)').forEach(btn => btn.classList.remove('active'));
+        }
         adjustSliderValue(angle, slider);
         adjustText(slider,texte_gauche, texte_droite);
         update3d();
@@ -101,6 +105,9 @@ function startDragSlider(e, slider, angle, texte_gauche, texte_droite) {
     updateSliderAndAngle(slider, angle, clientX);
     if(texte_gauche)adjustText(slider,texte_gauche, texte_droite);
     else updateSliderStyleVit(slider);
+    if(!isRecording){
+        document.querySelectorAll('.presetBtn:not(#enregBtn)').forEach(btn => btn.classList.remove('active'));
+    }
 }
 
 
@@ -131,7 +138,7 @@ let animationFrame;
 
 let isAnimating = false; // Ajoutez cette variable pour suivre l'état de l'animation
 
-function animateSliderValue(slider, targetValue) {
+export function animateSliderValue(slider, targetValue) {
     if (isAnimating) {
         return; // If animation is already in progress, do nothing
     }

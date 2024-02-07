@@ -7,7 +7,8 @@
 import { setup3D } from './vue3d.js';
 import { setupJoystick } from './joystick.js';
 import { setupMotorSliders, setupSpeedSlider } from './sliderControl.js'; 
-import { setupArmSelection, setup3DButton, setupControlButtons, setupPresetButtons, remiseazero} from './buttonControl.js';
+import { setupArmSelection, setup3DButton, setupControlButtons, remiseazero} from './buttonControl.js';
+import { setupPresetButtons } from './presetButtons.js';
 
 // --- FONCTIONS ---
 

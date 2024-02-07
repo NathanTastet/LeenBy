@@ -62,7 +62,7 @@
 }
 
 /* Styles supplémentaires pour l'état :hover et :active */
-.presetBtn:hover, .presetBtn:active {
+.presetBtn:hover{
   box-shadow: 0 4vh 8vh rgba(0, 0, 0, 0.4); /* Ombre plus prononcée */
   transform: translateY(-1vh); /* Déplacement plus visible */
   background-color: #7B1FA2; /* Couleur de fond légèrement différente */
@@ -91,6 +91,53 @@
   align-items: center;
   justify-content: center;
 }
+
+#enregBtn{
+  background-color:  #7B8D93;
+}
+
+#enregBtn:hover{
+  background-color: #9AAEBB; /* Couleur de fond légèrement différente */
+}
+
+
+.enregPasPret{
+  background-color: #c51515 !important;
+}
+
+.enregPasPret:hover{
+  background-color: #f51f1f !important;
+} 
+
+.enregPret{
+  background-color: #2ECC40 !important;
+  color : #333 !important;
+}
+
+.enregPret:hover{
+  background-color: #51f851 !important;
+  color : #333 !important;
+}
+
+#enregBtn:hover{
+  background-color: #9AAEBB; /* Couleur de fond légèrement différente */
+}
+
+
+
+.modifierBtn{
+  background-color: #0a0892 !important;
+}
+
+.modifierBtn:hover {
+  background-color: #044fc0 !important;
+}
+
+.modifierBtn.active {
+  background-color: #058be4 !important;
+}
+
+
 
 /* Configuration de la section du joystick */
 #joystickSection {

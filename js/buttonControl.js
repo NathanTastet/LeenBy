@@ -6,7 +6,7 @@
 // ---- IMPORTS ----
 import { motorInfo } from './motorInfo.js';
 import { updateSliderStyle, changerBras, adjustText, sliderValuesLeft, sliderValuesRight} from './sliderControl.js';
-import { sendAnglesInfo} from './websocket.js';
+import { sendAnglesInfo } from './websocket.js';
 import { resize3d, update3d } from './vue3d.js';
 
 // ---- VARIABLE ----
@@ -172,19 +172,6 @@ function validerAngles() {
   sendAnglesInfo(anglesInfo);
 
 }
-
-// Configuration des mouvements prédéfinis
-export function setupPresetButtons() {
-    const presetButtons = document.querySelectorAll('.presetBtn');
-  
-    presetButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        presetButtons.forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
-        
-      });
-    });
-  }
 
 // Initialise le bouton de la vue 3D
 export function setup3DButton() {
