@@ -26,10 +26,12 @@ export function setupPresetButtons() {
     // initialisation du tableau de mouvements avec des cases vides
     for (let i = 1; i <= 7; i++) {
       mvtEnregistre[i] = {left: [], right: []};
-      for (let j = 0; j < motorInfo.length; j++) {
-        mvtEnregistre[i].left[j] = parseInt(0);
-        mvtEnregistre[i].right[j] = parseInt(0);
-      }
+
+      motorInfo.forEach(motor => {
+        var id = parseInt(motor.id);
+        mvtEnregistre[i].left[id] = parseFloat(0);
+        mvtEnregistre[i].right[id] = parseFloat(0);
+      });
       
     }
 
@@ -126,7 +128,10 @@ export function setupPresetButtons() {
           document.querySelectorAll('.presetBtn:not(#enregBtn)').forEach(btn => btn.classList.remove('active'));
           enregButton.classList.remove('enregPasPret');
         }else{
-          document.querySelectorAll('.active:not(#enregBtn)').forEach(btn => {
+
+          console.log(mvtEnregistre);
+
+          document.querySelectorAll('.presetBtn:not(#enregBtn).active').forEach(btn => {
           position = parseInt(btn.id.replace('preset', ''));
           btn.classList.remove('active'); } );
 
