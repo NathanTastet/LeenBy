@@ -225,19 +225,8 @@ export function update3d() {
         let angleRight = THREE.MathUtils.degToRad(sliderValuesRight[motor.id]);
 
         const os_abouger = [];
-
-        switch (modeBras) {
-            case 'brasGauche':
-                os_abouger.push({ boneName: motor.leftBone, angle: angleLeft });
-                break;
-            case 'brasDroit':
-                os_abouger.push({ boneName: motor.rightBone, angle: angleRight });
-                break;
-            case 'deuxBras':
-                os_abouger.push({ boneName: motor.leftBone, angle: angleLeft });
-                os_abouger.push({ boneName: motor.rightBone, angle: angleRight });
-                break;
-        }
+        os_abouger.push({ boneName: motor.leftBone, angle: angleLeft });
+        os_abouger.push({ boneName: motor.rightBone, angle: angleRight });
 
         os_abouger.forEach(({ boneName, angle }) => {
             const bone = bones.find(b => b.name === boneName);

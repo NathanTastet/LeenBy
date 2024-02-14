@@ -5,6 +5,14 @@
   Inclut les styles pour l'affichage des informations, les boutons de mouvements prédéfinis et le joystick.
 */
 
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-0.3vh); }
+  50% { transform: translateX(0); }
+  75% { transform: translateX(0.3vh); }
+  100% { transform: translateX(0); }
+}
+
 #vue3d{
   height: 100%;
   width: 100%;
@@ -50,9 +58,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: #4B0082;
-  border: none;
-  color: white;
+  background-color: #c2aad3;
+  border: 0.2vh solid #4B0082;
+  color: #4B0082;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -65,14 +73,6 @@
 .presetBtn:hover{
   box-shadow: 0 4vh 8vh rgba(0, 0, 0, 0.4); /* Ombre plus prononcée */
   transform: translateY(-1vh); /* Déplacement plus visible */
-  background-color: #7B1FA2; /* Couleur de fond légèrement différente */
-}
-
-/* Style spécifique pour l'état actif */
-.presetBtn.active {
-  background-color: #9C27B0; /* Couleur de fond beaucoup plus différente pour l'état actif */
-  transform: scale(0.95); /* Réduction de la taille pour simuler un bouton enfoncé */
-  border: 0.2vh solid #000000;
 }
 
 /* Style pour le texte dans les boutons */
@@ -94,49 +94,70 @@
 
 #enregBtn{
   background-color:  #7B8D93;
+  color: #1e1e1e;
+  border: 0.2vh solid #333;
 }
 
 #enregBtn:hover{
   background-color: #9AAEBB; /* Couleur de fond légèrement différente */
+  color: #1e1e1e;
+  border: 0.2vh solid #333;
 }
 
 
 .enregPasPret{
   background-color: #c51515 !important;
+  color: whitesmoke !important;
 }
 
 .enregPasPret:hover{
   background-color: #f51f1f !important;
+  color: whitesmoke !important;
 } 
 
 .enregPret{
   background-color: #2ECC40 !important;
-  color : #333 !important;
+  color : #114703 !important;
 }
 
 .enregPret:hover{
   background-color: #51f851 !important;
-  color : #333 !important;
+  color : #114703  !important;
 }
-
-#enregBtn:hover{
-  background-color: #9AAEBB; /* Couleur de fond légèrement différente */
-}
-
 
 
 .modifierBtn{
   background-color: #0a0892 !important;
+  color: whitesmoke;
 }
 
 .modifierBtn:hover {
   background-color: #044fc0 !important;
+  color: whitesmoke;
 }
 
 .modifierBtn.active {
   background-color: #058be4 !important;
+  color: whitesmoke;
+  animation : shake linear 0.3s infinite;
 }
 
+.presetBtn.DonneesEnregistrees{
+  background-color: #4B0082;
+  color: whitesmoke;
+}
+
+.presetBtn.DonneesEnregistrees:hover{
+  background-color: #7B1FA2;
+  color: whitesmoke;
+}
+
+/* Style spécifique pour l'état actif */
+.presetBtn.DonneesEnregistrees.active {
+  background-color: #9C27B0;/* Couleur de fond beaucoup plus différente pour l'état actif */
+  transform: scale(0.95); /* Réduction de la taille pour simuler un bouton enfoncé */
+  border: 0.2vh solid #000000;
+}
 
 
 /* Configuration de la section du joystick */

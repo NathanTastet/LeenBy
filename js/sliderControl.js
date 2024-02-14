@@ -291,7 +291,12 @@ export function changerBras() {
                 newValue = parseFloat(sliderValuesRight[motor.id]);
                 break;
             case 'deuxBras':
-                newValue = 0; // Réinitialiser à 0 pour les deux bras
+                if(parseFloat(sliderValuesLeft[motor.id]) == parseFloat(sliderValuesRight[motor.id])){
+                newValue = parseFloat(sliderValuesLeft[motor.id]);
+                }
+                else{  
+                    newValue = 0;
+                }
                 break;
         }
 
