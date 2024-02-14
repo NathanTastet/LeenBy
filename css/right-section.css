@@ -6,11 +6,11 @@
 */
 
 @keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-0.3vh); }
-  50% { transform: translateX(0); }
-  75% { transform: translateX(0.3vh); }
-  100% { transform: translateX(0); }
+  0% { transform: translateX(0) scale(0.95); }
+  25% { transform: translateX(-0.3vh) scale(0.95); }
+  50% { transform: translateX(0) scale(0.95); }
+  75% { transform: translateX(0.3vh) scale(0.95); }
+  100% { transform: translateX(0) scale(0.95); }
 }
 
 #vue3d{
@@ -139,7 +139,9 @@
 .modifierBtn.active {
   background-color: #058be4 !important;
   color: whitesmoke;
+  transform: scale(0.95);
   animation : shake linear 0.3s infinite;
+  animation-delay: 0.3s;
 }
 
 .presetBtn.DonneesEnregistrees{

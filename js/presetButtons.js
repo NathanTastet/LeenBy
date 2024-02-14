@@ -24,7 +24,7 @@ export function setupPopup() {
 
   const choixImage = document.getElementById('choixImage');
 
-  for (let i = 1; i <= 8; i++) {
+  for (let i = 1; i <= 15; i++) {
       const button = document.createElement('button');
       button.className = 'choixImageBtn';
       button.id = `img${i}`;

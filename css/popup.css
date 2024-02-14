@@ -40,10 +40,20 @@
   margin: 2% 0;
 }
 
+#choixNom{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#choixNom h2{
+  margin-right : 2%;
+}
+
 .choixImageBtn{
-  flex-basis: 25%;
+  flex-basis: 20%;
   margin: 1.5%;
-  width: 22%;
+  width: 16.5%;
   aspect-ratio: 1/1;
   font-size: 2.5vh;
   justify-content: flex-start;
@@ -68,11 +78,11 @@
 }
 
 #nomPreset{
-  width: 100%;
   padding: 8px; /* Ajuste pour le confort */
   border: 1px solid #ccc; /* Couleur de bordure */
   border-radius: 4px; /* Bords arrondis */
   width: 25%;
+  height: 100%;
 }
 
 #nomPreset::placeholder{
