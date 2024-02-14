@@ -154,8 +154,6 @@ export function setupPresetButtons() {
           enregButton.classList.remove('enregPasPret');
         }else{
 
-          console.log(mvtEnregistre);
-
           document.querySelectorAll('.presetBtn:not(#enregBtn).active').forEach(btn => {
           position = parseInt(btn.id.replace('preset', ''));
           btn.classList.remove('active'); } );
@@ -181,7 +179,6 @@ export function setupPresetButtons() {
               let preBut = document.getElementById(`preset${position}`);
               preBut.classList.add('DonneesEnregistrees');
             
-              console.log(mvtEnregistre);
               enregButton.classList.remove('enregPret');
 
               // on récupère les valeurs du formulaire

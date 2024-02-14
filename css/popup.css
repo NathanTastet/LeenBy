@@ -4,6 +4,11 @@
   Styles spécifiques au popup qui s'affiche lorsque l'utilisateur enregistre un preset
 */
 
+@keyframes changeColor {
+  0%,100% {background-color: #333;}
+  50% {background-color: #444;}
+}
+
 
 .popup {
   display: none;
@@ -51,16 +56,19 @@
   transition: all 0.3s ease;
   border-radius: 1vh;
 }
+.choixImageBtn:hover{
+  animation: changeColor 0.5s infinite;
+}
 
 .choixImageBtn img{
   width: 80%;
   height: 80%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 1vh;
 }
 
 #nomPreset{
-  width: 100%; /* Ajuste selon le design */
+  width: 100%;
   padding: 8px; /* Ajuste pour le confort */
   border: 1px solid #ccc; /* Couleur de bordure */
   border-radius: 4px; /* Bords arrondis */
