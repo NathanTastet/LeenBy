@@ -33,6 +33,20 @@ export function setupJoystick() {
     document.addEventListener('touchmove', moveJoystick, { passive: false });
     document.addEventListener('mouseup', endDrag);
     document.addEventListener('touchend', endDrag);
+
+    // On ajoute les encoches sur le joystick
+    const parentElement = document.querySelector('#joystickBase'); // Remplace '#parentElement' par le sélecteur approprié
+
+    // Crée et insère les éléments
+    for (let i = 0; i <= 360; i += 45) {
+        const notch = document.createElement('div');
+        notch.className = 'notch';
+        notch.style.transform = `rotate(${i}deg)`;
+        const notchInner = document.createElement('div');
+        notchInner.className = 'notch-inner';
+        notch.appendChild(notchInner);
+        parentElement.appendChild(notch);
+    }
 }
 
 
