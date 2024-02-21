@@ -39,18 +39,17 @@ export function setupPresetButtons() {
 
     const presetSection = document.getElementById('presetSection');
 
-    // initialisation du tableau de mouvements avec des cases vides
+    //on initialise le tableau de mouvements avec des cases vides
     for (let i = 1; i <= 7; i++) {
       mvtEnregistre[i] = {left: [], right: []};
-
+      // on sort les valeurs du tableau des données locales
       motorInfo.forEach(motor => {
         var id = parseInt(motor.id);
         mvtEnregistre[i].left[id] = parseFloat(0);
         mvtEnregistre[i].right[id] = parseFloat(0);
       });
-      
     }
-
+      
     // Création et ajout des 7 boutons de presets
     for (let i = 1; i <= 7; i++) {
 
@@ -124,6 +123,20 @@ export function setupPresetButtons() {
           }  
       });
     }
+
+    // si le tableau de mouvements enregistrés existe, on le récupère et on l'affiche
+    if(JSON.parse(localStorage.getItem('mvtEnregistre')) != null){
+      mvtEnregistre = JSON.parse(localStorage.getItem('mvtEnregistre'));
+      for (let i = 1; i <= 7; i++) {
+        if(mvtEnregistre[i].left[0] == 1){
+          let button = document.getElementById(`preset${i}`);
+          let choixImage = JSON.parse(localStorage.getItem(`choixImage${i}`));
+          let nomPreset = JSON.parse(localStorage.getItem(`nomPreset${i}`));
+          button.innerHTML = `<span class="btnText">${nomPreset}</span><img class="btnIcon" src="img/preset/${choixImage}.svg"></span>`;
+          button.classList.add('DonneesEnregistrees');
+        }
+      }
+    }
       
 
 
@@ -189,6 +202,14 @@ export function setupPresetButtons() {
               preBut.innerHTML = `<span class="btnText">${nom}</span><img class="btnIcon" src="img/preset/${choiximage}.svg"></span>`;
               document.getElementById("formulaire").removeEventListener("submit", soumettreFormulaire);
               document.getElementById("popup").style.display = "none";
+
+              // on enregistre en local
+              // on met le mouvement enregistré dans le local storage
+              localStorage.setItem('mvtEnregistre', JSON.stringify(mvtEnregistre));
+              // on met l'icone choisie aussi
+              localStorage.setItem(`choixImage${position}`, JSON.stringify(choiximage));
+              // on met le nom du preset aussi
+              localStorage.setItem(`nomPreset${position}`, JSON.stringify(nom));
             }
           }
           // il faut attendre la réponse du formulaire pour continuer
