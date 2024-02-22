@@ -125,10 +125,6 @@ export function afficherCoordonnees(x, y, maxDistance) {
     // Normalisation des distances x et y : conversion en un ratio compris entre 0 et 1
     const normalizedX = x / maxDistance;
     const normalizedY = y / maxDistance; // l'axe y est a l'endroit
-    // Calculer l'angle en radians
-    const angleRad = Math.atan2(normalizedY, normalizedX);
-    // Convertir en degrés
-    const angleDeg = (angleRad * 180 / Math.PI + 360) % 360;
 
     if (Math.abs(normalizedX) < anglemort && Math.abs(normalizedY) < anglemort) {
         // on est dans l'angle mort, tout est nul.

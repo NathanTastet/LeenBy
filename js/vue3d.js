@@ -8,7 +8,6 @@
 import * as THREE from '../lib/three.module.js'; // VUE 3D
 import { FBXLoader } from '../lib/FBXLoader.js'; // OBJETS
 import { motorInfo } from './motorInfo.js';
-import { modeBras } from './buttonControl.js';
 import { sliderValuesLeft, sliderValuesRight } from './sliderControl.js';
 
 // --- VARIABLES GLOBALES ---
@@ -234,7 +233,7 @@ export function update3d() {
                 const initialRotation = boneInitialRotations[boneName];
                 if (initialRotation) {
                     let appliedAngle = angle;
-                    if (boneName.includes("Right") & motor.rotation_type == 'y') {
+                    if (boneName.includes("Right") && motor.rotation_type == 'y') {
                         appliedAngle *= -1;
                     }
                     bone.rotation[motor.rotation_type] = initialRotation[motor.rotation_type] + appliedAngle;

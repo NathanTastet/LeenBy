@@ -5,8 +5,8 @@
 */
 
 @keyframes changeColor {
-  0%,100% {background-color: #333;}
-  50% {background-color: #444;}
+  0%,100% {background-color: #3A405A;}
+  50% {background-color: #6F9CEB;}
 }
 
 
@@ -57,7 +57,7 @@
   aspect-ratio: 1/1;
   font-size: 2.5vh;
   justify-content: flex-start;
-  background-color: #333;
+  background-color: #3A405A;
   border: 0.2vh solid #888;
   text-align: center;
   text-decoration: none;
@@ -86,6 +86,6 @@
 }
 
 #nomPreset::placeholder{
-  color: #888; /* Couleur du placeholder */
+  color: #333; /* Couleur du placeholder */
   opacity: 1; /* Pleine visibilité */
 }
