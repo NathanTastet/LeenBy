@@ -5,3 +5,6 @@ Ajout d'un slider de choix de vitesse qui se bloque à 20 40 60 80 100% (envie d
 création des presets, enregistrement des presets en local, popup de validation
 
 simplification du code fait avant -> via JS : les notches du joystick
+
+
+a faire : mettre les boutons de preset sur la page de la vue 3d
