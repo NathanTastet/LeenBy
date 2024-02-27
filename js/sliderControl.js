@@ -258,19 +258,18 @@ export function adjustText(slider, texte_gauche, texte_droite) {
     switch (modeBras) {
         case 'brasGauche':
             sliderValuesLeft[motorId] = slider.value;
-            texte_gauche.textContent = parseFloat(slider.value).toFixed(1) + '°';
+            
             break;
         case 'brasDroit':
             sliderValuesRight[motorId] = slider.value;
-            texte_droite.textContent = parseFloat(slider.value).toFixed(1) + '°';
             break;
         case 'deuxBras':
             sliderValuesLeft[motorId] = slider.value;
             sliderValuesRight[motorId] = slider.value;
-            texte_gauche.textContent = parseFloat(slider.value).toFixed(1) + '°';
-            texte_droite.textContent = parseFloat(slider.value).toFixed(1) + '°';
             break;
     }
+    texte_gauche.textContent = sliderValuesLeft[motorId] + '°';
+    texte_droite.textContent = sliderValuesRight[motorId]+ '°';
 }
 
 // fonction qui met a jour les textes quand on change de bras

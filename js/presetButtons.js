@@ -201,7 +201,7 @@ function actionClickEnreg() {
       formulaire.reset();
       document.getElementById("popup").style.display = "flex";
 
-
+      document.getElementById("nomPreset").focus();
       // il faut attendre la réponse du formulaire pour continuer
       formulaire.addEventListener("submit", soumettreFormulaire);
     }
