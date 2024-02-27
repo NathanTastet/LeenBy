@@ -46,14 +46,6 @@
   transform: translateY(1vh);
 }
 
-#title h1::after {
-  color: var(--color-leenby);
-  content: '_';
-  animation: blink 1.5s infinite; /* Animation pour faire clignoter l'underscore */
-  opacity: 1;
-  font-weight: 1000;
-}
-
 #title h1 .controle {
   color: var(--color-controle);
 }
@@ -61,13 +53,6 @@
 #title h1 .leenby {
   color: var(--color-leenby);
 }
-
-/* Animation pour le clignotement de l'underscore */
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
-}
-
 /* Styles du tableau contenant les sliders */
 table {
   width: 100%;
