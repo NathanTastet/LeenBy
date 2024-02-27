@@ -21,34 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
     setupArmSelection();
     setup3DButton();
     setupPresetButtons();
-    setupLeftRightDivs();
     setupPopup();
     setup3D();
     remiseazero();
   });
-
-
-// Configure les interactions avec les divs 'left' et 'right'.
-function setupLeftRightDivs() {
-    // Obtention des divs gauche et droite
-    const leftDiv = document.getElementById("left");
-    const rightDiv = document.getElementById("right");
-
-    // Ajout d'un écouteur d'événement de clic sur le div droit
-    rightDiv.addEventListener("click", function(){
-        // Changement de la couleur de fond et de l'index z des divs
-        leftDiv.style.backgroundColor = "#EAEDED";
-        leftDiv.style.zIndex = "1";
-        rightDiv.style.backgroundColor = "#F4F6F7";
-        rightDiv.style.zIndex = "2";
-    });
-
-    // Ajout d'un écouteur d'événement de clic sur le div gauche
-    leftDiv.addEventListener("click", function() {
-        // Changement de la couleur de fond et de l'index z des divs
-        leftDiv.style.backgroundColor = "#F4F6F7";
-        leftDiv.style.zIndex = "2";
-        rightDiv.style.backgroundColor = "#EAEDED";
-        rightDiv.style.zIndex = "1";
-    });
-}

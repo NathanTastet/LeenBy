@@ -5,9 +5,19 @@
   Cela peut inclure des réinitialisations, des styles de typographie de base, des grilles de mise en page et des variables CSS.
 */
 
+/* Variables CSS */
+:root {
+  --background-body: #F4F4F4;
+  --background-left: #EAEDED;
+  --background-right: #F4F6F7;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --box-shadow: 2vh 0 8vh var(--shadow-color);
+}
+
+
 /* Réinitialisation globale */
 * {
-  box-sizing: border-box;
+  box-sizing: border-box; /* la taille du contenu n'inclut pas les marges */
   margin: 0;
   padding: 0;
 }
@@ -17,45 +27,36 @@ body {
   display: flex;
   width: 100vw;
   height: 100vh;
-  background-color: #F4F4F4;
+  background-color: var(--background-body);
   font-family: 'Tahoma', sans-serif;
   overflow: hidden;
 }
 
-/* Configuration des colonnes gauche et droite */
-#left, #right{
+/* Configuration générale pour les colonnes gauche et droite */
+#left, #right, #right2 {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 1%;
   border-radius: 2vh;
   transition: all 0.3s ease;
 }
 
-/* Configuration principale de la section gauche */
+/* Configuration spécifique à la section gauche */
 #left {
   flex-basis: 60%;
-  background-color: #EAEDED;
-  box-shadow: 2vh 0 8vh rgba(0, 0, 0, 0.2);
+  width: 60%;
+  padding: 0 2vh;
+  background-color: var(--background-left);
+  box-shadow: var(--box-shadow);
   z-index: 2;
 }
 
-/* Styles pour les éléments de droite */
+/* Configuration spécifique à la section droite */
 #right, #right2 {
   flex-basis: 40%;
-  background-color: #F4F6F7;
-  box-shadow: -2vh 0 8vh rgba(0, 0, 0, 0.2);
+  width: 40%;
+  background-color: var(--background-right);
+  box-shadow: -2vh 0 8vh var(--shadow-color);
   z-index: 1;
   transition: opacity 0.5s ease;
-}
-
-/* Styles pour la vue 3D */
-#right2{
-  height: 100%;
-  width: 40%;
-  border-radius: 2vh;
-}
-
-canvas{
-  border-radius: 2vh;
 }

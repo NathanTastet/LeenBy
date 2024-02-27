@@ -16,10 +16,7 @@ export let sliderValuesRight = {};
 
 // Configure les sliders pour chaque moteur et les ajoute à la table des sliders.
 export function setupMotorSliders() {
-    const table = document.getElementById("table-sliders");
-    while (table.children.length > 2) {
-        table.deleteRow(table.rows.length - 1);
-    }
+    const table = document.getElementById("table-sliders-body");
     motorInfo.forEach(motor => {
         addMotorRowToTable(table, motor);
         sliderValuesLeft[motor.id] = 0; // Valeur par défaut pour le bras gauche
@@ -32,7 +29,7 @@ export function setupMotorSliders() {
 
 // Ajoute une ligne à la table des sliders pour un moteur spécifique.
 function addMotorRowToTable(table, motor) {
-    const row = table.insertRow(table.rows.length - 1);
+    const row = table.insertRow(table.rows.length);
     row.classList.add('slider-container');
 
     // Colonne du nom de l'angle

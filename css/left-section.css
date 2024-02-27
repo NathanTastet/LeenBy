@@ -5,26 +5,75 @@
   Contient les styles pour les éléments de paramétrage des moteurs des bras du robot : sliders, boutons.
 */
 
+/* variables de couleur */
+:root{
+  --color-controle: #373D56; /* Remplacez par la couleur que vous voulez pour "Contrôle" */
+  --color-leenby: #385357; /* Remplacez par la couleur que vous voulez pour "Leenby" */
+  --shadow-color2: #463857;
 
-#title {
-  font-size: 2.3em;
-  text-align: center;
-  font-weight: bold;
-  color: #333;
-  padding-top: 0.1em;
-  padding-bottom : 0.1em;
-  margin: 0;
-  background-color: transparent;
-  letter-spacing: 0.05em;
 }
 
+#title {
+  width: 100%;
+  height: 10%;
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: -1;
+}
 
+#title img{
+  object-fit: cover; /* Ajuste l'image pour couvrir l'espace disponible sans perdre ses proportions */
+  height: 100%;
+  float: left;
+  transform: translateY(1vh);
+  transition: all 0.5s ease;
+}
+
+#title img:hover{
+  transform: translateY(0);
+  filter: drop-shadow(0 0 20px var(--shadow-color2));
+
+}
+
+#title h1 {
+  text-align: left;
+  font-size: 4.5vh;
+  margin-left: 5px;
+  position: relative;
+  padding-right: 10px;
+  transform: translateY(1vh);
+}
+
+#title h1::after {
+  color: var(--color-leenby);
+  content: '_';
+  animation: blink 1.5s infinite; /* Animation pour faire clignoter l'underscore */
+  opacity: 1;
+  font-weight: 1000;
+}
+
+#title h1 .controle {
+  color: var(--color-controle);
+}
+
+#title h1 .leenby {
+  color: var(--color-leenby);
+}
+
+/* Animation pour le clignotement de l'underscore */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
 
 /* Styles du tableau contenant les sliders */
 table {
   width: 100%;
+  height: 80%;
   border-collapse: collapse;
-  margin-top: 0.1em;
+  flex: 8;
 }
 
 th, td {
@@ -115,18 +164,19 @@ tr {
   filter: brightness(0) saturate(100%) invert(90%); /* Ceci est une estimation pour transformer l'image en #ECF0F1 */
 }
 
-/* Styles des boutons de réinitialisation et de validation */
 #reset_button, #check_button {
-  /* Styles communs aux boutons RAZ et Valider */
   cursor: pointer;
-  border-radius: 1vh;
-  padding: 1vh 2vh;
-  font-size: 2vh;
-  margin-left: 1vh;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 0.3vh 0.1vh rgba(0, 0, 0, 0.1);
+  border-radius: 0.5em;
+  width: 100%;
+  height: 9vh;
+  font-size: 1.5em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 #reset_button {
   background-color: #FF4136;
 }
@@ -197,17 +247,23 @@ input[type="number"]:focus {
 }
 
 #signature {
+  display: flex;
   color: #333;
   padding: 10px;
   border-radius: 5px;
   text-align: center;
+  flex: 1;
+  height: 10%;
+  justify-content: center;
+  align-items: center; 
+
 }
 
 #signature img{
-  width: 10vw; /* Spécifiez la largeur souhaitée ici */
-  height: auto; /* Permet de conserver la proportion originale de l'image */
+  width: auto; 
+  height: 100%;
   float: left;
-  margin-right: 10px; /* Espace entre l'image et le texte */
+  margin-right: 10px;
 }
 
 /* Style du texte à droite */
@@ -256,10 +312,10 @@ input[type="number"]:focus {
 
 #el2 input[type="range"] {
   position: relative;
-  z-index: 2; /* Pour que le thumb soit au-dessus du background */
-  background :linear-gradient(90deg, #56d8d8 0%, #56d8d8 60%, #ddd 60%, #ddd 100%);
-  width: 100%; /* Même largeur que les marques pour alignement */
-  margin: 10px 0; /* Espacement autour du curseur */
+  z-index: 2;
+  background :linear-gradient(90deg, #FFFF00 0%, #FFFF00 60%, #ddd 60%, #ddd 100%);
+  width: 100%; 
+  margin: 10px 0;
 }
 
 #el2 input[type="range"]::-webkit-slider-thumb {
@@ -273,5 +329,5 @@ input[type="number"]:focus {
 }
 
 :root {
-  --thumb-color: #56d8d8;
+  --thumb-color: #FFFF00;
 }

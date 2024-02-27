@@ -23,7 +23,7 @@ let pointLight; // lumière
 export function setup3D(){
 
     // Sélectionner le conteneur pour la scène 3D
-    container3d = document.getElementById('right2');
+    container3d = document.getElementById('vue3d');
 
     // Initialiser la scène
     const scene = new THREE.Scene();
@@ -31,7 +31,7 @@ export function setup3D(){
 
 
     // Créer une caméra perspective
-    camera3d = new THREE.PerspectiveCamera(75, container3d.clientWidth / container3d.clientHeight, 0.1, 1000);
+    camera3d = new THREE.PerspectiveCamera(65, container3d.clientWidth / container3d.clientHeight, 0.1, 1000);
 
     // Créer le rendu WebGL
     renderer3d = new THREE.WebGLRenderer();

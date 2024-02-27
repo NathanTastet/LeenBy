@@ -18,59 +18,67 @@
     <title>Contrôle Leenby</title>
     <link rel="icon" href="img/favicon.png">
     <!-- Inclusion des fichiers CSS -->
+    <link rel="stylesheet" href="css/general-styles.css">
     <link rel="stylesheet" href="css/left-section.css">
     <link rel="stylesheet" href="css/right-section.css">
-    <link rel="stylesheet" href="css/general-styles.css">
     <link rel="stylesheet" href="css/popup.css">
 </head>
 
 <body>
     <!-- Section de gauche pour le paramétrage -->
     <div id="left">
-        <div id="title">Paramétrage Leenby</div>
+        <div id="title">
+            <img src="img/favicon.png">
+            <h1><span class="controle">>Contrôle</span><span class="leenby">Leenby</span></h1>
+        </div>
         <!-- Table des sliders pour les moteurs -->
         <table id="table-sliders">
             <!-- En-têtes de table -->
-            <tr>
-                <th>Nom du moteur</th>
-                <th>Angle bras gauche</th>
-                <th>Angle bras Droit</th>
-                <th><!-- Sélection des bras -->
-                    <button class="armButton" id="brasGauche">Bras Gauche</button>
-                    <button class="armButton" id="brasDroit">Bras Droit</button>
-                    <button class="armButton" id="deuxBras">Deux Bras</button>
-                </th>
-                <th><button id="vue3DButton"><img class="icon" src="img/vue3d.svg"><br><span class="btnText">Vue
-                            3D</span></button></th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Nom du moteur</th>
+                    <th>Angle bras gauche</th>
+                    <th>Angle bras Droit</th>
+                    <th><!-- Sélection des bras -->
+                        <button class="armButton" id="brasGauche">Bras Gauche</button>
+                        <button class="armButton" id="brasDroit">Bras Droit</button>
+                        <button class="armButton" id="deuxBras">Deux Bras</button>
+                    </th>
+                    <th><button id="vue3DButton"><img class="icon" src="img/vue3d.svg"><br><span class="btnText">Vue
+                                3D</span></button></th>
+                </tr>
+            </thead>
+            <tbody id="table-sliders-body"></tbody>
             <!-- Boutons RAZ et Valider -->
-            <tr>
-                <td><button id="reset_button">RAZ</button></td>
-                <td></td>
-                <td class="elevated"><b>Vit. Bras<br>(%)</b></td>
-                <td class="elevated">
-                    <div id="el2">
-                        <div class="slider-marks">
-                            <span class="mark"></span>
-                            <span class="mark"></span>
-                            <span class="mark"></span>
-                            <span class="mark"></span>
-                            <span class="mark"></span>
+            <tfoot>
+                <tr>
+                    <td><button id="reset_button"><span>RAZ</span></button></td>
+                    <td></td>
+                    <td class="elevated"><b>Vit. Bras<br>(%)</b></td>
+                    <td class="elevated">
+                        <div id="el2">
+                            <div class="slider-marks">
+                                <span class="mark"></span>
+                                <span class="mark"></span>
+                                <span class="mark"></span>
+                                <span class="mark"></span>
+                                <span class="mark"></span>
+                            </div>
+                            <input type="range" id="vit_bras_slider" min="-50" max="50"
+                            value="0" step="0.1">
+                            <div class="slider-value">
+                                <p>20</p>
+                                <p>40</p>
+                                <p>60</p>
+                                <p>80</p>
+                                <p>100</p>
+                            </div>
                         </div>
-                        <input type="range" id="vit_bras_slider" min="-50" max="50"
-                        value="0" step="0.1">
-                        <div class="slider-value">
-                            <p>20</p>
-                            <p>40</p>
-                            <p>60</p>
-                            <p>80</p>
-                            <p>100</p>
-                        </div>
-                    </div>
-                </td>
-                    
-                <td><button id="check_button">Valider</button></td>
-            </tr>
+                    </td>
+                        
+                    <td><button id="check_button"><span>Valider</span></button></td>
+                </tr>
+            </tfoot>
         </table>
         <div id="signature">
             <img src="img/logo_iut.png">
@@ -81,15 +89,11 @@
         </div>
     </div>
 
-    <!-- Section de droite : retour d'informations, mouvements prédéfinis et joystick-->
+    <!-- Section de droite : retour d'informations, paramétres et joystick-->
     <div id="right">
         <!-- Retour d'infos serveur -->
         <div id="infoSection">
             <div id="infoTexte">Message reçu :</div>
-        </div>
-
-        <!-- Boutons de mouvements prédéfinis-->
-        <div id="presetSection">
         </div>
 
         <!-- Joystick -->
@@ -116,8 +120,12 @@
         </div>
     </div>
 
-    <!-- 2ème section de droite pour la vue 3d qui remplace la section de droite quand bouton actif -->
+    <!-- 2ème section de droite pour la vue 3d + preset -->
     <div id="right2" style="display: none;">
+        <!-- Vue 3D -->
+        <div id="vue3d"></div>
+        <!-- Boutons de mouvements prédéfinis-->
+        <div id="presetSection"></div>
     </div>
 
     <div id="popup" class="popup">

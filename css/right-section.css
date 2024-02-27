@@ -14,16 +14,24 @@
 }
 
 #vue3d{
-  height: 100%;
-  width: 100%;
 }
 
 /* Configuration des sections */
-#infoSection, #presetSection, #joystickSection {
+#infoSection, #joystickSection {
   flex-grow: 1;
-  height: 33.33%;
+  height: 50%;
   margin: 1vh;
 }
+
+#presetSection{
+  height: 35%;
+}
+
+#vue3d{
+  height: 65%;
+
+}
+
 
 #infoTexte {
   width: 100%;
@@ -52,7 +60,7 @@
   margin: 1vh;
   padding: 1vh;
   height: 15vh;
-  width: 15vh;
+  width: 14vh;
   font-size: 2.5vh;
   display: flex;
   flex-direction: column;

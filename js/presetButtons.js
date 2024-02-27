@@ -103,7 +103,7 @@ export function setupPresetButtons() {
   enregButton = document.createElement('button');
   enregButton.className = 'presetBtn';
   enregButton.id = 'enregBtn';
-  enregButton.textContent = 'Enregistrer';
+  enregButton.innerHTML = `<span class="btnText" id="txtEnreg">Enregistrer</span><img class="btnIcon" src="img/preset/save.svg" ></span>`;
   presetSection.appendChild(enregButton);
 
 
@@ -167,13 +167,9 @@ function actionClickPreset(presetButton, i) {
     document.querySelectorAll(selector).forEach(btn => btn.classList.remove('active'));
     presetButton.classList.toggle('active');
     if (presetButton.classList.contains('active')) {
-      enregButton.textContent = 'Valider';
-      enregButton.classList.add('enregPret');
-      enregButton.classList.remove('enregPasPret');
+      changerBoutonEnreg('valider');
     } else {
-      enregButton.textContent = 'Annuler';
-      enregButton.classList.remove('enregPret');
-      enregButton.classList.add('enregPasPret');
+      changerBoutonEnreg('annuler');
     }
   }
 }
@@ -184,17 +180,15 @@ function actionClickEnreg() {
   // si on est pas en mode enregistrement, on passe en mode enregistrement
   if (!isRecording) {
     isRecording = true;
-    enregButton.classList.add('enregPasPret');
-    enregButton.textContent = 'Annuler';
+    changerBoutonEnreg('annuler');
     document.querySelectorAll('.presetBtn:not(#enregBtn)').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.presetBtn:not(#enregBtn)').forEach(btn => btn.classList.add('modifierBtn'));
   } else {
     isRecording = false;
     document.querySelectorAll('.presetBtn').forEach(btn => btn.classList.remove('modifierBtn'));
     if (enregButton.classList.contains('enregPasPret')) {
-      enregButton.textContent = 'Enregistrer';
       document.querySelectorAll('.presetBtn:not(#enregBtn)').forEach(btn => btn.classList.remove('active'));
-      enregButton.classList.remove('enregPasPret');
+      changerBoutonEnreg('enregistrer');
     } else {
 
       document.querySelectorAll('.presetBtn:not(#enregBtn).active').forEach(btn => {
@@ -230,9 +224,7 @@ function soumettreFormulaire(event) {
     let preBut = document.getElementById(`preset${position}`);
     preBut.classList.add('DonneesEnregistrees');
 
-    enregButton.classList.remove('enregPret');
-    enregButton.textContent = 'Enregistrer';
-
+    changerBoutonEnreg('enregistrer');
     // on récupère les valeurs du formulaire
     var nom = document.getElementById("nomPreset").value;
     var choiximage = event.submitter.id;
@@ -249,5 +241,25 @@ function soumettreFormulaire(event) {
     localStorage.setItem(`choixImage${position}`, JSON.stringify(choiximage));
     // on met le nom du preset aussi
     localStorage.setItem(`nomPreset${position}`, JSON.stringify(nom));
+  }
+}
+
+function changerBoutonEnreg(type){
+  switch(type) {
+    case 'enregistrer':
+      enregButton.innerHTML = `<span class="btnText" id="txtEnreg">Enregistrer</span><img class="btnIcon" src="img/preset/save.svg" ></span>`;
+      enregButton.classList.remove('enregPasPret');
+      enregButton.classList.remove('enregPret');
+      break;
+    case 'valider':
+      enregButton.innerHTML = `<span class="btnText" id="txtEnreg">Valider</span><img class="btnIcon" src="img/preset/check.svg" ></span>`;
+      enregButton.classList.add('enregPret');
+      enregButton.classList.remove('enregPasPret');
+      break;
+    case 'annuler':
+      enregButton.innerHTML = `<span class="btnText" id="txtEnreg">Annuler</span><img class="btnIcon" src="img/preset/cancel.svg" ></span>`;
+      enregButton.classList.remove('enregPret');
+      enregButton.classList.add('enregPasPret');
+      break;
   }
 }

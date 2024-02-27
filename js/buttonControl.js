@@ -166,8 +166,6 @@ function validerAngles() {
   }
 
   anglesInfo.vitesse_pt = vitesse;
-  
-  console.log(anglesInfo.vitesse_pt);
 
   sendAnglesInfo(anglesInfo);
 
@@ -196,7 +194,7 @@ export function setup3DButton() {
             right2Div.style.opacity = "1";
           });
         });
-      }, 500); // Ce délai doit correspondre à la durée de la transition CSS
+      }, 300); // Ce délai doit correspondre à la durée de la transition CSS
     } else {
       right2Div.style.opacity = "0";
       rightDiv.style.opacity = "0";
@@ -211,7 +209,7 @@ export function setup3DButton() {
             rightDiv.style.opacity = "1";
           });
         });
-      }, 500);
+      }, 300);
     }
   });
 }
