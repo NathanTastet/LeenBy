@@ -12,6 +12,7 @@
 
 #vue3d{
   height: 65%;
+  overflow: hidden;
 
 }
 

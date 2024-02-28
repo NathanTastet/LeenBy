@@ -112,3 +112,9 @@
   float: left;
   margin-right: 10px;
 }
+
+/* Style du texte à droite */
+.right-text {
+  display: inline-block;
+}
+

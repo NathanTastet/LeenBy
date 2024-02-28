@@ -27,7 +27,7 @@ header img{
 
 #title{
   height: 100%;
-  flex: 1;
+  flex: 1.5;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -36,7 +36,7 @@ header img{
 
 #menu{
   height: 100%;
-  flex:2;
+  flex:1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -84,9 +84,9 @@ header img{
 /* Styles du tableau contenant les sliders */
 table {
   width: 100%;
-  height: 90%;
+  height: 75%;
   border-collapse: collapse;
-  flex: 9;
+  flex: 7.5;
   color:#222;
   border-radius: 2vh;
   overflow: hidden;
@@ -109,7 +109,8 @@ th,tr {
 }
 
 /* Styles des colonnes pour l'alignement et la largeur */
-.col1 { width: 12%;}
+.col1 { width: 12%;
+font-weight: bold;}
 
 th, .col1{
   background-color: var(--titre-tableau);
@@ -188,40 +189,6 @@ td.colSelected {
 }
 
 
-#reset_button, #check_button {
-  cursor: pointer;
-  border-radius: 0.5em;
-  width: 100%;
-  height: 9vh;
-  font-size: 1.5em;
-  transition: all 0.3s ease;
-  border: none;
-  outline: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#reset_button {
-  background-color: var(--raz);
-}
-
-#check_button {
-  background-color: var(--valider);
-}
-
-#reset_button:hover, #check_button:hover {
-  filter: brightness(1.2);
-}
-
-#reset_button.active, #check_button.active {
-  transform: scale(0.9);
-  filter: brightness(1.4);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Ajoute une ombre pour un effet de profondeur */
-
-}
-
-
 /* Configuration des sliders pour le contrôle des angles des moteurs */
 .slider-container {
   width: 100%;
@@ -281,21 +248,103 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-input[type="number"] {
-  -moz-appearance: textfield; /* Firefox */
+
+/* Style des boutons en bas */
+footer{
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 15%;
+  flex:1.5;
+  gap:4%;
+
 }
 
-/* Style du texte à droite */
-.right-text {
-  display: inline-block;
+#reset_button, #check_button {
+  flex:1;
+  cursor: pointer;
+  border-radius: 0.5em;
+  width: 100%;
+  height: 9vh;
+  font-size: 1.5em;
+  transition: all 0.3s ease;
+  padding: 0% 2%;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap : 10%;
+  overflow: hidden;
 }
 
-tfoot td{
+#reset_button img, #check_button img{
+  width: auto;
+  height: 60%;
+  transition: all 0.5s ease;
+}
+
+#reset_button:hover img{
+  transform: rotate(-30deg);
+}
+
+#reset_button.active img{
+  transform: rotate(-360deg);
+}
+
+#check_button:hover img{
+  transform: rotate(45deg);
+}
+
+#check_button.active img{
+  transform: rotate(45deg) translate(100%,-100%);
+
+}
+
+
+
+#reset_button {
+  background-color: var(--raz);
+}
+
+
+#check_button {
+  background-color: var(--valider);
+}
+
+#reset_button:hover, #check_button:hover {
+  filter: brightness(1.2);
+}
+
+#reset_button.active, #check_button.active {
+  transform: scale(0.9);
+  filter: brightness(1.4);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Ajoute une ombre pour un effet de profondeur */
+
+}
+
+footer td{
   background-color: var(--background-left);
 }
 
-#el2{
+#slider-vitesse{
+  flex:2.5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
+#slider-vitesse b{
+  flex:1;
+  width: 100%;
+}
+
+.elevated{
+  flex:5;
+
+}
+
+#el2{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -317,13 +366,13 @@ tfoot td{
 .slider-value {
   display: flex;
   justify-content: space-between;
-  width: 100%; /* Assurez-vous que cela correspond à la largeur de votre curseur */
+  width: 102%;
   text-align: center;
 }
 
 .slider-value p {
-  margin: 0; /* Supprime les marges par défaut des paragraphes */
-  width: 5%;
+  margin: 0; 
+  width: 2em;
 }
 
 

@@ -15,7 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leenby.config</title>
+    <title>Contrôle Leenby</title>
     <link rel="icon" href="img/favicon.png">
     <!-- Inclusion des fichiers CSS -->
     <link rel="stylesheet" href="css/general-styles.css">
@@ -31,7 +31,7 @@
         <header>
             <div id="title">
                 <img id="logoLeenby" src="img/favicon.png">
-                <h1><span id="titre1">Leenby</span><span id="titre2">.config</span> </h1>
+                <h1><span id="titre1">Contrôle</span> <span id="titre2">Leenby</span></h1>
                 </div>
             <div id="menu">
                 <img class="menuButton" id="infoButton" src="img/info.svg"><br>
@@ -58,13 +58,18 @@
                 </tr>
             </thead>
             <tbody id="table-sliders-body"></tbody>
-            <!-- Boutons RAZ et Valider -->
-            <tfoot>
-                <tr>
-                    <td><button id="reset_button" tabindex="-1"><span>RAZ</span></button></td>
-                    <td></td>
-                    <td class="elevated"><b>Vit. Bras<br>(%)</b></td>
-                    <td class="elevated">
+            
+
+        </table>
+        <!-- Slider vitesse, boutons RAZ et Valider -->
+        <footer>
+                <button id="reset_button" tabindex="-1">
+                    <img class="icon" src="img/raz.png">
+                    <span>Reset</span>
+                </button>
+                <div id="slider-vitesse">
+                    <b>Vit. Bras<br>(%)</b></td>
+                    <div class="elevated">
                         <div id="el2">
                             <div class="slider-marks">
                                 <span class="mark"></span>
@@ -83,12 +88,13 @@
                                 <p>100</p>
                             </div>
                         </div>
-                    </td>
-                        
-                    <td><button id="check_button" tabindex="-1"><span>Valider</span></button></td>
-                </tr>
-            </tfoot>
-        </table>
+                    </div>
+                </div>
+                <button id="check_button" tabindex="-1">
+                    <span>Envoyer</span>
+                    <img class="icon" src="img/send.svg">
+                </button>
+        </footer>
     </div>
 
     <!-- Section de droite : retour d'informations, paramétres et joystick-->
