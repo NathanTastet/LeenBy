@@ -5,7 +5,7 @@
 
 // ---- IMPORTS ----
 import { motorInfo } from './motorInfo.js';
-import { updateSliderStyle, changerBras, adjustText, sliderValuesLeft, sliderValuesRight} from './sliderControl.js';
+import { updateSliderStyle, changerBras, adjustText, sliderValuesLeft, sliderValuesRight, mettreEnValeurTexteBras} from './sliderControl.js';
 import { sendAnglesInfo } from './websocket.js';
 import { resize3d, update3d } from './vue3d.js';
 
@@ -29,6 +29,7 @@ export function setupArmSelection() {
     modeBras = deuxbras.id;
     const activeSlider = document.querySelector('.active-slider');
     activeSlider.style.left = (33.33) + '%';
+    mettreEnValeurTexteBras();
     armButtons.forEach((button,index) => {
         button.addEventListener("click", () => {
             armButtons.forEach(innerButton => innerButton.classList.remove("active"));
@@ -36,16 +37,19 @@ export function setupArmSelection() {
             activeSlider.style.left = (index * 33.33) + '%'; 
             modeBras = button.id;
             changerBras();
+            mettreEnValeurTexteBras();
         });
     });
 }
 
 // fonction pour remettre à 0 les sliders, et les angles du bras sélectionné
 export function remiseazero() {
-  let interval = 5; // Intervalle en millisecondes pour la transition
-  let duration = 200; // Durée totale de l'animation en millisecondes
 
   motorInfo.forEach(motor => {
+
+
+    let interval = 5; // Intervalle en millisecondes pour la transition
+    let duration = 200; // Durée totale de l'animation en millisecondes
 
     let slider = document.getElementById(`angle-slider${motor.id}`);
     let angle = document.getElementById(`angle-number${motor.id}`);
@@ -111,7 +115,7 @@ export function remiseazero() {
         currentVal += currentVal > 0 ? -step : step;
     
         // Vérification si la valeur est proche de zéro
-        if (Math.abs(currentVal) < step) {
+        if (Math.abs(currentVal) <= step) {
           currentVal = 0;
           clearInterval(animateSlider);
         }
@@ -129,7 +133,7 @@ export function remiseazero() {
   document.getElementById("reset_button").classList.add("active");
   setTimeout(() => {
     document.getElementById("reset_button").classList.remove("active");
-  }, duration * 5);// 5 fois la durée de l'animation
+  }, 1000);// 5 fois la durée de l'animation
 
 }
 

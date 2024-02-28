@@ -8,6 +8,6 @@ simplification du code fait avant -> via JS : les notches du joystick
 
 
 mettre les boutons de preset sur la page de la vue 3d
-
+activer désactiver le squelette de la vue 3d
 optimisation : mise en page améliorée nouveau titre
 bouton de changement de page avec animation

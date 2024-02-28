@@ -22,7 +22,7 @@ export function setupMotorSliders() {
         sliderValuesLeft[motor.id] = 0; // Valeur par défaut pour le bras gauche
         sliderValuesRight[motor.id] = 0; // Valeur par défaut pour le bras droit
     });
-    
+
 
 }
 
@@ -55,7 +55,7 @@ function addMotorRowToTable(table, motor) {
 
     // Colonne pour le numéro de l'angle
     const numberCell = row.insertCell(4);
-    numberCell.innerHTML = `<input type="number" id="angle-number${motor.id}" min="${motor.minAngle}" max="${motor.maxAngle}" value="0" step="0.1">`;
+    numberCell.innerHTML = `<input type="number" id="angle-number${motor.id}" min="${motor.minAngle}" max="${motor.maxAngle}" value="0" step="0.1" >`;
     numberCell.classList.add('col5');
 
     // Configuration des écouteurs d'événements
@@ -83,11 +83,11 @@ export function setupSliderEventListeners(motor) {
     slider.addEventListener("touchend", () => stopDragSlider(slider));
 
     angle.addEventListener("input", () => {
-        if(isRecording){
+        if (isRecording) {
             document.querySelectorAll('.presetBtn:not(#enregBtn)').forEach(btn => btn.classList.remove('active'));
         }
         adjustSliderValue(angle, slider);
-        adjustText(slider,texte_gauche, texte_droite);
+        adjustText(slider, texte_gauche, texte_droite);
         update3d();
         updateSliderStyle(slider);
     });
@@ -101,9 +101,9 @@ function startDragSlider(e, slider, angle, texte_gauche, texte_droite) {
     slider.style.cursor = 'grabbing';
     let clientX = e.touches ? e.touches[0].clientX : e.clientX;
     updateSliderAndAngle(slider, angle, clientX);
-    if(texte_gauche)adjustText(slider,texte_gauche, texte_droite);
+    if (texte_gauche) adjustText(slider, texte_gauche, texte_droite);
     else updateSliderStyleVit(slider);
-    if(!isRecording){
+    if (!isRecording) {
         document.querySelectorAll('.presetBtn:not(#enregBtn)').forEach(btn => btn.classList.remove('active'));
     }
 }
@@ -114,7 +114,7 @@ function moveDragSlider(e, slider, angle, texte_gauche, texte_droite) {
     if (slider.dataset.isDragging == 1) {
         let clientX = e.touches ? e.touches[0].clientX : e.clientX;
         updateSliderAndAngle(slider, angle, clientX);
-        if(texte_gauche)adjustText(slider,texte_gauche, texte_droite);
+        if (texte_gauche) adjustText(slider, texte_gauche, texte_droite);
         else updateSliderStyleVit(slider);
     }
 }
@@ -124,10 +124,10 @@ function moveDragSlider(e, slider, angle, texte_gauche, texte_droite) {
 function stopDragSlider(slider) {
     slider.dataset.isDragging = 0;
     slider.style.cursor = 'grab';
-    if(slider.id == 'vit_bras_slider') {
+    if (slider.id == 'vit_bras_slider') {
         // Aimante la valeur du slider au modulo 25 avec une animation
         const sliderValue = parseInt(slider.value);
-        const magnetizedValue = Math.round((sliderValue+50) / 25) * 25 - 50;
+        const magnetizedValue = Math.round((sliderValue + 50) / 25) * 25 - 50;
         animateSliderValue(slider, magnetizedValue);
     }
 }
@@ -175,15 +175,17 @@ export function animateSliderValue(slider, targetValue) {
 
 // Met à jour le style du slider en fonction de sa valeur.
 export function updateSliderStyle(sliderElement) {
-    let percentage = (((sliderElement.value) / (sliderElement.max - sliderElement.min)) * 100.0) + 50; 
+    let percentage = (((sliderElement.value) / (sliderElement.max - sliderElement.min)) * 100.0) + 50;
 
     if (percentage > 50) {
-        sliderElement.style.background = 
-        'linear-gradient(90deg, #a0a0a0 0%, #a0a0a0 50%, #56d8d8 50%, #56d8d8 ' + percentage + '%, #a0a0a0 ' + percentage + '%)';
+        sliderElement.style.background =
+            'linear-gradient(90deg, var(--slider1) 0%, var(--slider1) 50%, var(--slider2) 50%, var(--slider2) ' + percentage + '%, var(--slider1) ' + percentage + '%)';
     } else {
-        sliderElement.style.background = 
-        'linear-gradient(90deg, #a0a0a0 0%, #a0a0a0 ' + percentage + '%, #56d8d8 ' + percentage + '%, #56d8d8 50%, #a0a0a0 50%, #a0a0a0 100%)';
+        sliderElement.style.background =
+            'linear-gradient(90deg, var(--slider1) 0%, var(--slider1) ' + percentage + '%, var(--slider2) ' + percentage + '%, var(--slider2) 50%, var(--slider1) 50%, var(--slider1) 100%)';
     }
+
+    
 }
 
 // updateSliderStyleVit est la même fonction que updateSliderStyle mais pour le slider de vitesse
@@ -203,7 +205,8 @@ export function updateSliderStyleVit(sliderElement) {
     sliderElement.style.background = `linear-gradient(90deg, ${color} 0%, ${color} ${normalizedSpeed * 100}%, #ddd ${normalizedSpeed * 100}%, #ddd 100%)`;
 
     // Appliquer la couleur au thumb du slider
-    document.documentElement.style.setProperty('--thumb-color', color);}
+    document.documentElement.style.setProperty('--thumb-color', color);
+}
 
 // Fonction pour mapper une valeur normalisée à une couleur entre le vert et le rouge
 function getColorFromScale(value) {
@@ -218,20 +221,20 @@ export function updateSliderAndAngle(slider, angle, clientX) {
     const x = clientX !== null ? clientX - rect.left : null;
     const width = rect.right - rect.left;
     const value = x !== null ? (x / width) * (slider.max - slider.min) - slider.max : parseFloat(angle.value);
-  
+
     if (value < slider.min) {
-      slider.value = slider.min;
-      if(angle)angle.value = slider.min;
+        slider.value = slider.min;
+        if (angle) angle.value = slider.min;
     } else if (value > slider.max) {
-      slider.value = slider.max;
-      if(angle)angle.value = slider.max;
+        slider.value = slider.max;
+        if (angle) angle.value = slider.max;
     } else {
-      slider.value = value.toFixed(1);
-      if(angle)angle.value = value.toFixed(1);
+        slider.value = value.toFixed(1);
+        if (angle) angle.value = value.toFixed(1);
     }
 
     update3d();
-    if(angle)updateSliderStyle(slider);
+    if (angle) updateSliderStyle(slider);
 
 }
 
@@ -239,7 +242,7 @@ export function updateSliderAndAngle(slider, angle, clientX) {
 
 // Ajuste la valeur du slider en fonction des entrées de l'angle.
 function adjustSliderValue(angle, slider) {
-    let min= parseFloat(angle.min);
+    let min = parseFloat(angle.min);
     let max = parseFloat(angle.max);
     if (min <= angle.value && angle.value <= max) {
         slider.value = angle.value;
@@ -260,7 +263,7 @@ export function adjustText(slider, texte_gauche, texte_droite) {
     switch (modeBras) {
         case 'brasGauche':
             sliderValuesLeft[motorId] = slider.value;
-            
+
             break;
         case 'brasDroit':
             sliderValuesRight[motorId] = slider.value;
@@ -271,7 +274,7 @@ export function adjustText(slider, texte_gauche, texte_droite) {
             break;
     }
     texte_gauche.textContent = sliderValuesLeft[motorId] + '°';
-    texte_droite.textContent = sliderValuesRight[motorId]+ '°';
+    texte_droite.textContent = sliderValuesRight[motorId] + '°';
 }
 
 // fonction qui met a jour les textes quand on change de bras
@@ -279,6 +282,7 @@ export function changerBras() {
     motorInfo.forEach(motor => {
         const slider = document.getElementById(`angle-slider${motor.id}`);
         const angleNumber = document.getElementById(`angle-number${motor.id}`);
+
 
         let newValue;
         switch (modeBras) {
@@ -289,10 +293,10 @@ export function changerBras() {
                 newValue = parseFloat(sliderValuesRight[motor.id]);
                 break;
             case 'deuxBras':
-                if(parseFloat(sliderValuesLeft[motor.id]) == parseFloat(sliderValuesRight[motor.id])){
-                newValue = parseFloat(sliderValuesLeft[motor.id]);
+                if (parseFloat(sliderValuesLeft[motor.id]) == parseFloat(sliderValuesRight[motor.id])) {
+                    newValue = parseFloat(sliderValuesLeft[motor.id]);
                 }
-                else{  
+                else {
                     newValue = 0;
                 }
                 break;
@@ -303,6 +307,48 @@ export function changerBras() {
         angleNumber.value = newValue;
         updateSliderStyle(slider);
     });
+}
+
+// il faut aussi mettre en valeur le texte correspondant au bras sélectionné
+
+const cols2 = document.querySelectorAll('.col2');
+const cols3 = document.querySelectorAll('.col3');
+switch (modeBras) {
+    case 'brasGauche':
+        cols2.forEach(col => col.classList.add('colSelected'));
+        cols3.forEach(col => col.classList.remove('colSelected'));
+        break;
+    case 'brasDroit':
+        cols2.forEach(col => col.classList.remove('colSelected'));
+        cols3.forEach(col => col.classList.add('colSelected'));
+        break;
+    case 'deuxBras':
+        cols2.forEach(col => col.classList.add('colSelected'));
+        cols3.forEach(col => col.classList.add('colSelected'));
+        break;
+    default: break;
+}
+
+export function mettreEnValeurTexteBras() {
+    // il faut aussi mettre en valeur les angles correspondant au bras sélectionné
+
+    const cols2 = document.querySelectorAll('.col2');
+    const cols3 = document.querySelectorAll('.col3');
+    switch (modeBras) {
+        case 'brasGauche':
+            cols2.forEach(col => col.classList.add('colSelected'));
+            cols3.forEach(col => col.classList.remove('colSelected'));
+            break;
+        case 'brasDroit':
+            cols2.forEach(col => col.classList.remove('colSelected'));
+            cols3.forEach(col => col.classList.add('colSelected'));
+            break;
+        case 'deuxBras':
+            cols2.forEach(col => col.classList.add('colSelected'));
+            cols3.forEach(col => col.classList.add('colSelected'));
+            break;
+        default: break;
+    }
 }
 
 // Configure le slider de vitesse
