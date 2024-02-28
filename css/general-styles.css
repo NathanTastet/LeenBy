@@ -45,7 +45,7 @@ body {
 #left {
   flex-basis: 60%;
   width: 60%;
-  padding: 0 2vh;
+  padding: 1vh 2vh 2vh 2vh;
   background-color: var(--background-left);
   box-shadow: var(--box-shadow);
   z-index: 2;

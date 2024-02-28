@@ -49,9 +49,7 @@ export function setupPopup() {
       if (submitListener) {
         formulaire.removeEventListener("submit", submitListener.listener);
       }
-      var enregBtn = document.getElementById('enregBtn');
-      enregBtn.classList.remove('enregPret');
-      enregBtn.textContent = 'Enregistrer';
+      changerBoutonEnreg('enregistrer');
 
     }
   });
@@ -103,7 +101,7 @@ export function setupPresetButtons() {
   enregButton = document.createElement('button');
   enregButton.className = 'presetBtn';
   enregButton.id = 'enregBtn';
-  enregButton.innerHTML = `<span class="btnText" id="txtEnreg">Enregistrer</span><img class="btnIcon" src="img/preset/save.svg" ></span>`;
+  changerBoutonEnreg('enregistrer');
   presetSection.appendChild(enregButton);
 
 
@@ -247,7 +245,7 @@ function soumettreFormulaire(event) {
 function changerBoutonEnreg(type){
   switch(type) {
     case 'enregistrer':
-      enregButton.innerHTML = `<span class="btnText" id="txtEnreg">Enregistrer</span><img class="btnIcon" src="img/preset/save.svg" ></span>`;
+      enregButton.innerHTML = `<span class="btnText" id="txtEnreg">Enreg.</span><img class="btnIcon" src="img/preset/save.svg" ></span>`;
       enregButton.classList.remove('enregPasPret');
       enregButton.classList.remove('enregPret');
       break;

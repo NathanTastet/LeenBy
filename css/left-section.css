@@ -7,13 +7,15 @@
 
 /* variables de couleur */
 :root{
-  --color-controle: #373D56; /* Remplacez par la couleur que vous voulez pour "Contrôle" */
-  --color-leenby: #385357; /* Remplacez par la couleur que vous voulez pour "Leenby" */
+  --color-titre1: #373D56; /* Remplacez par la couleur que vous voulez pour "Contrôle" */
+  --color-titre2: #385357; /* Remplacez par la couleur que vous voulez pour "Leenby" */
   --shadow-color2: #463857;
 
 }
 
-#title {
+/* Header titre : image texte et boutons menu */
+
+header {
   width: 100%;
   height: 10%;
   flex: 1;
@@ -23,15 +25,34 @@
   z-index: -1;
 }
 
-#title img{
+header img{
   object-fit: cover; /* Ajuste l'image pour couvrir l'espace disponible sans perdre ses proportions */
   height: 100%;
   float: left;
-  transform: translateY(1vh);
   transition: all 0.5s ease;
 }
 
-#title img:hover{
+#title{
+  height: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#menu{
+  height: 100%;
+  flex:2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#logoLeenby{
+  transform: translateY(1vh);
+}
+
+#logoLeenby:hover{
   transform: translateY(0);
   filter: drop-shadow(0 0 20px var(--shadow-color2));
 
@@ -46,19 +67,25 @@
   transform: translateY(1vh);
 }
 
-#title h1 .controle {
-  color: var(--color-controle);
+#title h1 #titre1 {
+  color: var(--color-titre1);
 }
 
-#title h1 .leenby {
-  color: var(--color-leenby);
+#title h1 #titre2 {
+  color: var(--color-titre2);
 }
+
+
+
+
+
+
 /* Styles du tableau contenant les sliders */
 table {
   width: 100%;
-  height: 80%;
+  height: 90%;
   border-collapse: collapse;
-  flex: 8;
+  flex: 9;
 }
 
 th, td {
@@ -82,72 +109,6 @@ tr {
 .col3 { width: 10%; }
 .col4 { width: 50%; }
 .col5 { width: 17%; }
-
-
-.armButton, #vue3DButton {
-  cursor: pointer;
-  background-color: #99A3A4;
-  border-radius: 1vh;
-  padding: 1vh 2vh;
-  font-size: 2vh;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 0.3vh 0.1vh rgba(0, 0, 0, 0.1);
-  margin-left: 1vh; /* Espacement entre les boutons */
-}
-
-/* Styles pour les boutons lorsqu'ils sont actifs ou en survol */
-.armButton.active {
-  background-color: #34495E;
-  color: #FFFFFF;
-}
-
-.armButton:hover {
-  background-color: #85929E;
-}
-
-#vue3DButton{
-  width: 90%;
-  height: 100%;
-  background-color: #ECF0F1;
-  color: #333; 
-  border: 2px solid #333;
-  border-radius: 10px; 
-  transition: all 0.3s;
-  display: flex; 
-  align-items: center;
-  justify-content: center;
-}
-
-
-/* Styles pour le bouton lorsqu'ils est actif ou en survol */
-#vue3DButton.active {
-  background-color: #333;
-  color : #ECF0F1;
-  border: 2px solid #999;
-}
-
-#vue3DButton:hover {
-  transform: scale(0.95);
-}
-
-
-#vue3DButton .icon {
-  filter: brightness(0) saturate(100%) invert(10%); /* Ceci est une estimation pour transformer l'image en #333 */
-  height: 5vh;
-  aspect-ratio: 1/1;
-  margin-right: 8px; /* Espace entre l'icône et le texte */
-}
-
-
-#vue3DButton .btnText{
-  font-size: 115%;
-  font-weight: bold;
-  padding: 2px;
-}
-
-#vue3DButton.active .icon {
-  filter: brightness(0) saturate(100%) invert(90%); /* Ceci est une estimation pour transformer l'image en #ECF0F1 */
-}
 
 #reset_button, #check_button {
   cursor: pointer;
@@ -237,8 +198,6 @@ input[type="number"]:focus {
   padding: 10px;
   border-radius: 5px;
   text-align: center;
-  flex: 1;
-  height: 10%;
   justify-content: center;
   align-items: center; 
 

@@ -171,14 +171,26 @@ function validerAngles() {
 
 }
 
-// Initialise le bouton de la vue 3D
+let isAnimating = false;
+
 export function setup3DButton() {
   const button = document.getElementById("vue3DButton");
   const rightDiv = document.getElementById("right");
   const right2Div = document.getElementById("right2");
 
   button.addEventListener("click", () => {
-    // Si rightDiv est visible, commencez la transition vers right2Div
+    if (isAnimating) {
+      return; 
+    }
+
+    isAnimating = true;
+
+    let angle =  getComputedStyle(button).getPropertyValue('--angle');
+    let newAngle = (parseFloat(angle) + 360)%3600;// 10 tours max après on remet à 0 
+    button.style.setProperty('--angle', `${newAngle}deg`);
+    newAngle += 20;
+    button.style.setProperty('--angle-hover', `${newAngle}deg`);
+
     if (getComputedStyle(rightDiv).opacity === "1") {
       rightDiv.style.opacity = "0";
       right2Div.style.opacity = "0";
@@ -188,13 +200,13 @@ export function setup3DButton() {
         rightDiv.style.display = "none";
         right2Div.style.display = "block";
         resize3d();
-        // Utilisez requestAnimationFrame pour s'assurer que la transition d'opacité démarre après que la div soit visible
+
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             right2Div.style.opacity = "1";
           });
         });
-      }, 300); // Ce délai doit correspondre à la durée de la transition CSS
+      }, 300);
     } else {
       right2Div.style.opacity = "0";
       rightDiv.style.opacity = "0";
@@ -203,7 +215,7 @@ export function setup3DButton() {
       setTimeout(() => {
         right2Div.style.display = "none";
         rightDiv.style.display = "block";
-        // Utilisez requestAnimationFrame ici également
+
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             rightDiv.style.opacity = "1";
@@ -211,6 +223,8 @@ export function setup3DButton() {
         });
       }, 300);
     }
+    setTimeout(() => {
+      isAnimating = false;
+    }, 600);
   });
 }
-  

@@ -7,4 +7,7 @@ création des presets, enregistrement des presets en local, popup de validation
 simplification du code fait avant -> via JS : les notches du joystick
 
 
-a faire : mettre les boutons de preset sur la page de la vue 3d
+mettre les boutons de preset sur la page de la vue 3d
+
+optimisation : mise en page améliorée nouveau titre
+bouton de changement de page avec animation
