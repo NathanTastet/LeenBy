@@ -2,21 +2,15 @@
   popup.css
   Auteur: Nathan TASTET - 2024
   Styles spécifiques au popup qui s'affiche lorsque l'utilisateur enregistre un preset
+  Au popup de crédits et au popup d'aide
 */
-
-/*Variables CSS*/
-:root{
-  --angle : 0deg;
-  --angle-hover : 20deg;
-}
-
 
 @keyframes changeColor {
   0%,100% {background-color: #3A405A;}
   50% {background-color: #6F9CEB;}
 }
 
-
+/* Styles généraux pour le popup */
 .popup {
   display: none;
   justify-content: center;
@@ -42,6 +36,8 @@
   border-radius: 1vh;
   box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.2);
 }
+
+/* Popup de choix de nom et d'image */
 
 #choixImage{
   margin-top : 2%;
@@ -97,52 +93,22 @@
   opacity: 1; /* Pleine visibilité */
 }
 
+/* Popup de crédits */
 
-
-#vue3DButton{
-  z-index: 4;
-  position:absolute;
-  top: 1vh;
-  right: 1vh;
-  width: 6vw;
-  cursor: pointer;
-  padding: 2vh;
-  height: 6vw;
-  max-width: 90px;
-  max-height: 90px;
-  background-color: #ECF0F1;
-  color: #333; 
-  border: 2px solid #333;
-  border-radius: 20vh;
-  transition: all 0.3s;
-  display: flex; 
-  align-items: center;
+#signature {
+  display: flex;
+  color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
   justify-content: center;
+  align-items: center; 
+
 }
 
-
-/* Styles pour le bouton lorsqu'ils est actif ou en survol */
-#vue3DButton.active {
-  background-color: #333;
-  color : #ECF0F1;
-  border: 2px solid #999;
-}
-
-#vue3DButton:hover, #vue3DButton.active:hover {
-  transform: scale(0.95) rotate(var(--angle-hover));
-}
-
-#vue3DButton, #vue3DButton.active{
-  transform: rotate(var(--angle));
-}
-
-
-#vue3DButton .icon {
-  filter: brightness(0) saturate(100%) invert(10%); /* Ceci est une estimation pour transformer l'image en #333 */
+#signature img{
+  width: auto; 
   height: 100%;
-  aspect-ratio: 1/1;
-}
-
-#vue3DButton.active .icon {
-  filter: brightness(0) saturate(100%) invert(90%); /* Ceci est une estimation pour transformer l'image en #ECF0F1 */
+  float: left;
+  margin-right: 10px;
 }

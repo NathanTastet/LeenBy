@@ -5,18 +5,6 @@
   Contient les styles pour les éléments de paramétrage des moteurs des bras du robot : sliders, boutons.
 */
 
-/* variables de couleur */
-:root{
-  --color-titre1: #373D56;
-  --color-titre2: #385357;
-  --shadow-color2: #463857;
-  --background-body: #F4F4F4;
-  --valider : #32C356;
-  --raz : #C3326E;
-  
-
-}
-
 /* Header titre : image texte et boutons menu */
 
 header {

@@ -5,15 +5,7 @@
   Cela peut inclure des réinitialisations, des styles de typographie de base, des grilles de mise en page et des variables CSS.
 */
 
-/* Variables CSS */
-:root {
-  --background-body: #F4F4F4;
-  --background-left: #EAEDED;
-  --background-right: #F4F6F7;
-  --shadow-color: rgba(0, 0, 0, 0.2);
-  --box-shadow: 2vh 0 8vh var(--shadow-color);
-}
-
+@import url("/css/variables-globales.css");
 
 /* Réinitialisation globale */
 * {
@@ -50,7 +42,7 @@ body {
   width: 60%;
   padding: 1vh 2vh 2vh 2vh;
   background-color: var(--background-left);
-  box-shadow: var(--box-shadow);
+  box-shadow: 2vh 0 8vh var(--shadow-color);
   z-index: 2;
 }
 

@@ -1,0 +1,20 @@
+/* 
+  popup.css
+  Auteur: Nathan TASTET - 2024
+  Variables globales --> Couleurs, polices, tailles, etc.
+*/
+
+/*Variables CSS*/
+:root{
+    --angle : 0deg;
+    --angle-hover : 20deg;
+    --color-titre1: #373D56;
+    --color-titre2: #385357;
+    --shadow-color2: #463857;
+    --valider : #32C356;
+    --raz : #C3326E;
+    --background-body: #F4F4F4;
+    --background-left: #EAEDED;
+    --background-right: #F4F6F7;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+  }
