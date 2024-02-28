@@ -20,6 +20,9 @@
   box-sizing: border-box; /* la taille du contenu n'inclut pas les marges */
   margin: 0;
   padding: 0;
+  user-select: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Configuration du corps */

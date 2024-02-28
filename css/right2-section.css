@@ -5,6 +5,25 @@
   Inclut les styles pour l'affichage des informations, les boutons de mouvements prédéfinis et le joystick.
 */
 
-#vue3d, canvas{
+#vue3d{
   border-radius: 2vh;
+  cursor: grab;
+}
+
+#signature {
+  display: flex;
+  color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  justify-content: center;
+  align-items: center; 
+
+}
+
+#signature img{
+  width: auto; 
+  height: 100%;
+  float: left;
+  margin-right: 10px;
 }

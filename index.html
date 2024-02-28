@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="css/general-styles.css">
     <link rel="stylesheet" href="css/left-section.css">
     <link rel="stylesheet" href="css/right-section.css">
+    <link rel="stylesheet" href="css/right2-section.css">
     <link rel="stylesheet" href="css/popup.css">
 </head>
 
@@ -33,12 +34,8 @@
                 <h1><span id="titre1">Leenby</span><span id="titre2">.config</span> </h1>
                 </div>
             <div id="menu">
-                <button class="menuButton" id="infoButton">
-                    <img class="icon" src="img/info.svg"><br>
-                </button>
-                <button class="menuButton" id="settingsButton">
-                    <img class="icon" src="img/options.svg"><br>
-                </button>
+                <img class="menuButton" id="infoButton" src="img/info.svg"><br>
+                <img class="menuButton" id="settingsButton" src="img/options.svg">
             </div>
         </header>
         <!-- Table des sliders pour les moteurs -->
@@ -50,9 +47,12 @@
                     <th>Angle bras gauche</th>
                     <th>Angle bras droit</th>
                     <th><!-- Sélection des bras -->
-                        <button class="armButton" id="brasGauche">Bras Gauche</button>
-                        <button class="armButton" id="brasDroit">Bras Droit</button>
-                        <button class="armButton" id="deuxBras">Deux Bras</button>
+                        <div id="selectArm">
+                            <div class="active-slider"></div>
+                            <button tabindex="-1" class="armButton" id="brasGauche"><span>Bras Gauche</span></button>
+                            <button tabindex="-1" class="armButton" id="deuxBras"><span>Deux Bras</span></button>
+                            <button tabindex="-1" class="armButton" id="brasDroit"><span>Bras Droit</span></button>
+                        </div>
                     </th>
                     <th></th>
                 </tr>
@@ -61,7 +61,7 @@
             <!-- Boutons RAZ et Valider -->
             <tfoot>
                 <tr>
-                    <td><button id="reset_button"><span>RAZ</span></button></td>
+                    <td><button id="reset_button" tabindex="-1"><span>RAZ</span></button></td>
                     <td></td>
                     <td class="elevated"><b>Vit. Bras<br>(%)</b></td>
                     <td class="elevated">
@@ -73,7 +73,7 @@
                                 <span class="mark"></span>
                                 <span class="mark"></span>
                             </div>
-                            <input type="range" id="vit_bras_slider" min="-50" max="50"
+                            <input type="range"  tabindex="-1" id="vit_bras_slider" min="-50" max="50"
                             value="0" step="0.1">
                             <div class="slider-value">
                                 <p>20</p>
@@ -85,7 +85,7 @@
                         </div>
                     </td>
                         
-                    <td><button id="check_button"><span>Valider</span></button></td>
+                    <td><button id="check_button" tabindex="-1"><span>Valider</span></button></td>
                 </tr>
             </tfoot>
         </table>
@@ -130,7 +130,7 @@
         <div id="presetSection"></div>
     </div>
 
-    <button id="vue3DButton">
+    <button tabindex="-1" id="vue3DButton">
         <img class="icon" src="img/repeat.png"><br>
     </button>
 

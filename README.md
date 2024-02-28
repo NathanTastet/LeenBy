@@ -15,3 +15,11 @@ Assets visuels
 - flaticon
 
 three.js
+
+Options : 
+Inverser gauche et droite dans la sélection des bras
+Vider les presets
+Crédits
+Changer police
+
+

@@ -135,6 +135,7 @@ export function setup3D(){
     function startGrab(e) {
         e.preventDefault();
         isDragging3d = true;
+        container3d.style.cursor = 'grabbing';
     
         // Adapter pour les événements tactiles
         let touch = e.touches ? e.touches[0] : null;
@@ -149,6 +150,8 @@ export function setup3D(){
 
     function endDrag(e) {
         isDragging3d = false;
+        container3d.style.cursor = 'grab';
+
     }
     
     function move3d(e) {

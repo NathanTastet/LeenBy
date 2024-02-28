@@ -7,9 +7,13 @@
 
 /* variables de couleur */
 :root{
-  --color-titre1: #373D56; /* Remplacez par la couleur que vous voulez pour "Contrôle" */
-  --color-titre2: #385357; /* Remplacez par la couleur que vous voulez pour "Leenby" */
+  --color-titre1: #373D56;
+  --color-titre2: #385357;
   --shadow-color2: #463857;
+  --background-body: #F4F4F4;
+  --valider : #32C356;
+  --raz : #C3326E;
+  
 
 }
 
@@ -23,10 +27,11 @@ header {
   justify-content: flex-start;
   align-items: center;
   z-index: -1;
+  transform: translateY(1vh);
 }
 
 header img{
-  object-fit: cover; /* Ajuste l'image pour couvrir l'espace disponible sans perdre ses proportions */
+  object-fit: cover;
   height: 100%;
   float: left;
   transition: all 0.5s ease;
@@ -46,16 +51,12 @@ header img{
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-
-#logoLeenby{
-  transform: translateY(1vh);
+  gap : 0.7vw;
 }
 
 #logoLeenby:hover{
-  transform: translateY(0);
+  transform: translateY(-1vh);
   filter: drop-shadow(0 0 20px var(--shadow-color2));
-
 }
 
 #title h1 {
@@ -64,7 +65,6 @@ header img{
   margin-left: 10px;
   position: relative;
   padding-right: 10px;
-  transform: translateY(1vh);
 }
 
 #title h1 #titre1 {
@@ -75,10 +75,22 @@ header img{
   color: var(--color-titre2);
 }
 
+.menuButton{
+  width: 6vh;
+  height: 6vh;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  transform: translateY(-1vh);
+  border:none;
+}
 
+.menuButton:hover {
+  filter: drop-shadow(0 0 20px var(--shadow-color2));
+}
 
-
-
+#settingsButton:hover{
+  transform: translateY(-1vh) rotate(180deg);
+}
 
 /* Styles du tableau contenant les sliders */
 table {
@@ -86,6 +98,7 @@ table {
   height: 90%;
   border-collapse: collapse;
   flex: 9;
+  color:#222;
 }
 
 th, td {
@@ -94,12 +107,8 @@ th, td {
   vertical-align: middle; /* Centre le contenu vertical dans la cellule */
 }
 
-th {
+th,tr {
   background-color: #f2f2f2;
-  border-bottom: 1px solid #ddd;
-}
-
-tr {
   border-bottom: 1px solid #ddd;
 }
 
@@ -110,34 +119,96 @@ tr {
 .col4 { width: 50%; }
 .col5 { width: 17%; }
 
+
+/* Styles des boutons de contrôle */
+
+#selectArm{
+  position: relative;
+  z-index: 5;
+  overflow: visible;
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+  width: 130%;
+  margin: 1% 5%;
+  border: 2px solid #ddd;
+  border-radius: 5vh;
+  min-height: 7vh;
+}
+
+.armButton {
+  flex:1;
+  cursor: pointer;
+  padding: 1vh 2vh;
+  font-size: 2vh;
+  border:none;
+  background-color: transparent;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  display: inline-block;
+  border-radius: 5vh;
+}
+
+.armButton span {
+  z-index: 5;
+  position:relative;
+  transition: all 0.3s;
+}
+
+.armButton:hover{
+  background-color: #ddd;
+
+}
+
+.armButton.active span{
+  color: var(--background-body); 
+}
+
+.active-slider {
+  z-index: 3;
+  position: absolute;
+  height: 100%;
+  width: 33.333%;
+  bottom: 0;
+  background-color: var(--color-titre1);
+  transition: all 0.5s ease;
+  border-radius: 5vh;
+}
+
+
 #reset_button, #check_button {
   cursor: pointer;
   border-radius: 0.5em;
   width: 100%;
   height: 9vh;
   font-size: 1.5em;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: all 0.3s ease;
   border: none;
   outline: none;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#reset_button {
-  background-color: #FF4136;
-}
 
-#reset_button:hover {
-  background-color: #FF6347;
+#reset_button {
+  background-color: var(--raz);
 }
 
 #check_button {
-  background-color: #2ECC40;
+  background-color: var(--valider);
 }
 
-#check_button:hover {
-  background-color: #51f851;
+#reset_button:hover, #check_button:hover {
+  filter: brightness(1.2);
 }
+
+#reset_button.active, #check_button.active {
+  transform: scale(0.9);
+  filter: brightness(1.4);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Ajoute une ombre pour un effet de profondeur */
+
+}
+
 
 /* Configuration des sliders pour le contrôle des angles des moteurs */
 .slider-container {
@@ -153,6 +224,7 @@ input[type="range"] {
   border-radius: 1vh; /* Arrondir les bords */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   outline: none;
+  cursor: grab;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -162,7 +234,7 @@ input[type="range"]::-webkit-slider-thumb {
   background-color: #56d8d8;
   border-radius: 50%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
+  
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -171,7 +243,6 @@ input[type="range"]::-moz-range-thumb {
   background-color: #56d8d8;
   border-radius: 50%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
 }
 
 
@@ -192,22 +263,14 @@ input[type="number"]:focus {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-#signature {
-  display: flex;
-  color: #333;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-  justify-content: center;
-  align-items: center; 
-
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-#signature img{
-  width: auto; 
-  height: 100%;
-  float: left;
-  margin-right: 10px;
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
 }
 
 /* Style du texte à droite */

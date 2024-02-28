@@ -25,7 +25,7 @@ export const motorInfo = [
   },
   {
     "id": 3,
-    "name": "Rotation Avant-Bras",
+    "name": "Avant-Bras",
     "minAngle": -159.6,
     "maxAngle": 159.6,
     "leftBone": "mixamorigLeftForeArm",

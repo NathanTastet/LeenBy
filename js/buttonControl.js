@@ -27,10 +27,13 @@ export function setupArmSelection() {
     const deuxbras = document.getElementById("deuxBras");
     deuxbras.classList.add("active");
     modeBras = deuxbras.id;
-    armButtons.forEach(button => {
+    const activeSlider = document.querySelector('.active-slider');
+    activeSlider.style.left = (33.33) + '%';
+    armButtons.forEach((button,index) => {
         button.addEventListener("click", () => {
             armButtons.forEach(innerButton => innerButton.classList.remove("active"));
             button.classList.add("active");
+            activeSlider.style.left = (index * 33.33) + '%'; 
             modeBras = button.id;
             changerBras();
         });
@@ -39,6 +42,8 @@ export function setupArmSelection() {
 
 // fonction pour remettre à 0 les sliders, et les angles du bras sélectionné
 export function remiseazero() {
+  let interval = 5; // Intervalle en millisecondes pour la transition
+  let duration = 200; // Durée totale de l'animation en millisecondes
 
   motorInfo.forEach(motor => {
 
@@ -46,11 +51,6 @@ export function remiseazero() {
     let angle = document.getElementById(`angle-number${motor.id}`);
     let texte_gauche = document.getElementById(`angle-text-left${motor.id}`);
     let texte_droite = document.getElementById(`angle-text-right${motor.id}`);
-
-
-
-    let interval = 5; // Intervalle en millisecondes pour la transition
-    let duration = 200; // Durée totale de l'animation en millisecondes
 
     if (modeBras == "deuxBras") {
       let currentValLeft = parseFloat(sliderValuesLeft[motor.id]);
@@ -124,6 +124,13 @@ export function remiseazero() {
       }, interval);
     }
   });
+
+  // le bouton reste appuyé (anti spam + visuel)
+  document.getElementById("reset_button").classList.add("active");
+  setTimeout(() => {
+    document.getElementById("reset_button").classList.remove("active");
+  }, duration * 5);// 5 fois la durée de l'animation
+
 }
 
 // Valide les angles sélectionnés et les envoie.
@@ -168,6 +175,12 @@ function validerAngles() {
   anglesInfo.vitesse_pt = vitesse;
 
   sendAnglesInfo(anglesInfo);
+
+  // le bouton reste appuyé (anti spam + visuel)
+  document.getElementById("check_button").classList.add("active");
+  setTimeout(() => {
+    document.getElementById("check_button").classList.remove("active");
+  }, 1000);
 
 }
 

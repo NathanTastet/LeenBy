@@ -49,7 +49,7 @@ function addMotorRowToTable(table, motor) {
 
     // Colonne pour le curseur de l'angle
     const sliderCell = row.insertCell(3);
-    sliderCell.innerHTML = `<input type="range" id="angle-slider${motor.id}" data-motor-id="${motor.id}" min="${motor.minAngle}" max="${motor.maxAngle}"
+    sliderCell.innerHTML = `<input type="range" id="angle-slider${motor.id}" data-motor-id="${motor.id}"  tabindex="-1" min="${motor.minAngle}" max="${motor.maxAngle}"
     value="0" step="0.1">`;
     sliderCell.classList.add('col4');
 
@@ -98,6 +98,7 @@ export function setupSliderEventListeners(motor) {
 // Démarre le glissement du slider.
 function startDragSlider(e, slider, angle, texte_gauche, texte_droite) {
     slider.dataset.isDragging = 1;
+    slider.style.cursor = 'grabbing';
     let clientX = e.touches ? e.touches[0].clientX : e.clientX;
     updateSliderAndAngle(slider, angle, clientX);
     if(texte_gauche)adjustText(slider,texte_gauche, texte_droite);
@@ -122,6 +123,7 @@ function moveDragSlider(e, slider, angle, texte_gauche, texte_droite) {
 // Arrête le glissement du slider.
 function stopDragSlider(slider) {
     slider.dataset.isDragging = 0;
+    slider.style.cursor = 'grab';
     if(slider.id == 'vit_bras_slider') {
         // Aimante la valeur du slider au modulo 25 avec une animation
         const sliderValue = parseInt(slider.value);
@@ -305,8 +307,6 @@ export function changerBras() {
 
 // Configure le slider de vitesse
 export function setupSpeedSlider() {
-
-
     const sliderVit = document.getElementById('vit_bras_slider');
 
     sliderVit.value = 0;
