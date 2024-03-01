@@ -21,39 +21,6 @@ export var isRecording = false;
 
 // ---- FONCTIONS ----
 
-// Initailise la popup
-
-export function setupPopup() {
-  formulaire = document.getElementById("formulaire");
-
-  const choixImage = document.getElementById('choixImage');
-
-  // on crée les boutons pour choisir l'image
-
-  for (let i = 1; i <= 15; i++) {
-    const button = document.createElement('button');
-    button.className = 'choixImageBtn';
-    button.id = `img${i}`;
-    button.innerHTML = `<img src="img/preset/img${i}.svg"></span>`;
-    button.type = "submit";
-    choixImage.appendChild(button);
-  }
-
-  // listener pour quitter la popup si on clique en dehors
-
-  const popup = document.getElementById('popup');
-  popup.addEventListener('click', function (event) {
-    if (event.target == popup) {
-      popup.style.display = "none";
-      const submitListener = formulaire.__eventListeners && formulaire.__eventListeners.find(listener => listener.type === "submit");
-      if (submitListener) {
-        formulaire.removeEventListener("submit", submitListener.listener);
-      }
-      changerBoutonEnreg('enregistrer');
-
-    }
-  });
-}
 
 // Initialise les boutons de presets
 export function setupPresetButtons() {
@@ -195,9 +162,9 @@ function actionClickEnreg() {
       });
 
       // on affiche une popup avec un formulaire pour choisir une image et un nom 
-
+      formulaire = document.getElementById("formulaire");
       formulaire.reset();
-      document.getElementById("popup").style.display = "flex";
+      document.getElementById("popup1").style.display = "flex";
 
       document.getElementById("nomPreset").focus();
       // il faut attendre la réponse du formulaire pour continuer
@@ -230,7 +197,7 @@ function soumettreFormulaire(event) {
     // on met les valeurs de nom et d'image
     preBut.innerHTML = `<span class="btnText">${nom}</span><img class="btnIcon" src="img/preset/${choiximage}.svg"></span>`;
     event.target.removeEventListener("submit", soumettreFormulaire);
-    document.getElementById("popup").style.display = "none";
+    document.getElementById("popup1").style.display = "none";
 
     // on enregistre en local
     // on met le mouvement enregistré dans le local storage
@@ -242,7 +209,7 @@ function soumettreFormulaire(event) {
   }
 }
 
-function changerBoutonEnreg(type){
+export function changerBoutonEnreg(type){
   switch(type) {
     case 'enregistrer':
       enregButton.innerHTML = `<span class="btnText" id="txtEnreg">Enreg.</span><img class="btnIcon" src="img/preset/save.svg" ></span>`;

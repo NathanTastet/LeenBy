@@ -11,3 +11,6 @@ mettre les boutons de preset sur la page de la vue 3d
 activer désactiver le squelette de la vue 3d
 optimisation : mise en page améliorée nouveau titre
 bouton de changement de page avec animation
+onclick="this.select(); sur les inputs
+différents thèmes visuels
+2eme écran au lancement de la page : dernier ouvert, ou choix

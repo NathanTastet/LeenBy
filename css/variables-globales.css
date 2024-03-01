@@ -12,7 +12,7 @@
     --color-titre2: #385357;
     --shadow-color2: #463857;
     --valider : #32C356;
-    --raz : #C3326E;
+    --raz : #be3b3b;
     --background-body: #F4F4F4;
     --background-left: #EAEDED;
     --background-right: #F4F6F7;
@@ -23,4 +23,18 @@
     --thumb2 : #384558;
     --slider2 : #425167;
     --slider1 : #FEFEFE;
+    --presetVide : #80669d;
+    --presetPlein : #4A0080;
+    --presetPleinHover: #7B1FA2;
+    --presetPleinActive: #9C27B0;
+    --modifPreset : #0a0892;
+    --modifPresetHover : #044fc0;
+    --modifPresetActive : #0d7ec9;
+    --enregColor : #7B8D93;
+    --enregColorTxt : #111;
+    --background-color-btn: #3A405A;
+    --border-color: #888;
+    --hover-background-color: #2a2f45;
+    --focus-border-color: #fff;
   }
+ 

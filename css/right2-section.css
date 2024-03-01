@@ -30,7 +30,7 @@
 .presetBtn {
   flex: 1 ;
   margin: 1vh;
-  padding: 1vh;
+  padding: 1vh 1vh 2vh 1vh;
   height: 15vh;
   min-width: 20%;
   font-size: 2.3vh;
@@ -38,107 +38,95 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: #c2aad3;
-  border: 0.2vh solid #4B0082;
-  color: #4B0082;
+  background-color: var(--presetVide);
+  border: none;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   border-radius: 1vh;
+  gap: 0.7vh;
 }
 
-/* Styles supplémentaires pour l'état :hover et :active */
 .presetBtn:hover{
-  box-shadow: 0 4vh 8vh rgba(0, 0, 0, 0.4); /* Ombre plus prononcée */
-  transform: translateY(-1vh); /* Déplacement plus visible */
+  transform: translateY(-1vh); 
 }
 
-/* Style pour le texte dans les boutons */
-.btnText {
-  height: 30%; /* prend 30% de l'espace vertical du bouton */
+.presetBtn span {
+  color: var(--slider1);
+  flex:3.3;
+  height: 33%;
   width: 100%;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 2vh; /* espace en bas */
 }
 
 /* Style pour les icônes dans les boutons */
 .btnIcon {
-  height: 60%; /* prend 60% de l'espace vertical du bouton */
+  flex : 6.7;
+  height:67%;
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 #enregBtn{
-  background-color:  #7B8D93;
-  color: #1e1e1e;
-  border: 0.2vh solid #333;
+  background-color:  var(--enregColor);
+}
+
+#enregBtn span{
+  color: var(--enregColorTxt)
 }
 
 #enregBtn:hover{
-  background-color: #9AAEBB; /* Couleur de fond légèrement différente */
-  color: #1e1e1e;
-  border: 0.2vh solid #333;
+  filter: brightness(1.2);
+}
+
+.enregPasPret#enregBtn{
+  background-color: var(--raz);
+}
+
+.enregPret#enregBtn{
+  background-color: var(--valider)
 }
 
 
-.enregPasPret{
-  background-color: #c51515 !important;
-  color: whitesmoke !important;
+.presetBtn.modifierBtn{
+  background-color: var(--modifPreset) !important;
 }
 
-.enregPasPret:hover{
-  background-color: #f51f1f !important;
-  color: whitesmoke !important;
-} 
-
-.enregPret{
-  background-color: #2ECC40 !important;
-  color : #114703 !important;
+.presetBtn.modifierBtn:hover{
+  background-color: var(--modifPresetHover) !important;
+  
+}
+.presetBtn.modifierBtn.active {
+  background-color: var(--modifPresetActive) !important;
 }
 
-.enregPret:hover{
-  background-color: #51f851 !important;
-  color : #114703  !important;
-}
-
-
-.modifierBtn{
-  background-color: #0a0892 !important;
-  color: whitesmoke;
-}
-
-.modifierBtn:hover {
-  background-color: #044fc0 !important;
-  color: whitesmoke;
-}
-
-.modifierBtn.active {
-  background-color: #058be4 !important;
-  color: whitesmoke;
-  transform: scale(0.95);
-  animation : shake linear 0.3s infinite;
-  animation-delay: 0.3s;
-}
-
-.presetBtn.DonneesEnregistrees{
-  background-color: #4B0082;
-  color: whitesmoke;
+.DonneesEnregistrees{
+  background-color: var(--presetPlein);
 }
 
 .presetBtn.DonneesEnregistrees:hover{
-  background-color: #7B1FA2;
-  color: whitesmoke;
+  background-color: var(--presetPleinHover);
 }
 
 /* Style spécifique pour l'état actif */
-.presetBtn.DonneesEnregistrees.active {
-  background-color: #9C27B0;/* Couleur de fond beaucoup plus différente pour l'état actif */
-  transform: scale(0.95); /* Réduction de la taille pour simuler un bouton enfoncé */
-  border: 0.2vh solid #000000;
+.DonneesEnregistrees.active {
+  background-color: var(--presetPleinActive) !important;
+  transform: scale(0.9);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
+
+.presetBtn:not(.DonneesEnregistrees, .modifierBtn, #enregBtn) {
+  cursor: not-allowed;
+}
+
+.presetBtn:not(.DonneesEnregistrees,.modifierBtn, #enregBtn):hover {
+  transform: none;
+}
+

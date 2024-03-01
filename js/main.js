@@ -8,7 +8,8 @@ import { setup3D } from './vue3d.js';
 import { setupJoystick } from './joystick.js';
 import { setupMotorSliders, setupSpeedSlider } from './sliderControl.js'; 
 import { setupArmSelection, setup3DButton, setupControlButtons, remiseazero} from './buttonControl.js';
-import { setupPresetButtons, setupPopup } from './presetButtons.js';
+import { setupPresetButtons} from './presetButtons.js';
+import { setupPopups } from './popups.js';  
 
 // --- FONCTIONS ---
 
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     setupArmSelection();
     setup3DButton();
     setupPresetButtons();
-    setupPopup();
+    setupPopups();
     setup3D();
     remiseazero();
   });

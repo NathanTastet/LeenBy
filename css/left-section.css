@@ -297,10 +297,9 @@ footer{
 }
 
 #check_button.active img{
-  transform: rotate(45deg) translate(100%,-100%);
+  transform: rotate(45deg) translate(150%,-150%);
 
 }
-
 
 
 #reset_button {
@@ -319,7 +318,7 @@ footer{
 #reset_button.active, #check_button.active {
   transform: scale(0.9);
   filter: brightness(1.4);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Ajoute une ombre pour un effet de profondeur */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 
 }
 

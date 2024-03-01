@@ -55,7 +55,7 @@ function addMotorRowToTable(table, motor) {
 
     // Colonne pour le numéro de l'angle
     const numberCell = row.insertCell(4);
-    numberCell.innerHTML = `<input type="number" id="angle-number${motor.id}" min="${motor.minAngle}" max="${motor.maxAngle}" value="0" step="0.1" >`;
+    numberCell.innerHTML = `<input type="number" id="angle-number${motor.id}" min="${motor.minAngle}" max="${motor.maxAngle}" value="0.0" step="0.1" onclick="this.select();">`;
     numberCell.classList.add('col5');
 
     // Configuration des écouteurs d'événements
@@ -273,8 +273,8 @@ export function adjustText(slider, texte_gauche, texte_droite) {
             sliderValuesRight[motorId] = slider.value;
             break;
     }
-    texte_gauche.textContent = sliderValuesLeft[motorId] + '°';
-    texte_droite.textContent = sliderValuesRight[motorId] + '°';
+    texte_gauche.textContent = parseFloat(sliderValuesLeft[motorId]).toFixed(1) + '°';
+    texte_droite.textContent = parseFloat(sliderValuesRight[motorId]).toFixed(1) + '°';
 }
 
 // fonction qui met a jour les textes quand on change de bras

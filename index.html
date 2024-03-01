@@ -141,32 +141,70 @@
     </button>
 
 
-    <div id="popup" class="popup">
+    <div id="popup1" class="popup">
         <form id="formulaire" class="popup-contenu">
-            <div id="choixNom">
-                <h2>1&#41; Choisissez un nom :</h2>
-                <input type="text" id="nomPreset" autocomplete="off" placeholder="Max 10 caractères" minlength="3" maxlength="10" 
-                pattern="[a-zA-Z0-9\-_À-ÿ ]+" required>
+            <div class="popupHeader">
+                <h1 class="titrePopup">Enregistrer le preset</h1>
+                <img id="closePopupForm" class="closePopup" src="img/close.svg">
             </div>
+            <div id="choixNom">
+                    <h3>1&#41; Choisissez un nom :</h3>
+                    <input type="text" id="nomPreset" autocomplete="off" placeholder="Max 10 caractères" minlength="3" maxlength="10" 
+                    pattern="[a-zA-Z0-9\-_À-ÿ ]+" required>
+            </div>
+            <h3>2&#41; Choisissez une icône :</h3>
             <div id="choixImage">
-                <h2>2&#41; Choisissez une icône :</h2>
             </div>
         </form>
     </div>
 
     <div id="popupOptions" class="popup">
-        <input type="checkbox">
-        Work in progress...
-        <button></button>
-        <button></button>
-        <button></button>
+        <div class="popup-contenu">
+            <div class="popupHeader">
+                <h1 class="titrePopup">Options</h1>
+                <img id="closePopupOptions" class="closePopup" src="img/close.svg">
+            </div>
+            <div id="optionsContenu">
+                <input type="checkbox" id="optSquelette">
+                <label for="optSquelette">Squelette Vue 3D</label><br>
+                <input type="checkbox" id="optInvertGD">
+                <label for="optInvertGD">Inverser gauche/droite</label><br>
+                <button id="ViderPreset">Vider les presets</button><br>
 
-        <div id="signature">
-            <img src="img/logo_iut.png">
-            <span class="right-text">
-                Réalisé avec ❤️ par :<br>
-                Nathan TASTET - Théo BAZIN - Alan ASCHWANDEN <br> Daphné RODELET - Jean TSAGOURIA<br>
-            </span>
+                <label for="optChangerPolice">Changer police</label><br>
+                <select id="optChangerPolice">
+                    <option value="Arial">Arial</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Georgia">Tahoma</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                </select>
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="popupAide" class="popup">
+        <div class="popup-contenu">
+            <div class="popupHeader">
+                <h1 class="titrePopup">À propos...</h1>
+                <img id="closePopupAide" class="closePopup" src="img/close.svg">
+            </div>
+            <div id="signature">
+                <img src="img/logo_iut.png">
+                <span class="right-text">
+                    Réalisé avec ❤️ par :<br>
+                    Nathan TASTET - Théo BAZIN - Alan ASCHWANDEN <br> Daphné RODELET - Jean TSAGOURIA<br>
+                </span>
+            </div>
+            <div id="credits">
+                <b>Ressources utilisées : </b> <br>
+                <b>Images :</b> Bootstrap Icons / Dall-E / Freepik <br>
+                <b>Modèlisation 3D :</b> Blender / Meshy.ai / Miaxmo<br>
+                <b>Rendu 3D :</b>  Three.js / NURBS / FBXLoader / FFLate <br>
+                
+                <b>Remerciements à :</b> Gaël ROBIN et Cédric LACHARMOISE
+            </div>
         </div>
     </div>
 
