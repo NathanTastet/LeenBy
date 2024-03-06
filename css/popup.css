@@ -164,12 +164,23 @@ h3 {
 }
 
 .option{
+  display: flex;
   flex:1;
   height: 20%;
+  align-items: center;
+  justify-content: left;
+  gap: 4vh;
 }
 
-.option input, .option label, .option select, .option button{
-  font-size : 1.5em;
+.option label, .option button, .option input, .option select{
+  height : fit-content;
+  font-size : 1.4em;
+  padding: 10px;
+}
+
+.option .checkbox{
+  height: 25%;
+  aspect-ratio: 1/1;
 }
 
 

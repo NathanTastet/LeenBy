@@ -94,4 +94,5 @@ function switchBras(){
 
 export function resetClickCount() {
     clickCount = 0;
+    document.getElementById("ViderPreset").innerHTML = "Vider les presets";
 }
