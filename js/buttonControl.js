@@ -11,7 +11,7 @@ import { resize3d, update3d } from './vue3d.js';
 
 // ---- VARIABLE ----
 
-export let modeBras;
+export var modeBras;
 
 // ---- FONCTIONS ----
 
@@ -209,6 +209,8 @@ export function setup3DButton() {
     button.style.setProperty('--angle-hover', `${newAngle}deg`);
 
     if (getComputedStyle(rightDiv).opacity === "1") {
+      
+      localStorage.setItem('pageActuelle', "2");
       rightDiv.style.opacity = "0";
       right2Div.style.opacity = "0";
       button.classList.add("active");
@@ -225,6 +227,7 @@ export function setup3DButton() {
         });
       }, 300);
     } else {
+      localStorage.setItem('pageActuelle', "1");
       right2Div.style.opacity = "0";
       rightDiv.style.opacity = "0";
       button.classList.remove("active");
@@ -244,4 +247,14 @@ export function setup3DButton() {
       isAnimating = false;
     }, 600);
   });
+
+  if(localStorage.getItem('pageActuelle') == "2"){
+    button.click();
+  }
+}
+
+
+// fonction pour changer 
+export function changermodeBras(mode){
+    modeBras = mode;
 }

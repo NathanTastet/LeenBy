@@ -16,6 +16,8 @@ let container3d, camera3d, renderer3d, distance_Cam;
 let bones = []; // tableau des os du modèle 3d
 let boneInitialRotations = {}; // tableau des angles initaux
 let pointLight; // lumière
+let skeleton; // squelette
+let scene; // scène
 
 // --- FONCTION ---
 
@@ -26,7 +28,7 @@ export function setup3D(){
     container3d = document.getElementById('vue3d');
 
     // Initialiser la scène
-    const scene = new THREE.Scene();
+    scene = new THREE.Scene();
     scene.background = new THREE.Color(0xF4F6F7);
 
 
@@ -70,8 +72,7 @@ export function setup3D(){
             });
             
             // Créer et ajouter le squelette
-            const skeleton = new THREE.SkeletonHelper(fbx);
-            scene.add(skeleton);
+            skeleton = new THREE.SkeletonHelper(fbx);
 
             scene.add(fbx);
             
@@ -105,6 +106,9 @@ export function setup3D(){
 
             // Appeler la fonction de rendu
             animate();
+            // on appelle la fonction gérant les options du modèle 3d une fois celui ci chargé
+            setupOption3D();
+
         },
         function (xhr) { // appelé lorsque le téléchargement progresse
             console.log((xhr.loaded / xhr.total * 100) + '% loaded');
@@ -244,4 +248,35 @@ export function update3d() {
             }
         });
     });
+}
+
+// options pour la vue 3d
+ function setupOption3D() {
+    let optSquelette = document.getElementById("optSquelette");
+    // charger les options sauvegardées
+    if(localStorage.getItem('optSquelette') == "true"){
+        afficherSquelette(1);
+        optSquelette.checked = true;
+    }
+    // fonction pour afficher le squelette de la vue 3d
+    optSquelette.addEventListener("click", function() {
+        if (optSquelette.checked) {
+            afficherSquelette(1);
+            localStorage.setItem('optSquelette', "true");
+        } else {
+            afficherSquelette(0);
+            localStorage.setItem('optSquelette', "false");
+        }
+
+    });
+    
+}
+
+function afficherSquelette(afficher) {
+    if(afficher == 1){
+        scene.add(skeleton);
+    }   
+    else{
+        scene.remove(skeleton);
+    }
 }

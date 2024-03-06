@@ -14,3 +14,7 @@ bouton de changement de page avec animation
 onclick="this.select(); sur les inputs
 différents thèmes visuels
 2eme écran au lancement de la page : dernier ouvert, ou choix
+
+
+état du mouvement
+état de la batterie

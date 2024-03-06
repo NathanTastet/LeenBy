@@ -9,6 +9,7 @@
 */
 
 import { changerBoutonEnreg } from './presetButtons.js';
+import { resetClickCount } from './options.js';  
 
 var formulaire = null;
 
@@ -67,6 +68,7 @@ function setupPopup(nomBoutonOuvrir, nomPopup, nomBoutonFermer) {
     boutonFermer.addEventListener('click', function(event) {
         if (event.target == boutonFermer) {
             document.getElementById(nomPopup).style.display = "none";
+            resetClickCount();
         }
     });
 }

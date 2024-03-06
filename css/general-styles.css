@@ -24,8 +24,12 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: var(--background-body);
-  font-family: 'Tahoma', sans-serif;
+  font-family: var(--font);
   overflow: hidden;
+}
+
+span{
+  font-family: var(--font);
 }
 
 /* Configuration générale pour les colonnes gauche et droite */

@@ -24,7 +24,6 @@
   border-radius: 8px;
   overflow-y: auto;
   white-space: pre-wrap;
-  font-family: 'Courier New', monospace;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -122,6 +121,7 @@
 
 #joystickHandle {
   position: relative;
+  z-index:5;
   aspect-ratio: 1 / 1;
   height: 30%;
   border-radius: 50%;

@@ -10,6 +10,7 @@ import { setupMotorSliders, setupSpeedSlider } from './sliderControl.js';
 import { setupArmSelection, setup3DButton, setupControlButtons, remiseazero} from './buttonControl.js';
 import { setupPresetButtons} from './presetButtons.js';
 import { setupPopups } from './popups.js';  
+import { setupOptions } from './options.js';
 
 // --- FONCTIONS ---
 
@@ -25,4 +26,5 @@ document.addEventListener("DOMContentLoaded", function() {
     setupPopups();
     setup3D();
     remiseazero();
+    setupOptions();
   });

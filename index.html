@@ -165,20 +165,29 @@
                 <img id="closePopupOptions" class="closePopup" src="img/close.svg">
             </div>
             <div id="optionsContenu">
-                <input type="checkbox" id="optSquelette">
-                <label for="optSquelette">Squelette Vue 3D</label><br>
-                <input type="checkbox" id="optInvertGD">
-                <label for="optInvertGD">Inverser gauche/droite</label><br>
-                <button id="ViderPreset">Vider les presets</button><br>
+                <div class="option">
+                    <input type="checkbox" id="optSquelette">
+                    <label for="optSquelette">Afficher le squelette sur la vue 3D</label><br>
+                </div>
+                <div class="option">
+                    <input type="checkbox" id="optInvertGD">
+                    <label for="optInvertGD">Inverser Gauche/Droite</label><br>
+                </div>
+                <div class="option">
+                    <button id="ViderPreset">Vider les presets</button><br>
+                </div>
 
-                <label for="optChangerPolice">Changer police</label><br>
-                <select id="optChangerPolice">
-                    <option value="Arial">Arial</option>
-                    <option value="Verdana">Verdana</option>
-                    <option value="Courier New">Courier New</option>
-                    <option value="Georgia">Tahoma</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                </select>
+                <div class="option">
+                    <label for="optChangerPolice">Changer police :</label>
+                    <select id="optChangerPolice">
+                        <option value="Arial">Arial</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Comic Sans MS">Comic Sans MS</option>
+                        <option value="Tahoma">Tahoma</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                    </select>
+                </div>
                 
             </div>
         </div>
