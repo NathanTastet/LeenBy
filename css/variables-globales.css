@@ -1,5 +1,5 @@
 /* 
-  popup.css
+  variables-globales.css
   Auteur: Nathan TASTET - 2024
   Variables globales --> Couleurs, polices, tailles, etc.
 */
@@ -36,6 +36,6 @@
     --border-color: #888;
     --hover-background-color: #2a2f45;
     --focus-border-color: #fff;
-    --font: 'Tahoma';
+    --font: 'Trebuchet MS';
   }
  
