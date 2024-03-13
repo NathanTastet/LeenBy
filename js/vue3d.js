@@ -159,10 +159,11 @@ export function setup3D(){
     }
     
     function move3d(e) {
-        e.preventDefault();
         if (!isDragging3d) {
             return;
         }
+
+        e.preventDefault();
     
         // Adapter pour les événements tactiles
         let touch = e.touches ? e.touches[0] : null;

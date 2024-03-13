@@ -26,14 +26,6 @@ const delai_envoi = 500;
 
 // ---- FONCTIONS ----
 
-export function initConsole(){
-    var consoleElement = document.getElementById('console');
-    consoleElement.addEventListener('touchmove', function(event) {
-        event.preventDefault();
-      }, { passive: false });
-}
-
-
 // Gère l'ouverture de la connexion WebSocket et envoie périodiquement les données des moteurs.
 socket.onopen = function (e) {
     setInterval(() => {

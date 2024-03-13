@@ -58,9 +58,11 @@ function startGrab(e) {
 
 
 function moveJoystick(e) {
-    e.preventDefault(); // Empêcher le comportement par défaut sur les tablettes
 
     if (!joystickIsDragging) return;
+
+
+    e.preventDefault(); // Empêcher le comportement par défaut sur les tablettes
 
     // on détecte les positions x et y du joystick
     let clientX, clientY;
