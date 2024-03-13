@@ -11,6 +11,7 @@ import { setupArmSelection, setup3DButton, setupControlButtons, remiseazero} fro
 import { setupPresetButtons} from './presetButtons.js';
 import { setupPopups } from './popups.js';  
 import { setupOptions } from './options.js';
+import { initConsole } from './websocket.js';
 
 // --- FONCTIONS ---
 
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     setupSpeedSlider();
     setupControlButtons();
     setupArmSelection();
+    initConsole();
     setup3DButton();
     setupPresetButtons();
     setupPopups();

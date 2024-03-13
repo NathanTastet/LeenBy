@@ -15,7 +15,6 @@ let rightMotor = 0;
 let oldLeftMotor = null;
 let oldRightMotor = null;
 
-
 // ---- CONSTANTES ----
 
 // Seuil de différence pour l'envoi des données des moteurs.
@@ -27,9 +26,17 @@ const delai_envoi = 500;
 
 // ---- FONCTIONS ----
 
+export function initConsole(){
+    var consoleElement = document.getElementById('console');
+    consoleElement.addEventListener('touchmove', function(event) {
+        event.preventDefault();
+      }, { passive: false });
+    consoleElement.style.touchAction = 'auto';
+}
+
+
 // Gère l'ouverture de la connexion WebSocket et envoie périodiquement les données des moteurs.
 socket.onopen = function (e) {
-    console.log("Connection WebSocket établie");
     setInterval(() => {
         if (Math.abs(leftMotor - oldLeftMotor) > seuil_different ||
             Math.abs(rightMotor - oldRightMotor) > seuil_different) {
