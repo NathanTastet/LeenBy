@@ -45,8 +45,9 @@ socket.onopen = function (e) {
 
 // Gère la récéption de messages via WebSocket, et les affiche dans la console.
 socket.onmessage = function (event) {
+    var consoleElement = document.getElementById("console");
     // on ajoute une ligne dans la console
-    document.getElementById("console").insertAdjacentHTML( "beforeend", `<br>${event.data}`) ;
+    consoleElement.insertAdjacentHTML( "beforeend", `<br>${event.data}`) ;
     // scroll tout en bas
     consoleElement.scrollTop = consoleElement.scrollHeight;
 };
