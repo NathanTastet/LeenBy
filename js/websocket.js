@@ -42,7 +42,6 @@ socket.onopen = function (e) {
     }, delai_envoi);
 };
 
-
 // Gère la récéption de messages via WebSocket, et les affiche dans la console.
 socket.onmessage = function (event) {
     var consoleElement = document.getElementById("console");
