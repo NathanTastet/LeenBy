@@ -31,7 +31,6 @@ export function initConsole(){
     consoleElement.addEventListener('touchmove', function(event) {
         event.preventDefault();
       }, { passive: false });
-    consoleElement.style.touchAction = 'auto';
 }
 
 
