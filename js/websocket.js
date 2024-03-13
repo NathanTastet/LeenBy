@@ -43,9 +43,10 @@ socket.onopen = function (e) {
 };
 
 
-// Gère la réception de messages via WebSocket.
+// Gère la récéption de messages via WebSocket, et les affiche dans la console.
 socket.onmessage = function (event) {
-    document.getElementById("infoTexte").textContent = 'Message reçu : ' + event.data;
+    // on ajoute une ligne dans infoTexte
+    document.getElementById("infoTexte").innerHTML = + document.getElementById("infoTexte").innerHTML +  `<br>` + event.data ;
 };
 
 
@@ -62,3 +63,6 @@ export function sendAnglesInfo(anglesInfo) {
         socket.send(JSON.stringify({ anglesInfo }));
     }
 }
+
+
+

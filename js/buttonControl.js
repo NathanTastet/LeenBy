@@ -217,7 +217,7 @@ export function setup3DButton() {
 
       setTimeout(() => {
         rightDiv.style.display = "none";
-        right2Div.style.display = "block";
+        right2Div.style.display = "flex";
         resize3d();
 
         requestAnimationFrame(() => {
@@ -234,7 +234,7 @@ export function setup3DButton() {
 
       setTimeout(() => {
         right2Div.style.display = "none";
-        rightDiv.style.display = "block";
+        rightDiv.style.display = "flex";
 
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
