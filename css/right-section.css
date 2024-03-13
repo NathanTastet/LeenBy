@@ -56,10 +56,10 @@
 #console {
   width: 98%;
   height: 95%;
-  max-height: 95%;
+  max-height: 48vh;
   background-color: var(--fond_console2);
   color: var(--texte_console);
-  overflow-y: auto;
+  overflow-y: scroll;
   white-space: pre-wrap;
   margin: 2.5% 1%;
   padding-left: 2%;
